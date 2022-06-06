@@ -1,0 +1,6 @@
+.cache/
+.vscode/
+build/
+temp/
+*.user
+*.user.*

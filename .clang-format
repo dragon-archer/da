@@ -1,0 +1,25 @@
+---
+Language: Cpp
+BasedOnStyle: WebKit
+AlignAfterOpenBracket: Align
+AlignConsecutiveMacros: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+BreakBeforeBraces: Attach
+IfMacros:
+  - IF_LIKELY
+  - IF_UNLIKELY
+IncludeCategories:
+  - Regex:           '.*pch\.h.*'
+    Priority:        -1
+    CaseSensitive:   false
+  - Regex:           '.*'
+    Priority:        1
+    SortPriority:    0
+    CaseSensitive:   false
+IndentAccessModifiers: true
+SpaceBeforeParens: Never
+SpaceBeforeParensOptions:
+  AfterIfMacros:   false
+TabWidth:        4
+UseTab:          Always

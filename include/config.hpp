@@ -14,10 +14,54 @@
 #include <cstdlib>
 #include <exception> // for std::terminate()
 
+#ifndef __cplusplus
+#error Utility need to be compiled under C++, not C
+#elif __cplusplus < 201103L
+#warning Most features of Utility need to be compiled under at least C++11, using C++98 may cause lots of errors
+#elif __cplusplus < 201402L
+#define UTILITY_11
+#elif __cplusplus < 201703L
+#define UTILITY_11
+#define UTILITY_14
+#elif __cplusplus < 202002L
+#define UTILITY_11
+#define UTILITY_14
+#define UTILITY_17
+#else
+#define UTILITY_11
+#define UTILITY_14
+#define UTILITY_17
+#define UTILITY_20
+#endif
+
+#if defined(UTILITY_11)
+#define UTILITY_CONSTEXPR_11 constexpr
+#else
+#define UTILITY_CONSTEXPR_11
+#endif
+
+#if defined(UTILITY_14)
+#define UTILITY_CONSTEXPR_14 constexpr
+#else
+#define UTILITY_CONSTEXPR_14
+#endif
+
+#if defined(UTILITY_17)
+#define UTILITY_CONSTEXPR_17 constexpr
+#else
+#define UTILITY_CONSTEXPR_17
+#endif
+
+#if defined(UTILITY_20)
+#define UTILITY_CONSTEXPR_20 constexpr
+#else
+#define UTILITY_CONSTEXPR_20
+#endif
+
 #if defined(__has_cpp_attribute) && __has_cpp_attribute(likely)
 #define UTILITY_IFLIKELY(x)	  if(x) [[likely]]
 #define UTILITY_IFUNLIKELY(x) if(x) [[unlikely]]
-#elif __cplusplus >= 201103L // Most compiler support likely & unlikely since C++11
+#elif UTILITY_11 // Most compiler support likely & unlikely since C++11
 #define UTILITY_IFLIKELY(x)	  if(x) [[likely]]
 #define UTILITY_IFUNLIKELY(x) if(x) [[unlikely]]
 #else

@@ -24,13 +24,13 @@ namespace da {
 		typedef normal_iterator Self;
 
 	public:
-		typedef std::iterator_traits<Iter>				traits_type;
-		typedef Iter									iterator_type;
-		typedef typename traits_type::iterator_catagory iterator_catagory;
-		typedef typename traits_type::value_type		value_type;
-		typedef typename traits_type::difference_type	difference_type;
-		typedef typename traits_type::reference			reference;
-		typedef typename traits_type::pointer			pointer;
+		typedef std::iterator_traits<Iter>			  traits_type;
+		typedef Iter								  iterator_type;
+		typedef std::random_access_iterator_tag		  iterator_catagory;
+		typedef typename traits_type::value_type	  value_type;
+		typedef typename traits_type::difference_type difference_type;
+		typedef typename traits_type::reference		  reference;
+		typedef typename traits_type::pointer		  pointer;
 
 		constexpr normal_iterator() noexcept
 			: m_iter(Iter()) { }

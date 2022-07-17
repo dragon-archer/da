@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_STRING_FWD_HPP_
-#define _UTILITY_STRING_FWD_HPP_
+#ifndef _UTILITY_STRING_STRING_FWD_HPP_
+#define _UTILITY_STRING_STRING_FWD_HPP_
 
 #include "../config.hpp"
 #include "../iterator.hpp"
@@ -18,6 +18,9 @@
 #include <type_traits>         // for std::enable_if etc.
 
 namespace da {
+	template<typename Char, typename Traits = std::char_traits<Char>, typename Alloc = std::allocator<Char>>
+	class string_traits;
+
 	template<typename Char, typename Traits = std::char_traits<Char>, typename Alloc = std::allocator<Char>>
 	class sso_string_base;
 
@@ -42,4 +45,4 @@ namespace da {
 	using cow_wstring = string_base_helper<wchar_t, cow_string_base>;
 } // namespace da
 
-#endif // _UTILITY_STRING_FWD_HPP_
+#endif // _UTILITY_STRING_STRING_FWD_HPP_

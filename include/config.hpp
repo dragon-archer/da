@@ -60,7 +60,19 @@
 #define UTILITY_CONSTEXPR_20
 #endif
 
-#if defined(__has_cpp_attribute) && __has_cpp_attribute(likely)
+#if defined(__has_cpp_attribute)
+#define UTILITY_HAS_CPP_ATTRIBUTE(x) __has_cpp_attribute(x)
+#else
+#define UTILITY_HAS_CPP_ATTRIBUTE(x) 0
+#endif
+
+#if defined(__has_include)
+#define UTILITY_HAS_INCLUDE(x) __has_include(x)
+#else
+#define UTILITY_HAS_INCLUDE(x) 0
+#endif
+
+#if UTILITY_HAS_CPP_ATTRIBUTE(likely)
 #define UTILITY_IFLIKELY(x)	  if(x) [[likely]]
 #define UTILITY_IFUNLIKELY(x) if(x) [[unlikely]]
 #elif UTILITY_11 // Most compiler support likely & unlikely since C++11

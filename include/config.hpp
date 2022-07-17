@@ -17,10 +17,12 @@
 #ifndef __cplusplus
 #error Utility need to be compiled under C++, not C
 #elif __cplusplus < 201103L
-#warning Most features of Utility need to be compiled under at least C++11, using C++98 may cause lots of errors
+#error Utility need to be compiled under at least C++11, C++98 is not supported
 #elif __cplusplus < 201402L
+#warning Most features of Utility need to be compiled under at least C++17, using C++11 may cause lots of errors
 #define UTILITY_11
 #elif __cplusplus < 201703L
+#warning Most features of Utility need to be compiled under at least C++17, using C++11 may cause lots of errors
 #define UTILITY_11
 #define UTILITY_14
 #elif __cplusplus < 202002L

@@ -11,6 +11,7 @@
 #define _UTILITY_STRING_STRING_FWD_HPP_
 
 #include "../config.hpp"
+#include "../format.hpp"
 #include "../iterator.hpp"
 #include <bits/alloc_traits.h> // for std::alloc_traits
 #include <bits/char_traits.h>  // for std::char_traits

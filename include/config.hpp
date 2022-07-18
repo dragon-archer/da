@@ -10,6 +10,7 @@
 #ifndef _UTILITY_CONFIG_HPP_
 #define _UTILITY_CONFIG_HPP_
 
+#include <cassert>
 #include <cstddef>
 #include <cstdlib>
 #include <exception> // for std::terminate()

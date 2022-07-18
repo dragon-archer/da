@@ -7,23 +7,27 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_SSO_STRING_HPP_
-#define _UTILITY_SSO_STRING_HPP_
+#ifndef _UTILITY_STRING_SSO_STRING_HPP_
+#define _UTILITY_STRING_SSO_STRING_HPP_
 
 #include "../config.hpp"
 #include "string_fwd.hpp"
+#include "string_traits.hpp"
 
 namespace da {
 	template<typename Char, typename Traits, typename Alloc>
-	class sso_string_base {
+	class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		// If char type isn't pod, then the allocation will fail
 		// Since is_pod is depercated in C++20, use is_standard_layout && is_trivial instead
 		static_assert(std::is_standard_layout<Char>::value && std::is_trivial<Char>::value, "Char type must be pod");
 		// Char size should be less than 8(max_sso_size should be at least 1), otherwise it can't be optimized
 		static_assert(sizeof(Char) <= 8, "Char size should be less than 8 bytes, otherwise it can't be optimized");
+	private:
+		typedef sso_string_base<Char, Traits, Alloc> Self;
 
 	public:
 		typedef Traits											traits_type;
+		typedef string_traits<Char, Traits, Alloc>				string_traits;
 		typedef typename traits_type::char_type					value_type;
 		typedef Alloc											allocator_type;
 		typedef std::allocator_traits<allocator_type>			alloc_traits;
@@ -45,7 +49,7 @@ namespace da {
 		static constexpr size_type npos = std::numeric_limits<size_type>::max() / 2;
 
 		constexpr sso_string_base() noexcept
-			: m_data{ .short_string = { 0x80, '\0' } } { }
+			: m_data { .short_string = { 0x80, { '\0' } } } { }
 
 	private:
 		// The memory layout is like:
@@ -72,93 +76,101 @@ namespace da {
 			} long_string;
 		} m_data;
 
-	protected:
-		// Internal functions used by da::string
-
-		// TODO: Use EBO to reduce the construction cost
-		inline allocator_type get_alloc() const noexcept {
-			return allocator_type();
-		}
-
+	protected: // Internal functions used by da::string
 		// Check whether the string is optimized
-		inline bool is_sso() const noexcept {
+		constexpr bool is_sso() const noexcept {
 			return (*reinterpret_cast<const unsigned char* const>(&m_data)) & (0x80);
 		}
 
-		void change_sso_to_normal() {
+		UTILITY_CONSTEXPR_20 void change_sso_to_normal() {
 			UTILITY_IFUNLIKELY(!is_sso()) {
 				return;
 			}
 			data_type new_data;
 			new_data.long_string.m_size		= size();
 			new_data.long_string.m_capacity = 32 / sizeof(value_type); // nearest power of 2 that bigger than max_sso_size
-			UTILITY_TRY {
-				new_data.long_string.m_ptr = alloc_traits::allocate(get_alloc(), new_data.long_string.m_capacity);
-				traits_type::copy(new_data.long_string.m_ptr, data(), size());
-			}
-			UTILITY_CATCH(...) {
-				UTILITY_THROW_AGAIN
-			}
+			new_data.long_string.m_ptr		= allocate_n(new_data.long_string.m_capacity);
+			copy(new_data.long_string.m_ptr, data(), size());
 			m_data = new_data;
 		}
 
-		void change_normal_to_sso() {
+		UTILITY_CONSTEXPR_20 void change_normal_to_sso() {
 			UTILITY_IFUNLIKELY(is_sso()) {
 				return;
 			}
-			UTILITY_IFUNLIKELY(m_data.long_string.m_size > max_sso_size) {
-				UTILITY_THROW(std::out_of_range("current size exceeds max_sso_size"));
+			UTILITY_IFUNLIKELY(size() > max_sso_size) {
+				UTILITY_THROW(std::out_of_range(format::format("da::sso_string_base::change_normal_to_sso: Current size (which is {}) exceeds max_sso_size (which is {})", size(), max_sso_size)));
 			}
 			data_type new_data;
 			new_data.short_string.m_size = size();
 			// Since new_data is allocated on stack, it should not throw errors
-			traits_type::copy(new_data.short_string.m_ptr, data(), size());
-			UTILITY_TRY {
-				alloc_traits::deallocate(get_alloc(), data(), capacity());
-			}
-			UTILITY_CATCH(...) {
-				UTILITY_THROW_AGAIN
-			}
+			copy(new_data.short_string.m_ptr, data(), size());
+			deallocate_n(data(), capacity());
 			m_data = new_data;
 		}
 
-		inline void set_size(size_type n) noexcept {
+	public: // Allocators
+		constexpr allocator_type& get_alloc() const noexcept {
+			// Force convert this to non-const to make it work on const string
+			// Required by: max_size()
+			return *static_cast<string_traits*>(const_cast<Self*>(this));
+		}
+
+		using string_traits::allocate_n;
+		using string_traits::assign;
+		using string_traits::copy;
+		using string_traits::deallocate_n;
+
+	public: // Basic operations
+		constexpr size_type size() const noexcept {
+			return is_sso() ? static_cast<size_type>(m_data.short_string.m_size - 0x80) // SSO bit
+							: m_data.long_string.m_size;
+		}
+
+		constexpr size_type capacity() const noexcept {
+			return is_sso() ? max_sso_size
+							: m_data.long_string.m_capacity;
+		}
+
+		constexpr pointer data() const noexcept {
+			return is_sso() ? const_cast<pointer>(static_cast<const_pointer>(m_data.short_string.m_ptr))
+							: m_data.long_string.m_ptr;
+		}
+
+		UTILITY_CONSTEXPR_20 void size(size_type n) noexcept {
+			assert(n <= capacity());
 			if(is_sso()) {
 				m_data.short_string.m_size = static_cast<size_type>(n + 0x80);
 			} else {
 				m_data.long_string.m_size = n;
 			}
+			assign(data()[n], Char());
 		}
 
-		inline void set_capacity(size_type n) noexcept {
+		constexpr void capacity(size_type n) noexcept {
 			if(!is_sso()) {
+				m_data.long_string.m_capacity = n;
+			} else {
+				assert(n > max_sso_size);
+				change_sso_to_normal();
 				m_data.long_string.m_capacity = n;
 			}
 		}
 
-		inline void set_ptr(pointer p) noexcept {
+		constexpr void data(pointer p) noexcept {
 			if(!is_sso()) {
 				m_data.long_string.m_ptr = p;
+			} else {
+				data_type new_data;
+				new_data.long_string.m_ptr = p;
+				new_data.long_string.m_capacity = capacity();
+				new_data.long_string.m_size = size();
+				m_data = new_data;
 			}
 		}
 
-	public:
-		inline size_type size() const noexcept {
-			return is_sso() ? static_cast<size_type>(m_data.short_string.m_size - 0x80) // SSO bit
-							: m_data.long_string.m_size;
-		}
-
-		inline size_type capacity() const noexcept {
-			return is_sso() ? max_sso_size
-							: m_data.long_string.m_capacity;
-		}
-
-		inline pointer data() const noexcept {
-			return is_sso() ? const_cast<pointer>(static_cast<const_pointer>(m_data.short_string.m_ptr))
-							: m_data.long_string.m_ptr;
-		}
-
-		void reserve(size_type n) {
+	public: // Size-oriented
+		UTILITY_CONSTEXPR_20 void reserve(size_type n) {
 			// since it will only extend the capacity, so just return back
 			UTILITY_IFUNLIKELY(n < capacity()) {
 				return;
@@ -169,20 +181,15 @@ namespace da {
 			data_type new_data;
 			new_data.long_string.m_capacity = n;
 			new_data.long_string.m_size		= size();
-			UTILITY_TRY {
-				new_data.long_string.m_ptr = alloc_traits::allocate(get_alloc(), n);
-				traits_type::copy(new_data.long_string.m_ptr, data(), size());
-				if(!is_sso()) {
-					traits_type::deallocate(get_alloc(), data(), capacity());
-				}
-			}
-			UTILITY_CATCH(...) {
-				UTILITY_THROW_AGAIN
+			new_data.long_string.m_ptr		= allocate_n(n);
+			copy(new_data.long_string.m_ptr, data(), size());
+			if(!is_sso()) {
+				deallocate_n(data(), capacity());
 			}
 			m_data = new_data;
 		}
 
-		void reserve() {
+		UTILITY_CONSTEXPR_20 void reserve() {
 			if(is_sso()) {
 				return;
 			}
@@ -191,19 +198,14 @@ namespace da {
 			if(s <= max_sso_size) {
 				change_normal_to_sso();
 			} else if(s < c) {
-				UTILITY_TRY {
-					pointer tmp = alloc_traits::allocate(get_alloc(), s + 1);
-					traits_type::copy(tmp, data(), s + 1);
-					traits_type::deallocate(get_alloc(), data(), c + 1);
-					set_capacity(s);
-					set_ptr(tmp);
-				}
-				UTILITY_CATCH(...) {
-					UTILITY_THROW_AGAIN
-				}
+				pointer tmp = allocate_n(s);
+				copy(tmp, data(), s);
+				deallocate_n(data(), c);
+				capacity(s);
+				data(tmp);
 			}
 		}
 	};
 } // namespace da
 
-#endif // _UTILITY_SSO_STRING_HPP_
+#endif // _UTILITY_STRING_SSO_STRING_HPP_

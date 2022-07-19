@@ -66,8 +66,8 @@ namespace da {
 		// otherwise, it is in normal state;
 		union data_type {
 			struct {
-				unsigned char m_size;
-				value_type	  m_ptr[max_sso_size + 1]; // One more Char for '\0'
+				uint8_t	   m_size;
+				value_type m_ptr[max_sso_size + 1]; // One more Char for '\0'
 			} short_string;
 			struct {
 				size_type m_size;
@@ -79,7 +79,7 @@ namespace da {
 	protected: // Internal functions used by da::string
 		// Check whether the string is optimized
 		constexpr bool is_sso() const noexcept {
-			return (*reinterpret_cast<const unsigned char* const>(&m_data)) & (0x80);
+			return (*reinterpret_cast<const uint8_t* const>(&m_data)) & (0x80);
 		}
 
 		UTILITY_CONSTEXPR_20 void change_sso_to_normal() {
@@ -87,11 +87,12 @@ namespace da {
 				return;
 			}
 			data_type new_data;
-			new_data.long_string.m_size		= size();
+			size_type s						= size();
 			new_data.long_string.m_capacity = 32 / sizeof(value_type); // nearest power of 2 that bigger than max_sso_size
-			new_data.long_string.m_ptr		= _M_allocate(new_data.long_string.m_capacity);
-			_S_copy(new_data.long_string.m_ptr, data(), size());
+			new_data.long_string.m_ptr		= _M_create(new_data.long_string.m_capacity, max_sso_size);
+			_S_copy(new_data.long_string.m_ptr, data(), s);
 			m_data = new_data;
+			_M_size(s);
 		}
 
 		UTILITY_CONSTEXPR_20 void change_normal_to_sso() {
@@ -102,11 +103,12 @@ namespace da {
 				UTILITY_THROW(std::out_of_range(format::format("da::sso_string_base::change_normal_to_sso: Current size (which is {}) exceeds max_sso_size (which is {})", size(), max_sso_size)));
 			}
 			data_type new_data;
-			new_data.short_string.m_size = size();
+			size_type s = size();
 			// Since new_data is allocated on stack, it should not throw errors
-			_S_copy(new_data.short_string.m_ptr, data(), size());
-			_M_deallocate(data(), capacity());
+			_S_copy(new_data.short_string.m_ptr, data(), s);
+			_M_dispose();
 			m_data = new_data;
+			_M_size(s);
 		}
 
 	public: // Allocators
@@ -120,6 +122,24 @@ namespace da {
 		using string_traits::_M_deallocate;
 		using string_traits::_S_assign;
 		using string_traits::_S_copy;
+
+		UTILITY_CONSTEXPR_20 pointer _M_create(size_type& new_capacity, size_type old_capacity) {
+			UTILITY_IFUNLIKELY(new_capacity > max_size()) {
+				UTILITY_THROW(std::length_error(format::format("da::sso_string_base::_M_create: The new capacity (which is {}) > max_size() (which is {})", new_capacity, max_size())));
+			}
+			if(size() == 0 && new_capacity <= max_sso_size) { // Optimize for constructers
+				new_capacity = max_sso_size;
+				change_normal_to_sso();
+				return data();
+			}
+			if(new_capacity > old_capacity && new_capacity < 2 * old_capacity) {
+				new_capacity = 2 * old_capacity;
+				if(new_capacity > max_size()) {
+					new_capacity = max_size();
+				}
+			}
+			return _M_allocate(new_capacity + 1); // One more element for '\0'
+		}
 
 		UTILITY_CONSTEXPR_20 void _M_dispose() {
 			if(!is_sso()) {
@@ -156,7 +176,7 @@ namespace da {
 		UTILITY_CONSTEXPR_20 void _M_size(size_type n) noexcept {
 			assert(n <= capacity());
 			if(is_sso()) {
-				m_data.short_string.m_size = static_cast<size_type>(n + 0x80);
+				m_data.short_string.m_size = static_cast<uint8_t>(n + 0x80);
 			} else {
 				m_data.long_string.m_size = n;
 			}
@@ -186,25 +206,6 @@ namespace da {
 		}
 
 	public: // Size-oriented
-		UTILITY_CONSTEXPR_20 void reserve(size_type n) {
-			// since it will only extend the capacity, so just return back
-			UTILITY_IFUNLIKELY(n < capacity()) {
-				return;
-			}
-			UTILITY_IFUNLIKELY(n < max_sso_size) {
-				return;
-			}
-			data_type new_data;
-			new_data.long_string.m_capacity = n;
-			new_data.long_string.m_size		= size();
-			new_data.long_string.m_ptr		= _M_allocate(n);
-			_S_copy(new_data.long_string.m_ptr, data(), size());
-			if(!is_sso()) {
-				_M_deallocate(data(), capacity());
-			}
-			m_data = new_data;
-		}
-
 		UTILITY_CONSTEXPR_20 void reserve() {
 			if(is_sso()) {
 				return;
@@ -214,11 +215,11 @@ namespace da {
 			if(s <= max_sso_size) {
 				change_normal_to_sso();
 			} else if(s < c) {
-				pointer tmp = _M_allocate(s);
-				_S_copy(tmp, data(), s);
-				_M_deallocate(data(), c);
-				_M_capacity(s);
+				pointer tmp = _M_create(s, 0);
+				_S_copy(tmp, data(), s + 1);
+				_M_dispose();
 				_M_data(tmp);
+				_M_capacity(s);
 			}
 		}
 	};

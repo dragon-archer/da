@@ -22,7 +22,7 @@ namespace da {
 		static_assert(std::is_standard_layout<Char>::value && std::is_trivial<Char>::value, "Char type must be pod");
 		// Char size should be less than 8(max_sso_size should be at least 1), otherwise it can't be optimized
 		static_assert(sizeof(Char) <= 8, "Char size should be less than 8 bytes, otherwise it can't be optimized");
-	private:
+
 		typedef sso_string_base<Char, Traits, Alloc> Self;
 
 	public:
@@ -89,8 +89,8 @@ namespace da {
 			data_type new_data;
 			new_data.long_string.m_size		= size();
 			new_data.long_string.m_capacity = 32 / sizeof(value_type); // nearest power of 2 that bigger than max_sso_size
-			new_data.long_string.m_ptr		= allocate_n(new_data.long_string.m_capacity);
-			copy(new_data.long_string.m_ptr, data(), size());
+			new_data.long_string.m_ptr		= _M_allocate(new_data.long_string.m_capacity);
+			_S_copy(new_data.long_string.m_ptr, data(), size());
 			m_data = new_data;
 		}
 
@@ -104,22 +104,34 @@ namespace da {
 			data_type new_data;
 			new_data.short_string.m_size = size();
 			// Since new_data is allocated on stack, it should not throw errors
-			copy(new_data.short_string.m_ptr, data(), size());
-			deallocate_n(data(), capacity());
+			_S_copy(new_data.short_string.m_ptr, data(), size());
+			_M_deallocate(data(), capacity());
 			m_data = new_data;
 		}
 
 	public: // Allocators
-		constexpr allocator_type& get_alloc() const noexcept {
+		constexpr allocator_type& _M_get_alloc() const noexcept {
 			// Force convert this to non-const to make it work on const string
 			// Required by: max_size()
 			return *static_cast<string_traits*>(const_cast<Self*>(this));
 		}
 
-		using string_traits::allocate_n;
-		using string_traits::assign;
-		using string_traits::copy;
-		using string_traits::deallocate_n;
+		using string_traits::_M_allocate;
+		using string_traits::_M_deallocate;
+		using string_traits::_S_assign;
+		using string_traits::_S_copy;
+
+		UTILITY_CONSTEXPR_20 void _M_dispose() {
+			if(!is_sso()) {
+				_M_destroy(capacity());
+			}
+		}
+
+		UTILITY_CONSTEXPR_20 void _M_destroy(size_type n) {
+			if(!is_sso()) {
+				_M_deallocate(data(), n + 1);
+			}
+		}
 
 	public: // Basic operations
 		constexpr size_type size() const noexcept {
@@ -137,17 +149,21 @@ namespace da {
 							: m_data.long_string.m_ptr;
 		}
 
-		UTILITY_CONSTEXPR_20 void size(size_type n) noexcept {
+		constexpr size_type max_size() const noexcept {
+			return npos - 1;
+		}
+
+		UTILITY_CONSTEXPR_20 void _M_size(size_type n) noexcept {
 			assert(n <= capacity());
 			if(is_sso()) {
 				m_data.short_string.m_size = static_cast<size_type>(n + 0x80);
 			} else {
 				m_data.long_string.m_size = n;
 			}
-			assign(data()[n], Char());
+			_S_assign(data()[n], Char());
 		}
 
-		constexpr void capacity(size_type n) noexcept {
+		constexpr void _M_capacity(size_type n) noexcept {
 			if(!is_sso()) {
 				m_data.long_string.m_capacity = n;
 			} else {
@@ -157,15 +173,15 @@ namespace da {
 			}
 		}
 
-		constexpr void data(pointer p) noexcept {
+		constexpr void _M_data(pointer p) noexcept {
 			if(!is_sso()) {
 				m_data.long_string.m_ptr = p;
 			} else {
 				data_type new_data;
-				new_data.long_string.m_ptr = p;
+				new_data.long_string.m_ptr		= p;
 				new_data.long_string.m_capacity = capacity();
-				new_data.long_string.m_size = size();
-				m_data = new_data;
+				new_data.long_string.m_size		= size();
+				m_data							= new_data;
 			}
 		}
 
@@ -181,10 +197,10 @@ namespace da {
 			data_type new_data;
 			new_data.long_string.m_capacity = n;
 			new_data.long_string.m_size		= size();
-			new_data.long_string.m_ptr		= allocate_n(n);
-			copy(new_data.long_string.m_ptr, data(), size());
+			new_data.long_string.m_ptr		= _M_allocate(n);
+			_S_copy(new_data.long_string.m_ptr, data(), size());
 			if(!is_sso()) {
-				deallocate_n(data(), capacity());
+				_M_deallocate(data(), capacity());
 			}
 			m_data = new_data;
 		}
@@ -198,11 +214,11 @@ namespace da {
 			if(s <= max_sso_size) {
 				change_normal_to_sso();
 			} else if(s < c) {
-				pointer tmp = allocate_n(s);
-				copy(tmp, data(), s);
-				deallocate_n(data(), c);
-				capacity(s);
-				data(tmp);
+				pointer tmp = _M_allocate(s);
+				_S_copy(tmp, data(), s);
+				_M_deallocate(data(), c);
+				_M_capacity(s);
+				_M_data(tmp);
 			}
 		}
 	};

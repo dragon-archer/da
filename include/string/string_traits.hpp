@@ -28,20 +28,28 @@ namespace da {
 			return *static_cast<Alloc*>(this);
 		}
 
-		constexpr pointer allocate_n(size_type n) {
-			return Alloc::allocate(n + 1); // One more element for '\0'
+		constexpr pointer _M_allocate(size_type n) {
+			return Alloc::allocate(n);
 		}
 
-		constexpr void deallocate_n(pointer p, size_type n) {
-			Alloc::deallocate(p, n + 1); // One more element for '\0'
+		constexpr void _M_deallocate(pointer p, size_type n) {
+			Alloc::deallocate(p, n);
 		}
 
-		static constexpr void copy(pointer dest, const_pointer src, size_type n) noexcept {
-			Traits::copy(dest, src, n + 1); // One more element for '\0'
+		static constexpr pointer _S_copy(pointer dest, const_pointer src, size_type n) noexcept {
+			if(n == 1) {
+				_S_assign(*dest, *src); // Optimize
+				return dest;
+			}
+			return Traits::copy(dest, src, n);
 		}
 
-		static constexpr void assign(reference dest, const_reference src) noexcept {
+		static constexpr void _S_assign(reference dest, const_reference src) noexcept {
 			Traits::assign(dest, src);
+		}
+
+		static constexpr pointer _S_assign(pointer dest, size_type n, value_type src) noexcept {
+			return Traits::assign(dest, n, src);
 		}
 	};
 }

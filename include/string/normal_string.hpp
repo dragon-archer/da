@@ -17,13 +17,7 @@
 namespace da {
 	template<typename Char, typename Traits, typename Alloc>
 	class normal_string_base : protected string_traits<Char, Traits, Alloc> {
-		// If char type isn't pod, then the allocation will fail
-		// Since is_pod is depercated in C++20, use is_standard_layout && is_trivial instead
-		static_assert(std::is_standard_layout<Char>::value && std::is_trivial<Char>::value, "Char type must be pod");
-
-	private:
 		typedef normal_string_base<Char, Traits, Alloc> Self;
-
 	public:
 		typedef Traits											   traits_type;
 		typedef string_traits<Char, Traits, Alloc>				   string_traits;
@@ -45,10 +39,10 @@ namespace da {
 		static constexpr size_type start_capacity = 16; // Capacity should be no less than this
 
 		UTILITY_CONSTEXPR_20 normal_string_base()
-			: m_ptr(allocate_n(start_capacity + 1))
+			: m_ptr(_M_allocate(start_capacity + 1))
 			, m_size(0)
 			, m_capacity(start_capacity) {
-			assign(*data(), Char());
+			_S_assign(*data(), Char());
 		}
 
 	private:
@@ -57,16 +51,16 @@ namespace da {
 		size_type m_capacity;
 
 	public: // Allocators
-		constexpr allocator_type& get_alloc() const noexcept {
+		constexpr allocator_type& _M_get_alloc() const noexcept {
 			// Force convert this to non-const to make it work on const string
 			// Required by: max_size()
 			return *static_cast<string_traits*>(const_cast<Self*>(this));
 		}
 
-		using string_traits::allocate_n;
-		using string_traits::assign;
-		using string_traits::copy;
-		using string_traits::deallocate_n;
+		using string_traits::_M_allocate;
+		using string_traits::_M_deallocate;
+		using string_traits::_S_assign;
+		using string_traits::_S_copy;
 
 	public: // Basic operations
 		constexpr size_type size() const noexcept {
@@ -81,17 +75,17 @@ namespace da {
 			return m_ptr;
 		}
 
-		UTILITY_CONSTEXPR_20 void size(size_type n) noexcept {
+		UTILITY_CONSTEXPR_20 void _M_size(size_type n) noexcept {
 			assert(n <= capacity());
 			m_size = n;
-			assign(data()[n], Char());
+			_S_assign(data()[n], Char());
 		}
 
-		constexpr void capacity(size_type n) noexcept {
+		constexpr void _M_capacity(size_type n) noexcept {
 			m_capacity = n;
 		}
 
-		constexpr void data(pointer p) noexcept {
+		constexpr void _M_data(pointer p) noexcept {
 			m_ptr = p;
 		}
 	};

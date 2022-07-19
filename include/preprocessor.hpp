@@ -73,4 +73,58 @@
 
 #define UTILITY_CONCAT(...) UTILITY_CONCAT_HELPER(UTILITY_CONCAT_, UTILITY_VA_COUNT(__VA_ARGS__))(__VA_ARGS__)
 
+#define UTILITY_FOREACH_0(f) // For compatiblity
+#define UTILITY_FOREACH_1(f, _1) \
+	f(_1)
+#define UTILITY_FOREACH_2(f, _1, _2) \
+	f(_1), f(_2)
+#define UTILITY_FOREACH_3(f, _1, _2, _3) \
+	f(_1), f(_2), f(_3)
+#define UTILITY_FOREACH_4(f, _1, _2, _3, _4) \
+	f(_1), f(_2), f(_3), f(_4)
+#define UTILITY_FOREACH_5(f, _1, _2, _3, _4, _5) \
+	f(_1), f(_2), f(_3), f(_4), f(_5)
+#define UTILITY_FOREACH_6(f, _1, _2, _3, _4, _5, _6) \
+	f(_1), f(_2), f(_3), f(_4), f(_5), f(_6)
+#define UTILITY_FOREACH_7(f, _1, _2, _3, _4, _5, _6, _7) \
+	f(_1), f(_2), f(_3), f(_4), f(_5), f(_6), f(_7)
+#define UTILITY_FOREACH_8(f, _1, _2, _3, _4, _5, _6, _7, _8) \
+	f(_1), f(_2), f(_3), f(_4), f(_5), f(_6), f(_7), f(_8)
+#define UTILITY_FOREACH_9(f, _1, _2, _3, _4, _5, _6, _7, _8, _9) \
+	f(_1), f(_2), f(_3), f(_4), f(_5), f(_6), f(_7), f(_8), f(_9)
+#define UTILITY_FOREACH_10(f, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10) \
+	f(_1), f(_2), f(_3), f(_4), f(_5), f(_6), f(_7), f(_8), f(_9), f(_10)
+
+/**
+ * @brief This macro implements a basic foreach at preprocess time
+ */
+#if UTILITY_HAS_VA_OPT
+#define UTILITY_FOREACH(f, ...) UTILITY_CONCAT(UTILITY_FOREACH_, UTILITY_VA_COUNT(__VA_ARGS__))(f __VA_OPT__(, ) __VA_ARGS__)
+#else
+#define UTILITY_FOREACH(f, ...) UTILITY_CONCAT(UTILITY_FOREACH_, UTILITY_VA_COUNT(__VA_ARGS__))(f, __VA_ARGS__)
+#endif
+
+#define UTILITY_SUPER_FOREACH_0(B, E) // For compatiblity
+#define UTILITY_SUPER_FOREACH_1(B, E, _1) \
+	B _1 E
+#define UTILITY_SUPER_FOREACH_2(B, E, _1, _2) \
+	B _1 E, B _2 E
+#define UTILITY_SUPER_FOREACH_3(B, E, _1, _2, _3) \
+	B _1 E, B _2 E, B _3 E
+#define UTILITY_SUPER_FOREACH_4(B, E, _1, _2, _3, _4) \
+	B _1 E, B _2 E, B _3 E, B _4 E
+
+/**
+ * @brief This macro implements a super foreach at preprocessor time, which can use user-defined BEGIN and END for each param
+ */
+#if UTILITY_HAS_VA_OPT
+#define UTILITY_SUPER_FOREACH(BEGIN, END, ...)                            \
+	UTILITY_CONCAT(UTILITY_SUPER_FOREACH_, UTILITY_VA_COUNT(__VA_ARGS__)) \
+	(BEGIN, END __VA_OPT__(, ) __VA_ARGS__)
+#else
+#define UTILITY_SUPER_FOREACH(BEGIN, END, ...)                            \
+	UTILITY_CONCAT(UTILITY_SUPER_FOREACH_, UTILITY_VA_COUNT(__VA_ARGS__)) \
+	(BEGIN, END, __VA_ARGS__)
+#endif
+
 #endif // _UTILITY_PREPROCESSOR_HPP_

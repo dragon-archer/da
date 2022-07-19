@@ -15,162 +15,39 @@
 #include <type_traits>
 
 /**
- * @brief Declare a struct to test whether a class has a member function called @arg FN
- *        The @arg SN is the name of the test struct
- * @arg   SN  aka. struct name
- * @arg   FN  aka. function name
- * @arg   PnT aka. the type of nth. parameter
- * @note  The template param is connected with @arg SN to avoid conflict with user code
- * @note  The trailing number is the count of arguments to make the general version work properly
- */
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_2(SN, FN)                  \
-	template<typename T##SN>                                            \
-	struct SN {                                                         \
-	private:                                                            \
-		template<typename T2##SN>                                       \
-		static auto f(int)                                              \
-			-> decltype(std::declval<T2##SN>().FN(), std::true_type()); \
-		template<typename T2##SN>                                       \
-		static std::false_type f(...);                                  \
-                                                                        \
-	public:                                                             \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;     \
-	};                                                                  \
-	template<typename T##SN>                                            \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_3(SN, FN, P1T)             \
-	template<typename T##SN>                                            \
-	struct SN {                                                         \
-	private:                                                            \
-		template<typename T2##SN>                                       \
-		static auto f(int)                                              \
-			-> decltype(std::declval<T2##SN>().FN(std::declval<P1T>()), \
-						std::true_type());                              \
-		template<typename T2##SN>                                       \
-		static std::false_type f(...);                                  \
-                                                                        \
-	public:                                                             \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;     \
-	};                                                                  \
-	template<typename T##SN>                                            \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_4(SN, FN, P1T, P2T)        \
-	template<typename T##SN>                                            \
-	struct SN {                                                         \
-	private:                                                            \
-		template<typename T2##SN>                                       \
-		static auto f(int)                                              \
-			-> decltype(std::declval<T2##SN>().FN(std::declval<P1T>(),  \
-												  std::declval<P2T>()), \
-						std::true_type());                              \
-		template<typename T2##SN>                                       \
-		static std::false_type f(...);                                  \
-                                                                        \
-	public:                                                             \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;     \
-	};                                                                  \
-	template<typename T##SN>                                            \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_5(SN, FN, P1T, P2T, P3T)   \
-	template<typename T##SN>                                            \
-	struct SN {                                                         \
-	private:                                                            \
-		template<typename T2##SN>                                       \
-		static auto f(int)                                              \
-			-> decltype(std::declval<T2##SN>().FN(std::declval<P1T>(),  \
-												  std::declval<P2T>(),  \
-												  std::declval<P3T>()), \
-						std::true_type());                              \
-		template<typename T2##SN>                                       \
-		static std::false_type f(...);                                  \
-                                                                        \
-	public:                                                             \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;     \
-	};                                                                  \
-	template<typename T##SN>                                            \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_6(SN, FN, P1T, P2T, P3T, P4T) \
-	template<typename T##SN>                                               \
-	struct SN {                                                            \
-	private:                                                               \
-		template<typename T2##SN>                                          \
-		static auto f(int)                                                 \
-			-> decltype(std::declval<T2##SN>().FN(std::declval<P1T>(),     \
-												  std::declval<P2T>(),     \
-												  std::declval<P3T>(),     \
-												  std::declval<P4T>()),    \
-						std::true_type());                                 \
-		template<typename T2##SN>                                          \
-		static std::false_type f(...);                                     \
-                                                                           \
-	public:                                                                \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;        \
-	};                                                                     \
-	template<typename T##SN>                                               \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_7(SN, FN, P1T, P2T, P3T, P4T, P5T) \
-	template<typename T##SN>                                                    \
-	struct SN {                                                                 \
-	private:                                                                    \
-		template<typename T2##SN>                                               \
-		static auto f(int)                                                      \
-			-> decltype(std::declval<T2##SN>().FN(std::declval<P1T>(),          \
-												  std::declval<P2T>(),          \
-												  std::declval<P3T>(),          \
-												  std::declval<P4T>(),          \
-												  std::declval<P5T>()),         \
-						std::true_type());                                      \
-		template<typename T2##SN>                                               \
-		static std::false_type f(...);                                          \
-                                                                                \
-	public:                                                                     \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;             \
-	};                                                                          \
-	template<typename T##SN>                                                    \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST_8(SN, FN, P1T, P2T, P3T, P4T, P5T, P6T) \
-	template<typename T##SN>                                                         \
-	struct SN {                                                                      \
-	private:                                                                         \
-		template<typename T2##SN>                                                    \
-		static auto f(int)                                                           \
-			-> decltype(std::declval<T2##SN>().FN(std::declval<P1T>(),               \
-												  std::declval<P2T>(),               \
-												  std::declval<P3T>(),               \
-												  std::declval<P4T>(),               \
-												  std::declval<P5T>(),               \
-												  std::declval<P6T>()),              \
-						std::true_type());                                           \
-		template<typename T2##SN>                                                    \
-		static std::false_type f(...);                                               \
-                                                                                     \
-	public:                                                                          \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;                  \
-	};                                                                               \
-	template<typename T##SN>                                                         \
-	inline static constexpr bool SN##_v = SN<T##SN>::value;
-
-/**
- * @brief General version of the macro
+ * @brief Declare a struct to test whether a class has a member function called @param FN with parameters @param ...
+ *        The @param SN is the name of the test struct
+ * @param SN  aka. struct name
+ * @param FN  aka. function name
+ * @param ... aka. the type of each parameter
+ * @note  The template param is connected with @param SN to avoid conflict with user code
+ * @note  This macro has been rewrite using @see UTILITY_SUPER_FOREACH to avoid duplicate work
  * @note  Currently the max number of parameters is 6
  */
-#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST(...)                                        \
-	UTILITY_CONCAT(UTILITY_DECLARE_MEMBER_FUNCTION_TEST_, UTILITY_VA_COUNT(__VA_ARGS__)) \
-	(__VA_ARGS__)
+#define UTILITY_DECLARE_MEMBER_FUNCTION_TEST(SN, FN, ...)                                                  \
+	template<typename T##SN>                                                                               \
+	struct SN {                                                                                            \
+	private:                                                                                               \
+		template<typename T2##SN>                                                                          \
+		static auto f(int)                                                                                 \
+			-> decltype(std::declval<T2##SN>().FN(UTILITY_SUPER_FOREACH(std::declval<, >(), __VA_ARGS__)), \
+						std::true_type());                                                                 \
+		template<typename T2##SN>                                                                          \
+		static std::false_type f(...);                                                                     \
+                                                                                                           \
+	public:                                                                                                \
+		static constexpr bool value = decltype(f<T##SN>(0))::value;                                        \
+	};                                                                                                     \
+	template<typename T##SN>                                                                               \
+	inline static constexpr bool SN##_v = SN<T##SN>::value;
 
 /**
  * @brief Call OBJ.FN() and returns RT if exist, otherwise call the user-defined function below
- * @arg   OBJ aka. the name of the object
- * @arg   FN  aka. the function name
- * @arg   RT  aka. the return type
- * @arg   PnT aka. the type of nth. parameter
- * @arg   PnN aka. the name of nth. parameter
+ * @param   OBJ aka. the name of the object
+ * @param   FN  aka. the function name
+ * @param   RT  aka. the return type
+ * @param   PnT aka. the type of nth. parameter
+ * @param   PnN aka. the name of nth. parameter
  */
 #define UTILITY_USE_IF_EXIST_3(OBJ, FN, RT)         \
 	UTILITY_DECLARE_MEMBER_FUNCTION_TEST(S##FN, FN) \
@@ -250,7 +127,7 @@
  *        }
  * @note If you want to use functions from the base class, just use `*static_cast<T*>(this)` as Object,
  *       where T is the name of the base class
- * @note This macro foward the arguments AS IS, BY VALUE.
+ * @note This macro foward the parameters AS IS, BY VALUE.
  *       You may need to use const T& instead of T as Param Type to reduce the fowarding cost
  * @note The generated function name is F ## number of parameters ## Function Name,
  *       which may not work proper with overloading

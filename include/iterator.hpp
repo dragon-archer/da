@@ -163,6 +163,41 @@ namespace da {
 							  const normal_iterator<Iter2, Container>& y) noexcept {
 		return x.base() >= y.base();
 	}
+
+	template<typename Iter>
+	struct is_input_iterator
+		: public std::is_convertible<typename Iter::iterator_category, std::input_iterator_tag> { };
+
+	template<typename Iter>
+	struct is_output_iterator
+		: public std::is_convertible<typename Iter::iterator_category, std::output_iterator_tag> { };
+
+	template<typename Iter>
+	struct is_forward_iterator
+		: public std::is_convertible<typename Iter::iterator_category, std::forward_iterator_tag> { };
+
+	template<typename Iter>
+	struct is_bidirectional_iterator
+		: public std::is_convertible<typename Iter::iterator_category, std::bidirectional_iterator_tag> { };
+
+	template<typename Iter>
+	struct is_random_access_iterator
+		: public std::is_convertible<typename Iter::iterator_category, std::random_access_iterator_tag> { };
+
+	template<typename Iter>
+	using require_input_iterator = std::enable_if_t<is_input_iterator<Iter>::value, Iter>;
+
+	template<typename Iter>
+	using require_output_iterator = std::enable_if_t<is_output_iterator<Iter>::value, Iter>;
+
+	template<typename Iter>
+	using require_forward_iterator = std::enable_if_t<is_forward_iterator<Iter>::value, Iter>;
+
+	template<typename Iter>
+	using require_bidirectional_iterator = std::enable_if_t<is_bidirectional_iterator<Iter>::value, Iter>;
+
+	template<typename Iter>
+	using require_random_access_iterator = std::enable_if_t<is_random_access_iterator<Iter>::value, Iter>;
 } // namespace da
 
 #endif // _UTILITY_ITERATOR_HPP_

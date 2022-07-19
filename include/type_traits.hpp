@@ -43,11 +43,11 @@
 
 /**
  * @brief Call OBJ.FN() and returns RT if exist, otherwise call the user-defined function below
- * @param   OBJ aka. the name of the object
- * @param   FN  aka. the function name
- * @param   RT  aka. the return type
- * @param   PnT aka. the type of nth. parameter
- * @param   PnN aka. the name of nth. parameter
+ * @param OBJ aka. the name of the object
+ * @param FN  aka. the function name
+ * @param RT  aka. the return type
+ * @param PnT aka. the type of nth. parameter
+ * @param PnN aka. the name of nth. parameter
  */
 #define UTILITY_USE_IF_EXIST_3(OBJ, FN, RT)         \
 	UTILITY_DECLARE_MEMBER_FUNCTION_TEST(S##FN, FN) \
@@ -125,13 +125,13 @@
  *        UTILITY_USE_IF_EXIST(Object, Return Type, Function Name, Param1 Type, Param1 Name, ...) {
  *            // Your codes goes here
  *        }
- * @note If you want to use functions from the base class, just use `*static_cast<T*>(this)` as Object,
- *       where T is the name of the base class
- * @note This macro foward the parameters AS IS, BY VALUE.
- *       You may need to use const T& instead of T as Param Type to reduce the fowarding cost
- * @note The generated function name is F ## number of parameters ## Function Name,
- *       which may not work proper with overloading
- * @note Currently the max number of parameters is 4
+ * @note  If you want to use functions from the base class, just use `*static_cast<T*>(this)` as Object,
+ *        where T is the name of the base class
+ * @note  This macro foward the parameters AS IS, BY VALUE.
+ *        You may need to use const T& instead of T as Param Type to reduce the fowarding cost
+ * @note  The generated function name is F ## number of parameters ## Function Name,
+ *        which may not work proper with overloading
+ * @note  Currently the max number of parameters is 4
  */
 #define UTILITY_USE_IF_EXIST(...)                                        \
 	UTILITY_CONCAT(UTILITY_USE_IF_EXIST_, UTILITY_VA_COUNT(__VA_ARGS__)) \

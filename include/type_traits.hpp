@@ -126,7 +126,7 @@
  *        }
  * @note  If you want to use functions from the base class, just use `*static_cast<T*>(this)` as Object,
  *        where T is the name of the base class
- * @note  This macro foward the parameters AS IS, BY VALUE.
+ * @note  This macro forward the parameters AS IS, BY VALUE.
  *        You may need to use const T& instead of T as Param Type to reduce the fowarding cost
  * @note  The generated function name is F ## number of parameters ## Function Name,
  *        which may not work proper with overloading

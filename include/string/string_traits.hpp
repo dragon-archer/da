@@ -37,8 +37,11 @@ namespace da {
 		}
 
 		static constexpr pointer _S_copy(pointer dest, const_pointer src, size_type n) noexcept {
-			if(n == 1) {
-				_S_assign(*dest, *src); // Optimize
+			UTILITY_IFUNLIKELY(n == 0) {
+				return dest;
+			}
+			UTILITY_IFUNLIKELY(n == 1) {
+				_S_assign(*dest, *src);
 				return dest;
 			}
 			return Traits::copy(dest, src, n);
@@ -49,6 +52,13 @@ namespace da {
 		}
 
 		static constexpr pointer _S_assign(pointer dest, size_type n, value_type src) noexcept {
+			UTILITY_IFUNLIKELY(n == 0) {
+				return dest;
+			}
+			UTILITY_IFUNLIKELY(n == 1) {
+				_S_assign(*dest, src);
+				return dest;
+			}
 			return Traits::assign(dest, n, src);
 		}
 	};

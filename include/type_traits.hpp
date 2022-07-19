@@ -22,7 +22,6 @@
  * @param ... aka. the type of each parameter
  * @note  The template param is connected with @param SN to avoid conflict with user code
  * @note  This macro has been rewrite using @see UTILITY_SUPER_FOREACH to avoid duplicate work
- * @note  Currently the max number of parameters is 6
  */
 #define UTILITY_DECLARE_MEMBER_FUNCTION_TEST(SN, FN, ...)                                                  \
 	template<typename T##SN>                                                                               \

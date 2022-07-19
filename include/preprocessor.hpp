@@ -113,6 +113,18 @@
 	B _1 E, B _2 E, B _3 E
 #define UTILITY_SUPER_FOREACH_4(B, E, _1, _2, _3, _4) \
 	B _1 E, B _2 E, B _3 E, B _4 E
+#define UTILITY_SUPER_FOREACH_5(B, E, _1, _2, _3, _4, _5) \
+	B _1 E, B _2 E, B _3 E, B _4 E, B _5 E
+#define UTILITY_SUPER_FOREACH_6(B, E, _1, _2, _3, _4, _5, _6) \
+	B _1 E, B _2 E, B _3 E, B _4 E, B _5 E, B _6 E
+#define UTILITY_SUPER_FOREACH_7(B, E, _1, _2, _3, _4, _5, _6, _7) \
+	B _1 E, B _2 E, B _3 E, B _4 E, B _5 E, B _6 E, B _7 E
+#define UTILITY_SUPER_FOREACH_8(B, E, _1, _2, _3, _4, _5, _6, _7, _8) \
+	B _1 E, B _2 E, B _3 E, B _4 E, B _5 E, B _6 E, B _7 E, B _8 E
+#define UTILITY_SUPER_FOREACH_9(B, E, _1, _2, _3, _4, _5, _6, _7, _8, _9) \
+	B _1 E, B _2 E, B _3 E, B _4 E, B _5 E, B _6 E, B _7 E, B _8 E, B _9 E
+#define UTILITY_SUPER_FOREACH_10(B, E, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10) \
+	B _1 E, B _2 E, B _3 E, B _4 E, B _5 E, B _6 E, B _7 E, B _8 E, B _9 E, B _10 E
 
 /**
  * @brief This macro implements a super foreach at preprocessor time, which can use user-defined BEGIN and END for each param

@@ -18,6 +18,7 @@ namespace da {
 	template<typename Char, typename Traits, typename Alloc>
 	class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 		typedef normal_string_base<Char, Traits, Alloc> Self;
+
 	public:
 		typedef Traits											   traits_type;
 		typedef string_traits<Char, Traits, Alloc>				   string_traits;
@@ -36,13 +37,11 @@ namespace da {
 		typedef std::reverse_iterator<const_iterator>			   const_reverse_iterator;
 
 		static constexpr size_type npos			  = std::numeric_limits<size_type>::max();
-		static constexpr size_type start_capacity = 16; // Capacity should be no less than this
 
-		UTILITY_CONSTEXPR_20 normal_string_base()
-			: m_ptr(_M_allocate(start_capacity + 1))
+		UTILITY_CONSTEXPR_20 normal_string_base() noexcept
+			: m_ptr(nullptr)
 			, m_size(0)
-			, m_capacity(start_capacity) {
-			_S_assign(*data(), Char());
+			, m_capacity(0) {
 		}
 
 	private:

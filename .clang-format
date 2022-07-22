@@ -7,10 +7,10 @@ AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
 BreakBeforeBraces: Attach
 IfMacros:
-  - UTILITY_IFLIKELY
-  - UTILITY_IFUNLIKELY
-  - UTILITY_TRY
-  - UTILITY_CATCH
+  - DA_IFLIKELY
+  - DA_IFUNLIKELY
+  - DA_TRY
+  - DA_CATCH
 IncludeCategories:
   - Regex:         '.*'
     Priority:      1

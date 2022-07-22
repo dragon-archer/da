@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_STRING_STRING_TRAITS_HPP_
-#define _UTILITY_STRING_STRING_TRAITS_HPP_
+#ifndef _DA_STRING_STRING_TRAITS_HPP_
+#define _DA_STRING_STRING_TRAITS_HPP_
 
 #include "../config.hpp"
 #include "string_fwd.hpp"
@@ -39,10 +39,10 @@ namespace da {
 		}
 
 		static constexpr pointer _S_copy(pointer dest, const_pointer src, size_type n) noexcept {
-			UTILITY_IFUNLIKELY(n == 0) {
+			DA_IFUNLIKELY(n == 0) {
 				return dest;
 			}
-			UTILITY_IFUNLIKELY(n == 1) {
+			DA_IFUNLIKELY(n == 1) {
 				_S_assign(*dest, *src);
 				return dest;
 			}
@@ -54,10 +54,10 @@ namespace da {
 		}
 
 		static constexpr pointer _S_assign(pointer dest, size_type n, value_type src) noexcept {
-			UTILITY_IFUNLIKELY(n == 0) {
+			DA_IFUNLIKELY(n == 0) {
 				return dest;
 			}
-			UTILITY_IFUNLIKELY(n == 1) {
+			DA_IFUNLIKELY(n == 1) {
 				_S_assign(*dest, src);
 				return dest;
 			}
@@ -66,4 +66,4 @@ namespace da {
 	};
 }
 
-#endif // _UTILITY_STRING_STRING_TRAITS_HPP_
+#endif // _DA_STRING_STRING_TRAITS_HPP_

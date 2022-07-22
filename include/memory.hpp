@@ -7,10 +7,10 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_MEMORY_HPP_
-#define _UTILITY_MEMORY_HPP_
+#ifndef _LIBDA_MEMORY_HPP_
+#define _LIBDA_MEMORY_HPP_
 
 #include "config.hpp"
 #include "memory/aligned_buffer.hpp"
 
-#endif // _UTILITY_MEMORY_HPP_
+#endif // _LIBDA_MEMORY_HPP_

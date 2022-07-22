@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_STRING_NORMAL_STRING_HPP_
-#define _UTILITY_STRING_NORMAL_STRING_HPP_
+#ifndef _DA_STRING_NORMAL_STRING_HPP_
+#define _DA_STRING_NORMAL_STRING_HPP_
 
 #include "../config.hpp"
 #include "string_fwd.hpp"
@@ -36,9 +36,9 @@ namespace da {
 		typedef std::reverse_iterator<iterator>					   reverse_iterator;
 		typedef std::reverse_iterator<const_iterator>			   const_reverse_iterator;
 
-		static constexpr size_type npos			  = std::numeric_limits<size_type>::max();
+		static constexpr size_type npos = std::numeric_limits<size_type>::max();
 
-		UTILITY_CONSTEXPR_20 normal_string_base() noexcept
+		DA_CONSTEXPR_20 normal_string_base() noexcept
 			: m_ptr(nullptr)
 			, m_size(0)
 			, m_capacity(0) {
@@ -74,7 +74,7 @@ namespace da {
 			return m_ptr;
 		}
 
-		UTILITY_CONSTEXPR_20 void _M_size(size_type n) noexcept {
+		DA_CONSTEXPR_20 void _M_size(size_type n) noexcept {
 			assert(n <= capacity());
 			m_size = n;
 			_S_assign(data()[n], Char());
@@ -90,4 +90,4 @@ namespace da {
 	};
 } // namespace da
 
-#endif // _UTILITY_STRING_NORMAL_STRING_HPP_
+#endif // _DA_STRING_NORMAL_STRING_HPP_

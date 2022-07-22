@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_ITERATOR_HPP_
-#define _UTILITY_ITERATOR_HPP_
+#ifndef _LIBDA_ITERATOR_HPP_
+#define _LIBDA_ITERATOR_HPP_
 
 #include "config.hpp"
 #include <iterator>
@@ -200,4 +200,4 @@ namespace da {
 	using require_random_access_iterator = std::enable_if_t<is_random_access_iterator<Iter>::value, Iter>;
 } // namespace da
 
-#endif // _UTILITY_ITERATOR_HPP_
+#endif // _LIBDA_ITERATOR_HPP_

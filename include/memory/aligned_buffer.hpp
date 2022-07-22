@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_MEMORY_ALIGNED_BUFFER_HPP_
-#define _UTILITY_MEMORY_ALIGNED_BUFFER_HPP_
+#ifndef _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
+#define _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
 
 #include "../config.hpp"
 
@@ -37,4 +37,4 @@ namespace da {
 	};
 }
 
-#endif // _UTILITY_MEMORY_ALIGNED_BUFFER_HPP_
+#endif // _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_

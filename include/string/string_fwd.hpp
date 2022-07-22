@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_STRING_STRING_FWD_HPP_
-#define _UTILITY_STRING_STRING_FWD_HPP_
+#ifndef _DA_STRING_STRING_FWD_HPP_
+#define _DA_STRING_STRING_FWD_HPP_
 
 #include "../config.hpp"
 #include "../format.hpp"
@@ -46,4 +46,4 @@ namespace da {
 	using cow_wstring = string_base_helper<wchar_t, cow_string_base>;
 } // namespace da
 
-#endif // _UTILITY_STRING_STRING_FWD_HPP_
+#endif // _DA_STRING_STRING_FWD_HPP_

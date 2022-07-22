@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_CONFIG_HPP_
-#define _UTILITY_CONFIG_HPP_
+#ifndef _LIBDA_CONFIG_HPP_
+#define _LIBDA_CONFIG_HPP_
 
 #include <cassert>
 #include <cstddef>
@@ -21,81 +21,81 @@
 #error Utility need to be compiled under at least C++11, C++98 is not supported
 #elif __cplusplus < 201402L
 #warning Most features of Utility need to be compiled under at least C++17, using C++11 may cause lots of errors
-#define UTILITY_11
+#define DA_11
 #elif __cplusplus < 201703L
 #warning Most features of Utility need to be compiled under at least C++17, using C++11 may cause lots of errors
-#define UTILITY_11
-#define UTILITY_14
+#define DA_11
+#define DA_14
 #elif __cplusplus < 202002L
-#define UTILITY_11
-#define UTILITY_14
-#define UTILITY_17
+#define DA_11
+#define DA_14
+#define DA_17
 #else
-#define UTILITY_11
-#define UTILITY_14
-#define UTILITY_17
-#define UTILITY_20
+#define DA_11
+#define DA_14
+#define DA_17
+#define DA_20
 #endif
 
-#if defined(UTILITY_11)
-#define UTILITY_CONSTEXPR_11 constexpr
+#if defined(DA_11)
+#define DA_CONSTEXPR_11 constexpr
 #else
-#define UTILITY_CONSTEXPR_11
+#define DA_CONSTEXPR_11
 #endif
 
-#if defined(UTILITY_14)
-#define UTILITY_CONSTEXPR_14 constexpr
+#if defined(DA_14)
+#define DA_CONSTEXPR_14 constexpr
 #else
-#define UTILITY_CONSTEXPR_14
+#define DA_CONSTEXPR_14
 #endif
 
-#if defined(UTILITY_17)
-#define UTILITY_CONSTEXPR_17 constexpr
+#if defined(DA_17)
+#define DA_CONSTEXPR_17 constexpr
 #else
-#define UTILITY_CONSTEXPR_17
+#define DA_CONSTEXPR_17
 #endif
 
-#if defined(UTILITY_20)
-#define UTILITY_CONSTEXPR_20 constexpr
+#if defined(DA_20)
+#define DA_CONSTEXPR_20 constexpr
 #else
-#define UTILITY_CONSTEXPR_20
+#define DA_CONSTEXPR_20
 #endif
 
 #if defined(__has_cpp_attribute)
-#define UTILITY_HAS_CPP_ATTRIBUTE(x) __has_cpp_attribute(x)
+#define DA_HAS_CPP_ATTRIBUTE(x) __has_cpp_attribute(x)
 #else
-#define UTILITY_HAS_CPP_ATTRIBUTE(x) 0
+#define DA_HAS_CPP_ATTRIBUTE(x) 0
 #endif
 
 #if defined(__has_include)
-#define UTILITY_HAS_INCLUDE(x) __has_include(x)
+#define DA_HAS_INCLUDE(x) __has_include(x)
 #else
-#define UTILITY_HAS_INCLUDE(x) 0
+#define DA_HAS_INCLUDE(x) 0
 #endif
 
-#if UTILITY_HAS_CPP_ATTRIBUTE(likely)
-#define UTILITY_IFLIKELY(x)	  if(x) [[likely]]
-#define UTILITY_IFUNLIKELY(x) if(x) [[unlikely]]
-#elif UTILITY_11 // Most compiler support likely & unlikely since C++11
-#define UTILITY_IFLIKELY(x)	  if(x) [[likely]]
-#define UTILITY_IFUNLIKELY(x) if(x) [[unlikely]]
+#if DA_HAS_CPP_ATTRIBUTE(likely)
+#define DA_IFLIKELY(x)	 if(x) [[likely]]
+#define DA_IFUNLIKELY(x) if(x) [[unlikely]]
+#elif DA_11 // Most compiler support likely & unlikely since C++11
+#define DA_IFLIKELY(x)	 if(x) [[likely]]
+#define DA_IFUNLIKELY(x) if(x) [[unlikely]]
 #else
-#define UTILITY_IFLIKELY(x)	  if(x)
-#define UTILITY_IFUNLIKELY(x) if(x)
+#define DA_IFLIKELY(x)	 if(x)
+#define DA_IFUNLIKELY(x) if(x)
 #endif
 
-// Use UTILITY_NO_EXCEPTION to disable all exceptions
-#ifndef UTILITY_NO_EXCEPTION
+// Use DA_NO_EXCEPTION to disable all exceptions
+#ifndef DA_NO_EXCEPTION
 #include <stdexcept>
-#define UTILITY_TRY			try
-#define UTILITY_CATCH(x)	catch(x)
-#define UTILITY_THROW(x)	throw(x)
-#define UTILITY_THROW_AGAIN throw;
+#define DA_TRY		   try
+#define DA_CATCH(x)	   catch(x)
+#define DA_THROW(x)	   throw(x)
+#define DA_THROW_AGAIN throw;
 #else
-#define UTILITY_TRY			UTILITY_IFLIKELY(true)
-#define UTILITY_CATCH		UTILITY_IFUNLIKELY(false)
-#define UTILITY_THROW(x)	std::terminate()
-#define UTILITY_THROW_AGAIN std::terminate();
+#define DA_TRY		   DA_IFLIKELY(true)
+#define DA_CATCH	   DA_IFUNLIKELY(false)
+#define DA_THROW(x)	   std::terminate()
+#define DA_THROW_AGAIN std::terminate();
 #endif
 
 namespace da {
@@ -103,4 +103,4 @@ namespace da {
 	using std::size_t;
 }
 
-#endif // _UTILITY_CONFIG_HPP_
+#endif // _LIBDA_CONFIG_HPP_

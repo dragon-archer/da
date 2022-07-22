@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_STRING_SSO_STRING_HPP_
-#define _UTILITY_STRING_SSO_STRING_HPP_
+#ifndef _DA_STRING_SSO_STRING_HPP_
+#define _DA_STRING_SSO_STRING_HPP_
 
 #include "../config.hpp"
 #include "string_fwd.hpp"
@@ -82,8 +82,8 @@ namespace da {
 			return (*reinterpret_cast<const uint8_t* const>(&m_data)) & (0x80);
 		}
 
-		UTILITY_CONSTEXPR_20 void change_sso_to_normal() {
-			UTILITY_IFUNLIKELY(!is_sso()) {
+		DA_CONSTEXPR_20 void change_sso_to_normal() {
+			DA_IFUNLIKELY(!is_sso()) {
 				return;
 			}
 			data_type new_data;
@@ -95,12 +95,12 @@ namespace da {
 			_M_size(s);
 		}
 
-		UTILITY_CONSTEXPR_20 void change_normal_to_sso() {
-			UTILITY_IFUNLIKELY(is_sso()) {
+		DA_CONSTEXPR_20 void change_normal_to_sso() {
+			DA_IFUNLIKELY(is_sso()) {
 				return;
 			}
-			UTILITY_IFUNLIKELY(size() > max_sso_size) {
-				UTILITY_THROW(std::out_of_range(format::format("da::sso_string_base::change_normal_to_sso: Current size (which is {}) exceeds max_sso_size (which is {})", size(), max_sso_size)));
+			DA_IFUNLIKELY(size() > max_sso_size) {
+				DA_THROW(std::out_of_range(format::format("da::sso_string_base::change_normal_to_sso: Current size (which is {}) exceeds max_sso_size (which is {})", size(), max_sso_size)));
 			}
 			data_type new_data;
 			size_type s = size();
@@ -123,9 +123,9 @@ namespace da {
 		using string_traits::_S_assign;
 		using string_traits::_S_copy;
 
-		UTILITY_CONSTEXPR_20 pointer _M_create(size_type& new_capacity, size_type old_capacity) {
-			UTILITY_IFUNLIKELY(new_capacity > max_size()) {
-				UTILITY_THROW(std::length_error(format::format("da::sso_string_base::_M_create: The new capacity (which is {}) > max_size() (which is {})", new_capacity, max_size())));
+		DA_CONSTEXPR_20 pointer _M_create(size_type& new_capacity, size_type old_capacity) {
+			DA_IFUNLIKELY(new_capacity > max_size()) {
+				DA_THROW(std::length_error(format::format("da::sso_string_base::_M_create: The new capacity (which is {}) > max_size() (which is {})", new_capacity, max_size())));
 			}
 			if(size() == 0 && new_capacity <= max_sso_size) { // Optimize for constructers
 				new_capacity = max_sso_size;
@@ -141,13 +141,13 @@ namespace da {
 			return _M_allocate(new_capacity + 1); // One more element for '\0'
 		}
 
-		UTILITY_CONSTEXPR_20 void _M_dispose() {
+		DA_CONSTEXPR_20 void _M_dispose() {
 			if(!is_sso()) {
 				_M_destroy(capacity());
 			}
 		}
 
-		UTILITY_CONSTEXPR_20 void _M_destroy(size_type n) {
+		DA_CONSTEXPR_20 void _M_destroy(size_type n) {
 			if(!is_sso() && data() != nullptr) {
 				_M_deallocate(data(), n + 1);
 			}
@@ -173,7 +173,7 @@ namespace da {
 			return npos - 1;
 		}
 
-		UTILITY_CONSTEXPR_20 void _M_size(size_type n) noexcept {
+		DA_CONSTEXPR_20 void _M_size(size_type n) noexcept {
 			assert(n <= capacity());
 			if(is_sso()) {
 				m_data.short_string.m_size = static_cast<uint8_t>(n + 0x80);
@@ -209,7 +209,7 @@ namespace da {
 		}
 
 	public:
-		UTILITY_CONSTEXPR_20 void reserve() {
+		DA_CONSTEXPR_20 void reserve() {
 			if(is_sso()) {
 				return;
 			}
@@ -226,10 +226,10 @@ namespace da {
 			}
 		}
 
-		UTILITY_CONSTEXPR_20 void swap(const Self& s) {
+		DA_CONSTEXPR_20 void swap(const Self& s) {
 			std::swap(m_data, s.m_data);
 		}
 	};
 } // namespace da
 
-#endif // _UTILITY_STRING_SSO_STRING_HPP_
+#endif // _DA_STRING_SSO_STRING_HPP_

@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _UTILITY_STRING_HPP_
-#define _UTILITY_STRING_HPP_
+#ifndef _DA_STRING_HPP_
+#define _DA_STRING_HPP_
 
 #include "config.hpp"
 #include "string/string_fwd.hpp"
@@ -54,103 +54,103 @@ namespace da {
 		 *        2. Add descriptor after it if exists
 		 *        - r = left reference, R = right reference, c = const, l = std::initializer_list
 		 */
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_destructor, ~Impl)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_destructor, ~Impl)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_get_alloc, _M_get_alloc)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_allocate_i, _M_allocate, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_deallocate_p_i, _M_deallocate, pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__S_copy_p_pc_i, _S_copy, pointer, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__S_copy_backward_p_pc_i, _S_copy_backward, pointer, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__S_assign_vr_vcr, _S_assign, reference, const_reference)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__S_assign_p_i_v, _S_assign, pointer, size_type, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__S_length_pc, _S_length, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_get_alloc, _M_get_alloc)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_allocate_i, _M_allocate, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_deallocate_p_i, _M_deallocate, pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__S_copy_p_pc_i, _S_copy, pointer, const_pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__S_copy_backward_p_pc_i, _S_copy_backward, pointer, const_pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__S_assign_vr_vcr, _S_assign, reference, const_reference)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__S_assign_p_i_v, _S_assign, pointer, size_type, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__S_length_pc, _S_length, const_pointer)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_data_p, _M_data, pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_size_i, _M_size, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_capacity_i, _M_capacity, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_create_ir_i, _M_create, size_type&, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_check_length_i_i_w, _M_check_length, size_type, size_type, const char*)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_check_pos_i_w, _M_check_pos, size_type, const char*)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_dispose, _M_dispose)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_destroy_i, _M_destroy)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_limit_length_i_i, _M_limit_length, size_type, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_data_p, _M_data, pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_size_i, _M_size, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_capacity_i, _M_capacity, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_create_ir_i, _M_create, size_type&, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_check_length_i_i_w, _M_check_length, size_type, size_type, const char*)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_check_pos_i_w, _M_check_pos, size_type, const char*)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_dispose, _M_dispose)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_destroy_i, _M_destroy)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_limit_length_i_i, _M_limit_length, size_type, size_type)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_data, data)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_size, size)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_capacity, capacity)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_max_size, max_size)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_length, length)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_data, data)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_size, size)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_capacity, capacity)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_max_size, max_size)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_length, length)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_begin, begin)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_end, end)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_rbegin, rbegin)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_rend, rend)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_cbegin, cbegin)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_cend, cend)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_crbegin, crbegin)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_crend, crend)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_begin, begin)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_end, end)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_rbegin, rbegin)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_rend, rend)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_cbegin, cbegin)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_cend, cend)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_crbegin, crbegin)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_crend, crend)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_reserve, reserve)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_reserve_i, reserve, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_shrink_to_fit, shrink_to_fit)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_clear, clear)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_empty, empty)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_reserve, reserve)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_reserve_i, reserve, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_shrink_to_fit, shrink_to_fit)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_clear, clear)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_empty, empty)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_square_i, operator[], size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_at_i, at, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_front, front)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_back, back)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_square_i, operator[], size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_at_i, at, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_front, front)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_back, back)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_pc_i, replace, size_type, size_type, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_i_v, replace, size_type, size_type, size_type, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_pc, replace, size_type, size_type, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_scr, replace, size_type, size_type, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_scr_i_i, replace, size_type, size_type, const Self&, size_type, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_pc_i, replace, const_iterator, const_iterator, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_i_v, replace, const_iterator, const_iterator, size_type, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_pc, replace, const_iterator, const_iterator, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_scr, replace, const_iterator, const_iterator, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_p_p, replace, const_iterator, const_iterator, const_pointer, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_pc_pc, replace, const_iterator, const_iterator, pointer, pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_t_t, replace, const_iterator, const_iterator, iterator, iterator)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_tc_tc, replace, const_iterator, const_iterator, const_iterator, const_iterator)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_vl, replace, const_iterator, const_iterator, std::initializer_list<value_type>)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_pc_i, replace, size_type, size_type, const_pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_i_v, replace, size_type, size_type, size_type, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_pc, replace, size_type, size_type, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_scr, replace, size_type, size_type, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_i_i_scr_i_i, replace, size_type, size_type, const Self&, size_type, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_pc_i, replace, const_iterator, const_iterator, const_pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_i_v, replace, const_iterator, const_iterator, size_type, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_pc, replace, const_iterator, const_iterator, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_scr, replace, const_iterator, const_iterator, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_p_p, replace, const_iterator, const_iterator, const_pointer, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_pc_pc, replace, const_iterator, const_iterator, pointer, pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_t_t, replace, const_iterator, const_iterator, iterator, iterator)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_tc_tc, replace, const_iterator, const_iterator, const_iterator, const_iterator)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_replace_tc_tc_vl, replace, const_iterator, const_iterator, std::initializer_list<value_type>)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_append_pc_i, append, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_append_pc, append, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_append_scr, append, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_append_scr_i_i, append, const Self&, size_type, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_append_vl, append, std::initializer_list<value_type>)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_append_i_v, append, size_type, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_push_back_v, push_back, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_pc, operator+=, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_scr, operator+=, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_v, operator+=, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_vl, operator+=, std::initializer_list<value_type>)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_append_pc_i, append, const_pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_append_pc, append, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_append_scr, append, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_append_scr_i_i, append, const Self&, size_type, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_append_vl, append, std::initializer_list<value_type>)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_append_i_v, append, size_type, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_push_back_v, push_back, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_pc, operator+=, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_scr, operator+=, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_v, operator+=, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_vl, operator+=, std::initializer_list<value_type>)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_pc_i, assign, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_sR, assign, Self&&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_pc, assign, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_scr, assign, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_scr_i_i, assign, const Self&, size_type, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_vl, assign, std::initializer_list<value_type>)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_i_v, assign, size_type, value_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_sR, operator+=, Self&&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_pc, operator+=, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_scr, operator+=, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_v, operator+=, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_pc_i, assign, const_pointer, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_sR, assign, Self&&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_pc, assign, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_scr, assign, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_scr_i_i, assign, const Self&, size_type, size_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_vl, assign, std::initializer_list<value_type>)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_assign_i_v, assign, size_type, value_type)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_sR, operator+=, Self&&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_pc, operator+=, const_pointer)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_scr, operator+=, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_v, operator+=, value_type)
 
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_swap_scr, swap, const Self&)
+		DA_DECLARE_MEMBER_FUNCTION_TEST(has_swap_scr, swap, const Self&)
 
 	public: // Constructors
-		UTILITY_CONSTEXPR_20 string_base() noexcept {
+		DA_CONSTEXPR_20 string_base() noexcept {
 			size_type c = start_capacity;
 			_M_data(_M_create(c, 0));
 			_M_capacity(c);
 			_M_size(0);
 		}
 
-		UTILITY_CONSTEXPR_20 string_base(const_pointer s, size_type n) {
+		DA_CONSTEXPR_20 string_base(const_pointer s, size_type n) {
 			size_type c = n;
 			_M_data(_M_create(c, 0));
 			_M_capacity(c);
@@ -158,7 +158,7 @@ namespace da {
 			_M_size(n);
 		}
 
-		UTILITY_CONSTEXPR_20 string_base(size_type n, value_type v) {
+		DA_CONSTEXPR_20 string_base(size_type n, value_type v) {
 			size_type c = n;
 			_M_data(_M_create(c, 0));
 			_M_capacity(c);
@@ -166,12 +166,12 @@ namespace da {
 			_M_size(n);
 		}
 
-		UTILITY_CONSTEXPR_20 string_base(Self&& s) {
+		DA_CONSTEXPR_20 string_base(Self&& s) {
 			swap(move(s));
 		}
 
 		template<typename Iter, typename = require_forward_iterator<Iter>>
-		UTILITY_CONSTEXPR_20 string_base(Iter it1, Iter it2) {
+		DA_CONSTEXPR_20 string_base(Iter it1, Iter it2) {
 			// TODO: Optimize this to avoid access two times, thus we can accept input iterator
 			const size_type n = std::distance(it1, it2);
 			size_type		c = n;
@@ -181,22 +181,22 @@ namespace da {
 			_M_size(n);
 		}
 
-		UTILITY_CONSTEXPR_20 string_base(const_pointer s)
+		DA_CONSTEXPR_20 string_base(const_pointer s)
 			: string_base(s, _S_length(s)) { }
 
-		UTILITY_CONSTEXPR_20 string_base(const Self& s)
+		DA_CONSTEXPR_20 string_base(const Self& s)
 			: string_base(s.data(), s.size()) { }
 
-		UTILITY_CONSTEXPR_20 string_base(const Self& s, size_type pos)
+		DA_CONSTEXPR_20 string_base(const Self& s, size_type pos)
 			: string_base(s.data() + s._M_check_pos(pos, "da::string_base::string_base"), s._M_limit_length(pos, npos)) { }
 
-		UTILITY_CONSTEXPR_20 string_base(const Self& s, size_type pos, size_type n)
+		DA_CONSTEXPR_20 string_base(const Self& s, size_type pos, size_type n)
 			: string_base(s.data() + s._M_check_pos(pos, "da::string_base::string_base"), s._M_limit_length(pos, n)) { }
 
-		UTILITY_CONSTEXPR_20 string_base(std::initializer_list<value_type> il)
+		DA_CONSTEXPR_20 string_base(std::initializer_list<value_type> il)
 			: string_base(il.begin(), il.size()) { }
 
-		UTILITY_CONSTEXPR_20 ~string_base() {
+		DA_CONSTEXPR_20 ~string_base() {
 			if constexpr(has_destructor_v<Impl>) {
 				Impl::~Impl();
 				return;
@@ -233,10 +233,10 @@ namespace da {
 			if constexpr(has__S_copy_p_pc_i_v<Impl>) {
 				return Impl::_S_copy(dest, src, n);
 			}
-			UTILITY_IFUNLIKELY(n == 0) {
+			DA_IFUNLIKELY(n == 0) {
 				return dest;
 			}
-			UTILITY_IFUNLIKELY(n == 1) {
+			DA_IFUNLIKELY(n == 1) {
 				_S_assign(*dest, *src);
 				return dest;
 			}
@@ -247,10 +247,10 @@ namespace da {
 			if constexpr(has__S_copy_backward_p_pc_i_v<Impl>) {
 				return Impl::_S_copy_backward(dest, src, n);
 			}
-			UTILITY_IFUNLIKELY(n == 0) {
+			DA_IFUNLIKELY(n == 0) {
 				return dest;
 			}
-			UTILITY_IFUNLIKELY(n == 1) {
+			DA_IFUNLIKELY(n == 1) {
 				_S_assign(*dest, *src);
 				return dest;
 			}
@@ -269,10 +269,10 @@ namespace da {
 			if constexpr(has__S_assign_p_i_v_v<Impl>) {
 				return Impl::_S_assign(dest, n, src);
 			}
-			UTILITY_IFUNLIKELY(n == 0) {
+			DA_IFUNLIKELY(n == 0) {
 				return dest;
 			}
-			UTILITY_IFUNLIKELY(n == 1) {
+			DA_IFUNLIKELY(n == 1) {
 				_S_assign(*dest, src);
 				return dest;
 			}
@@ -311,12 +311,12 @@ namespace da {
 			static_assert(has__M_capacity_i_v<Impl>, "The implemention of string should provide `void _M_capacity(size_type)` as interface.");
 		}
 
-		UTILITY_CONSTEXPR_20 pointer _M_create(size_type& new_capacity, size_type old_capacity) {
+		DA_CONSTEXPR_20 pointer _M_create(size_type& new_capacity, size_type old_capacity) {
 			if constexpr(has__M_create_ir_i_v<Impl>) {
 				return Impl::_M_create(new_capacity, old_capacity);
 			}
-			UTILITY_IFUNLIKELY(new_capacity > max_size()) {
-				UTILITY_THROW(std::length_error(format::format("da::string_base::_M_create: The new capacity (which is {}) > max_size() (which is {})", new_capacity, max_size())));
+			DA_IFUNLIKELY(new_capacity > max_size()) {
+				DA_THROW(std::length_error(format::format("da::string_base::_M_create: The new capacity (which is {}) > max_size() (which is {})", new_capacity, max_size())));
 			}
 			if(new_capacity > old_capacity && new_capacity < 2 * old_capacity) {
 				new_capacity = 2 * old_capacity;
@@ -333,13 +333,13 @@ namespace da {
 		 * @param n2   The replace string's length
 		 * @param what If errors, the string to be throw
 		 */
-		UTILITY_CONSTEXPR_20 void _M_check_length(size_type n1, size_type n2, const char* what = "da::string_base::_M_check_length") const {
+		DA_CONSTEXPR_20 void _M_check_length(size_type n1, size_type n2, const char* what = "da::string_base::_M_check_length") const {
 			if constexpr(has__M_check_length_i_i_w_v<Impl>) {
 				Impl::_M_check_length(n1, n2, what);
 				return;
 			}
-			UTILITY_IFUNLIKELY(max_size() - (size() - n1) < n2) {
-				UTILITY_THROW(std::length_error(format::format("{}: the size after operation (which is {}) > max_size (which is {})", what, size() - n1 + n2, max_size())));
+			DA_IFUNLIKELY(max_size() - (size() - n1) < n2) {
+				DA_THROW(std::length_error(format::format("{}: the size after operation (which is {}) > max_size (which is {})", what, size() - n1 + n2, max_size())));
 			}
 		}
 
@@ -350,17 +350,17 @@ namespace da {
 		 * @return @param p
 		 * @note   Access to the '\0' letter is allowed here
 		 */
-		UTILITY_CONSTEXPR_20 size_type _M_check_pos(size_type p, const char* what) const {
+		DA_CONSTEXPR_20 size_type _M_check_pos(size_type p, const char* what) const {
 			if constexpr(has__M_check_pos_i_w_v<Impl>) {
 				return Impl::_M_check_pos(p, what);
 			}
-			UTILITY_IFUNLIKELY(p > size()) {
-				UTILITY_THROW(std::out_of_range(format::format("{}: the position (which is {}) > size (which is {})", what, p, size())));
+			DA_IFUNLIKELY(p > size()) {
+				DA_THROW(std::out_of_range(format::format("{}: the position (which is {}) > size (which is {})", what, p, size())));
 			}
 			return p;
 		}
 
-		UTILITY_CONSTEXPR_20 void _M_dispose() {
+		DA_CONSTEXPR_20 void _M_dispose() {
 			if constexpr(has__M_dispose_v<Impl>) {
 				Impl::_M_dispose();
 				return;
@@ -368,12 +368,12 @@ namespace da {
 			_M_destroy(capacity());
 		}
 
-		UTILITY_CONSTEXPR_20 void _M_destroy(size_type n) {
+		DA_CONSTEXPR_20 void _M_destroy(size_type n) {
 			if constexpr(has__M_destroy_i_v<Impl>) {
 				Impl::_M_destroy(n);
 				return;
 			}
-			UTILITY_IFUNLIKELY(data() == nullptr) {
+			DA_IFUNLIKELY(data() == nullptr) {
 				return;
 			}
 			_M_deallocate(data(), n + 1);
@@ -386,7 +386,7 @@ namespace da {
 		 * @return The max accepted offset
 		 * @note   This function DO NOT check the pos
 		 */
-		UTILITY_CONSTEXPR_20 size_type _M_limit_length(size_type pos, size_type offset) const noexcept {
+		DA_CONSTEXPR_20 size_type _M_limit_length(size_type pos, size_type offset) const noexcept {
 			if constexpr(has__M_limit_length_i_i_v<Impl>) {
 				return Impl::_M_limit_length(pos, offset);
 			}
@@ -517,7 +517,7 @@ namespace da {
 		}
 
 	public: // Size-oriented
-		UTILITY_CONSTEXPR_20 void reserve() {
+		DA_CONSTEXPR_20 void reserve() {
 			if constexpr(has_reserve_v<Impl>) {
 				return Impl::reserve();
 			}
@@ -531,13 +531,13 @@ namespace da {
 			}
 		}
 
-		UTILITY_CONSTEXPR_20 void reserve(size_type n) {
+		DA_CONSTEXPR_20 void reserve(size_type n) {
 			if constexpr(has_reserve_i_v<Impl>) {
 				Impl::reserve(n);
 				return;
 			}
 			// since it will only extend the capacity, so just return back
-			UTILITY_IFUNLIKELY(n < capacity()) {
+			DA_IFUNLIKELY(n < capacity()) {
 				return;
 			}
 			pointer p = _M_create(n, capacity());
@@ -546,7 +546,7 @@ namespace da {
 			_M_data(p);
 			_M_capacity(n);
 		}
-		UTILITY_CONSTEXPR_20 void shrink_to_fit() {
+		DA_CONSTEXPR_20 void shrink_to_fit() {
 			if constexpr(has_shrink_to_fit_v<Impl>) {
 				Impl::shrink_to_fit();
 				return;
@@ -554,7 +554,7 @@ namespace da {
 			reserve();
 		}
 
-		UTILITY_CONSTEXPR_20 void clear() noexcept {
+		DA_CONSTEXPR_20 void clear() noexcept {
 			if constexpr(has_clear_v<Impl>) {
 				Impl::clear();
 				return;
@@ -562,7 +562,7 @@ namespace da {
 			_M_size(0);
 		}
 
-		UTILITY_CONSTEXPR_20 bool empty() const noexcept {
+		DA_CONSTEXPR_20 bool empty() const noexcept {
 			if constexpr(has_empty_v<const Impl>) {
 				return Impl::empty();
 			}
@@ -570,7 +570,7 @@ namespace da {
 		}
 
 	public: // Member access
-		UTILITY_CONSTEXPR_20 reference operator[](size_type n) {
+		DA_CONSTEXPR_20 reference operator[](size_type n) {
 			if constexpr(has_operator_square_i_v<Impl>) {
 				return Impl::operator[](n);
 			}
@@ -578,7 +578,7 @@ namespace da {
 			return data()[n];
 		}
 
-		UTILITY_CONSTEXPR_20 const_reference operator[](size_type n) const noexcept {
+		DA_CONSTEXPR_20 const_reference operator[](size_type n) const noexcept {
 			if constexpr(has_operator_square_i_v<const Impl>) {
 				return Impl::operator[](n);
 			}
@@ -586,27 +586,27 @@ namespace da {
 			return data()[n];
 		}
 
-		UTILITY_CONSTEXPR_20 reference at(size_type n) {
+		DA_CONSTEXPR_20 reference at(size_type n) {
 			if constexpr(has_at_i_v<Impl>) {
 				return Impl::at(n);
 			}
-			UTILITY_IFUNLIKELY(n >= size()) {
-				UTILITY_THROW(std::out_of_range(format::format("da::string_base::at: n (which is {}) >= this->size() (which is {})", n, size())));
+			DA_IFUNLIKELY(n >= size()) {
+				DA_THROW(std::out_of_range(format::format("da::string_base::at: n (which is {}) >= this->size() (which is {})", n, size())));
 			}
 			return data()[n];
 		}
 
-		UTILITY_CONSTEXPR_20 const_reference at(size_type n) const {
+		DA_CONSTEXPR_20 const_reference at(size_type n) const {
 			if constexpr(has_at_i_v<const Impl>) {
 				return Impl::at(n);
 			}
-			UTILITY_IFUNLIKELY(n >= size()) {
-				UTILITY_THROW(std::out_of_range(format::format("da::string_base::at: n (which is {}) >= this->size() (which is {})", n, size())));
+			DA_IFUNLIKELY(n >= size()) {
+				DA_THROW(std::out_of_range(format::format("da::string_base::at: n (which is {}) >= this->size() (which is {})", n, size())));
 			}
 			return data()[n];
 		}
 
-		UTILITY_CONSTEXPR_20 reference front() noexcept {
+		DA_CONSTEXPR_20 reference front() noexcept {
 			if constexpr(has_front_v<Impl>) {
 				return Impl::front();
 			}
@@ -614,7 +614,7 @@ namespace da {
 			return operator[](0);
 		}
 
-		UTILITY_CONSTEXPR_20 const_reference front() const noexcept {
+		DA_CONSTEXPR_20 const_reference front() const noexcept {
 			if constexpr(has_front_v<const Impl>) {
 				return Impl::front();
 			}
@@ -622,7 +622,7 @@ namespace da {
 			return operator[](0);
 		}
 
-		UTILITY_CONSTEXPR_20 reference back() noexcept {
+		DA_CONSTEXPR_20 reference back() noexcept {
 			if constexpr(has_back_v<Impl>) {
 				return Impl::back();
 			}
@@ -630,7 +630,7 @@ namespace da {
 			return operator[](size() - 1);
 		}
 
-		UTILITY_CONSTEXPR_20 const_reference back() const noexcept {
+		DA_CONSTEXPR_20 const_reference back() const noexcept {
 			if constexpr(has_back_v<const Impl>) {
 				return Impl::back();
 			}
@@ -648,7 +648,7 @@ namespace da {
 		 * @note  Both @param l1 and @param l2 should not include '\0'
 		 * @note  This function is the base of almost all insertion & deletion functions
 		 */
-		UTILITY_CONSTEXPR_20 Self& replace(size_type p, size_type l1, const_pointer s, size_type l2) {
+		DA_CONSTEXPR_20 Self& replace(size_type p, size_type l1, const_pointer s, size_type l2) {
 			if constexpr(has_replace_i_i_pc_i_v<Impl>) {
 				return Impl::replace(p, l1, s, l2);
 			}
@@ -686,7 +686,7 @@ namespace da {
 		 * @param c The character
 		 * @note  This function is the base of almost all insertion & deletion functions
 		 */
-		UTILITY_CONSTEXPR_20 Self& replace(size_type p, size_type l, size_type n, value_type c) {
+		DA_CONSTEXPR_20 Self& replace(size_type p, size_type l, size_type n, value_type c) {
 			if constexpr(has_replace_i_i_i_v_v<Impl>) {
 				return Impl::replace(p, l, n, c);
 			}
@@ -712,84 +712,84 @@ namespace da {
 			return *this;
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(size_type p, size_type l, const_pointer s) {
+		DA_CONSTEXPR_20 Self& replace(size_type p, size_type l, const_pointer s) {
 			if constexpr(has_replace_i_i_pc_v<Impl>) {
 				return Impl::replace(p, l, s);
 			}
 			return replace(p, l, s, _S_length(s));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(size_type p, size_type l, const Self& s) {
+		DA_CONSTEXPR_20 Self& replace(size_type p, size_type l, const Self& s) {
 			if constexpr(has_replace_i_i_scr_v<Impl>) {
 				return Impl::replace(p, l, s);
 			}
 			return replace(p, l, s.data(), s.size());
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(size_type p, size_type l, const Self& s, size_type p2, size_type n = npos) {
+		DA_CONSTEXPR_20 Self& replace(size_type p, size_type l, const Self& s, size_type p2, size_type n = npos) {
 			if constexpr(has_replace_i_i_scr_i_i_v<Impl>) {
 				return Impl::replace(p, l, s, p2, n);
 			}
 			return replace(p, l, s.data() + s._M_check_pos(p2, "da::string_base::replace"), s._M_limit_length(p2, n));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_pointer s, size_type n) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_pointer s, size_type n) {
 			if constexpr(has_replace_tc_tc_pc_i_v<Impl>) {
 				return Impl::replace(it1, it2, s, n);
 			}
 			return replace(it1 - begin(), it2 - it1, s, n);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, size_type n, value_type v) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, size_type n, value_type v) {
 			if constexpr(has_replace_tc_tc_i_v_v<Impl>) {
 				return Impl::replace(it1, it2, n, v);
 			}
 			return replace(it1 - begin(), it2 - it1, n, v);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_pointer s) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_pointer s) {
 			if constexpr(has_replace_tc_tc_pc_v<Impl>) {
 				return Impl::replace(it1, it2, s);
 			}
 			return replace(it1 - begin(), it2 - it1, s, _S_length(s));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const Self& s) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const Self& s) {
 			if constexpr(has_replace_tc_tc_scr_v<Impl>) {
 				return Impl::replace(it1, it2, s);
 			}
 			return replace(it1 - begin(), it2 - it1, s.data(), s.size());
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, pointer p1, pointer p2) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, pointer p1, pointer p2) {
 			if constexpr(has_replace_tc_tc_p_p_v<Impl>) {
 				return Impl::replace(it1, it2, p1, p2);
 			}
 			return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_pointer p1, const_pointer p2) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_pointer p1, const_pointer p2) {
 			if constexpr(has_replace_tc_tc_pc_pc_v<Impl>) {
 				return Impl::replace(it1, it2, p1, p2);
 			}
 			return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, iterator p1, iterator p2) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, iterator p1, iterator p2) {
 			if constexpr(has_replace_tc_tc_t_t_v<Impl>) {
 				return Impl::replace(it1, it2, p1, p2);
 			}
 			return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_iterator p1, const_iterator p2) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, const_iterator p1, const_iterator p2) {
 			if constexpr(has_replace_tc_tc_tc_tc_v<Impl>) {
 				return Impl::replace(it1, it2, p1, p2);
 			}
 			return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, std::initializer_list<value_type> il) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, std::initializer_list<value_type> il) {
 			if constexpr(has_replace_tc_tc_vl_v<Impl>) {
 				return Impl::replace(it1, it2, il);
 			}
@@ -797,7 +797,7 @@ namespace da {
 		}
 
 		template<typename Iter, typename = require_forward_iterator<Iter>>
-		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, Iter p1, Iter p2) {
+		DA_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, Iter p1, Iter p2) {
 			Self tmp(p1, p2);
 			return replace(it1 - begin(), it2 - it1, tmp.data(), tmp.size());
 		}
@@ -810,7 +810,7 @@ namespace da {
 		 * @return The string itself to make it can be called again
 		 * @note   This function is the base of all append functions
 		 */
-		UTILITY_CONSTEXPR_20 Self& append(const_pointer p, size_type n) {
+		DA_CONSTEXPR_20 Self& append(const_pointer p, size_type n) {
 			if constexpr(has_append_pc_i_v<Impl>) {
 				return Impl::append(p, n);
 			}
@@ -820,35 +820,35 @@ namespace da {
 		/**
 		 * @brief This function is similar to the function above, the only difference is that the length is calculated dynamically
 		 */
-		UTILITY_CONSTEXPR_20 Self& append(const_pointer p) {
+		DA_CONSTEXPR_20 Self& append(const_pointer p) {
 			if constexpr(has_append_pc_v<Impl>) {
 				return Impl::append(p);
 			}
 			return append(p, _S_length(p));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& append(const Self& s) {
+		DA_CONSTEXPR_20 Self& append(const Self& s) {
 			if constexpr(has_append_scr_v<Impl>) {
 				return Impl::append(s);
 			}
 			return append(s.data(), s.size());
 		}
 
-		UTILITY_CONSTEXPR_20 Self& append(const Self& s, size_type p, size_type n = npos) {
+		DA_CONSTEXPR_20 Self& append(const Self& s, size_type p, size_type n = npos) {
 			if constexpr(has_append_scr_i_i_v<Impl>) {
 				return Impl::append(s, p, n);
 			}
 			return append(s.data() + s._M_check_pos(p, "da::string_base::append"), s._M_limit_length(p, n));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& append(std::initializer_list<Char> il) {
+		DA_CONSTEXPR_20 Self& append(std::initializer_list<Char> il) {
 			if constexpr(has_append_vl_v<Impl>) {
 				return Impl::append(il);
 			}
 			return append(il.begin(), il.size());
 		}
 
-		UTILITY_CONSTEXPR_20 Self& append(size_type n, value_type c) {
+		DA_CONSTEXPR_20 Self& append(size_type n, value_type c) {
 			if constexpr(has_append_i_v_v<Impl>) {
 				return Impl::append(n, c);
 			}
@@ -856,11 +856,11 @@ namespace da {
 		}
 
 		template<typename Iter, typename = require_forward_iterator<Iter>>
-		UTILITY_CONSTEXPR_20 Self& append(Iter it1, Iter it2) {
+		DA_CONSTEXPR_20 Self& append(Iter it1, Iter it2) {
 			return replace(size(), 0, it1, it2);
 		}
 
-		UTILITY_CONSTEXPR_20 void push_back(value_type c) {
+		DA_CONSTEXPR_20 void push_back(value_type c) {
 			if constexpr(has_push_back_v_v<Impl>) {
 				Impl::push_back(c);
 				return;
@@ -872,21 +872,21 @@ namespace da {
 			_S_assign(data()[s], c);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& operator+=(const Self& s) {
+		DA_CONSTEXPR_20 Self& operator+=(const Self& s) {
 			if constexpr(has_operator_plusequal_scr_v<Impl>) {
 				return Impl::operator+=(s);
 			}
 			return append(s);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& operator+=(const_pointer s) {
+		DA_CONSTEXPR_20 Self& operator+=(const_pointer s) {
 			if constexpr(has_operator_plusequal_pc_v<Impl>) {
 				return Impl::operator+=(s);
 			}
 			return append(s);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& operator+=(value_type c) {
+		DA_CONSTEXPR_20 Self& operator+=(value_type c) {
 			if constexpr(has_operator_plusequal_v_v<Impl>) {
 				return Impl::operator+=(c);
 			}
@@ -894,7 +894,7 @@ namespace da {
 			return *this;
 		}
 
-		UTILITY_CONSTEXPR_20 Self& operator+=(std::initializer_list<value_type> il) {
+		DA_CONSTEXPR_20 Self& operator+=(std::initializer_list<value_type> il) {
 			if constexpr(has_operator_plusequal_vl_v<Impl>) {
 				return Impl::operator+=(il);
 			}
@@ -902,7 +902,7 @@ namespace da {
 		}
 
 	public: // Assignment
-		UTILITY_CONSTEXPR_20 Self& assign(const_pointer p, size_type n) {
+		DA_CONSTEXPR_20 Self& assign(const_pointer p, size_type n) {
 			if constexpr(has_assign_pc_i_v<Impl>) {
 				return Impl::assign(p, n);
 			}
@@ -912,7 +912,7 @@ namespace da {
 			return replace(0, size(), p, n);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& assign(Self&& s) {
+		DA_CONSTEXPR_20 Self& assign(Self&& s) {
 			if constexpr(has_assign_sR_v<Impl>) {
 				return Impl::assign(s);
 			}
@@ -920,35 +920,35 @@ namespace da {
 			return *this;
 		}
 
-		UTILITY_CONSTEXPR_20 Self& assign(const_pointer p) {
+		DA_CONSTEXPR_20 Self& assign(const_pointer p) {
 			if constexpr(has_assign_pc_v<Impl>) {
 				return Impl::assign(p);
 			}
 			return assign(p, _S_length(p));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& assign(const Self& s) {
+		DA_CONSTEXPR_20 Self& assign(const Self& s) {
 			if constexpr(has_assign_scr_v<Impl>) {
 				return Impl::assign(s);
 			}
 			return assign(s.data(), s.size());
 		}
 
-		UTILITY_CONSTEXPR_20 Self& assign(const Self& s, size_type p, size_type n = npos) {
+		DA_CONSTEXPR_20 Self& assign(const Self& s, size_type p, size_type n = npos) {
 			if constexpr(has_assign_scr_i_i_v<Impl>) {
 				return Impl::assign(s, p, n);
 			}
 			return assign(s.data() + s._M_check_pos(p, "da::string_base::assign"), s._M_limit_length(p, n));
 		}
 
-		UTILITY_CONSTEXPR_20 Self& assign(std::initializer_list<Char> il) {
+		DA_CONSTEXPR_20 Self& assign(std::initializer_list<Char> il) {
 			if constexpr(has_assign_vl_v<Impl>) {
 				return Impl::assign(il);
 			}
 			return assign(il.begin(), il.size());
 		}
 
-		UTILITY_CONSTEXPR_20 Self& assign(size_type n, value_type c) {
+		DA_CONSTEXPR_20 Self& assign(size_type n, value_type c) {
 			if constexpr(has_assign_i_v_v<Impl>) {
 				return Impl::assign(n, c);
 			}
@@ -956,11 +956,11 @@ namespace da {
 		}
 
 		template<typename Iter, typename = require_forward_iterator<Iter>>
-		UTILITY_CONSTEXPR_20 Self& assign(Iter it1, Iter it2) {
+		DA_CONSTEXPR_20 Self& assign(Iter it1, Iter it2) {
 			return replace(0, size(), it1, it2);
 		}
 
-		UTILITY_CONSTEXPR_20 Self& operator=(Self&& s) {
+		DA_CONSTEXPR_20 Self& operator=(Self&& s) {
 			if constexpr(has_operator_equal_sR_v<Impl>) {
 				return Impl::operator=(s);
 			}
@@ -968,7 +968,7 @@ namespace da {
 		}
 
 	public: // Others
-		UTILITY_CONSTEXPR_20 void swap(const Self& s) {
+		DA_CONSTEXPR_20 void swap(const Self& s) {
 			if constexpr(has_swap_scr_v<Impl>) {
 				Impl::swap(s);
 				return;
@@ -986,4 +986,4 @@ namespace da {
 	};
 } // namespace da
 
-#endif // _UTILITY_STRING_HPP_
+#endif // _DA_STRING_HPP_

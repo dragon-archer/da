@@ -148,7 +148,7 @@ namespace da {
 		}
 
 		UTILITY_CONSTEXPR_20 void _M_destroy(size_type n) {
-			if(!is_sso()) {
+			if(!is_sso() && data() != nullptr) {
 				_M_deallocate(data(), n + 1);
 			}
 		}
@@ -187,9 +187,10 @@ namespace da {
 			if(!is_sso()) {
 				m_data.long_string.m_capacity = n;
 			} else {
-				assert(n > max_sso_size);
-				change_sso_to_normal();
-				m_data.long_string.m_capacity = n;
+				if(n > max_sso_size) {
+					change_sso_to_normal();
+					m_data.long_string.m_capacity = n;
+				}
 			}
 		}
 
@@ -197,15 +198,17 @@ namespace da {
 			if(!is_sso()) {
 				m_data.long_string.m_ptr = p;
 			} else {
-				data_type new_data;
-				new_data.long_string.m_ptr		= p;
-				new_data.long_string.m_capacity = capacity();
-				new_data.long_string.m_size		= size();
-				m_data							= new_data;
+				if(p != data()) {
+					data_type new_data;
+					new_data.long_string.m_ptr		= p;
+					new_data.long_string.m_capacity = capacity();
+					new_data.long_string.m_size		= size();
+					m_data							= new_data;
+				}
 			}
 		}
 
-	public: // Size-oriented
+	public:
 		UTILITY_CONSTEXPR_20 void reserve() {
 			if(is_sso()) {
 				return;
@@ -221,6 +224,10 @@ namespace da {
 				_M_data(tmp);
 				_M_capacity(s);
 			}
+		}
+
+		UTILITY_CONSTEXPR_20 void swap(const Self& s) {
+			std::swap(m_data, s.m_data);
 		}
 	};
 } // namespace da

@@ -29,10 +29,12 @@ namespace da {
 		}
 
 		constexpr pointer _M_allocate(size_type n) {
+			assert(n != 0);
 			return Alloc::allocate(n);
 		}
 
 		constexpr void _M_deallocate(pointer p, size_type n) {
+			assert(p != nullptr && n != 0);
 			Alloc::deallocate(p, n);
 		}
 

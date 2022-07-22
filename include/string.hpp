@@ -54,15 +54,6 @@ namespace da {
 		 *        2. Add descriptor after it if exists
 		 *        - r = left reference, R = right reference, c = const, l = std::initializer_list
 		 */
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor, Impl)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_pc, Impl, const_pointer)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_pc_i, Impl, const_pointer, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_scr, Impl, const Self&)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_scr_i, Impl, const Self&, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_scr_i_i, Impl, const Self&, size_type, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_vl, Impl, std::initializer_list<value_type>)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_i_i, Impl, size_type, size_type)
-		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_constructor_scR, Impl, const Self&&)
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_destructor, ~Impl)
 
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has__M_get_alloc, _M_get_alloc)
@@ -138,35 +129,72 @@ namespace da {
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_plusequal_vl, operator+=, std::initializer_list<value_type>)
 
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_pc_i, assign, const_pointer, size_type)
+		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_sR, assign, Self&&)
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_pc, assign, const_pointer)
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_scr, assign, const Self&)
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_scr_i_i, assign, const Self&, size_type, size_type)
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_vl, assign, std::initializer_list<value_type>)
 		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_assign_i_v, assign, size_type, value_type)
+		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_sR, operator+=, Self&&)
+		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_pc, operator+=, const_pointer)
+		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_scr, operator+=, const Self&)
+		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_operator_equal_v, operator+=, value_type)
+
+		UTILITY_DECLARE_MEMBER_FUNCTION_TEST(has_swap_scr, swap, const Self&)
 
 	public: // Constructors
 		UTILITY_CONSTEXPR_20 string_base() noexcept {
-			if constexpr(has_constructor_v<Impl>) {
-				Impl::Impl();
-				return;
-			}
 			size_type c = start_capacity;
 			_M_data(_M_create(c, 0));
 			_M_capacity(c);
 			_M_size(0);
 		}
 
-		UTILITY_CONSTEXPR_20 string_base(const Self& s) {
-			if constexpr(has_constructor_scr_v<Impl>) {
-				Impl::Impl(s);
-				return;
-			}
-			size_type c = s.size();
+		UTILITY_CONSTEXPR_20 string_base(const_pointer s, size_type n) {
+			size_type c = n;
 			_M_data(_M_create(c, 0));
 			_M_capacity(c);
-			_M_size(s.size());
-			_S_copy(data(), s.data(), s.size());
+			_S_copy(data(), s, n);
+			_M_size(n);
 		}
+
+		UTILITY_CONSTEXPR_20 string_base(size_type n, value_type v) {
+			size_type c = n;
+			_M_data(_M_create(c, 0));
+			_M_capacity(c);
+			_S_assign(data(), n, v);
+			_M_size(n);
+		}
+
+		UTILITY_CONSTEXPR_20 string_base(Self&& s) {
+			swap(move(s));
+		}
+
+		template<typename Iter, typename = require_forward_iterator<Iter>>
+		UTILITY_CONSTEXPR_20 string_base(Iter it1, Iter it2) {
+			// TODO: Optimize this to avoid access two times, thus we can accept input iterator
+			const size_type n = std::distance(it1, it2);
+			size_type		c = n;
+			_M_data(_M_create(c, 0));
+			_M_capacity(c);
+			_S_copy(data(), it1, n);
+			_M_size(n);
+		}
+
+		UTILITY_CONSTEXPR_20 string_base(const_pointer s)
+			: string_base(s, _S_length(s)) { }
+
+		UTILITY_CONSTEXPR_20 string_base(const Self& s)
+			: string_base(s.data(), s.size()) { }
+
+		UTILITY_CONSTEXPR_20 string_base(const Self& s, size_type pos)
+			: string_base(s.data() + s._M_check_pos(pos, "da::string_base::string_base"), s._M_limit_length(pos, npos)) { }
+
+		UTILITY_CONSTEXPR_20 string_base(const Self& s, size_type pos, size_type n)
+			: string_base(s.data() + s._M_check_pos(pos, "da::string_base::string_base"), s._M_limit_length(pos, n)) { }
+
+		UTILITY_CONSTEXPR_20 string_base(std::initializer_list<value_type> il)
+			: string_base(il.begin(), il.size()) { }
 
 		UTILITY_CONSTEXPR_20 ~string_base() {
 			if constexpr(has_destructor_v<Impl>) {
@@ -188,6 +216,7 @@ namespace da {
 			if constexpr(has__M_allocate_i_v<Impl>) {
 				return Impl::_M_allocate(n);
 			}
+			assert(n != 0);
 			return alloc_traits::allocate(_M_get_alloc(), n);
 		}
 
@@ -196,6 +225,7 @@ namespace da {
 				Impl::_M_deallocate(p, n);
 				return;
 			}
+			assert(p != nullptr && n != 0);
 			alloc_traits::deallocate(_M_get_alloc(), p, n);
 		}
 
@@ -341,6 +371,9 @@ namespace da {
 		UTILITY_CONSTEXPR_20 void _M_destroy(size_type n) {
 			if constexpr(has__M_destroy_i_v<Impl>) {
 				Impl::_M_destroy(n);
+				return;
+			}
+			UTILITY_IFUNLIKELY(data() == nullptr) {
 				return;
 			}
 			_M_deallocate(data(), n + 1);
@@ -763,7 +796,7 @@ namespace da {
 			return replace(it1 - begin(), it2 - it1, il.begin(), il.size());
 		}
 
-		template<typename Iter, typename = require_input_iterator<Iter>>
+		template<typename Iter, typename = require_forward_iterator<Iter>>
 		UTILITY_CONSTEXPR_20 Self& replace(const_iterator it1, const_iterator it2, Iter p1, Iter p2) {
 			Self tmp(p1, p2);
 			return replace(it1 - begin(), it2 - it1, tmp.data(), tmp.size());
@@ -822,7 +855,7 @@ namespace da {
 			return replace(size(), 0, n, c);
 		}
 
-		template<typename Iter, typename = require_input_iterator<Iter>>
+		template<typename Iter, typename = require_forward_iterator<Iter>>
 		UTILITY_CONSTEXPR_20 Self& append(Iter it1, Iter it2) {
 			return replace(size(), 0, it1, it2);
 		}
@@ -879,6 +912,14 @@ namespace da {
 			return replace(0, size(), p, n);
 		}
 
+		UTILITY_CONSTEXPR_20 Self& assign(Self&& s) {
+			if constexpr(has_assign_sR_v<Impl>) {
+				return Impl::assign(s);
+			}
+			swap(move(s));
+			return *this;
+		}
+
 		UTILITY_CONSTEXPR_20 Self& assign(const_pointer p) {
 			if constexpr(has_assign_pc_v<Impl>) {
 				return Impl::assign(p);
@@ -914,9 +955,33 @@ namespace da {
 			return replace(0, size(), n, c);
 		}
 
-		template<typename Iter, typename = require_input_iterator<Iter>>
+		template<typename Iter, typename = require_forward_iterator<Iter>>
 		UTILITY_CONSTEXPR_20 Self& assign(Iter it1, Iter it2) {
 			return replace(0, size(), it1, it2);
+		}
+
+		UTILITY_CONSTEXPR_20 Self& operator=(Self&& s) {
+			if constexpr(has_operator_equal_sR_v<Impl>) {
+				return Impl::operator=(s);
+			}
+			return assign(s);
+		}
+
+	public: // Others
+		UTILITY_CONSTEXPR_20 void swap(const Self& s) {
+			if constexpr(has_swap_scr_v<Impl>) {
+				Impl::swap(s);
+				return;
+			}
+			const pointer p = data();
+			_M_data(s.data());
+			s._M_data(p);
+			const size_type c = capacity();
+			_M_capacity(s.capacity());
+			s._M_capacity(c);
+			c = size();
+			_M_size(s.size());
+			s._M_size(c);
 		}
 	};
 } // namespace da

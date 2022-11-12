@@ -15,92 +15,76 @@
 #include <cstdlib>
 #include <exception> // for std::terminate()
 
-#ifndef __cplusplus
-#error Utility need to be compiled under C++, not C
-#elif __cplusplus < 201103L
-#error Utility need to be compiled under at least C++11, C++98 is not supported
-#elif __cplusplus < 201402L
-#warning Most features of Utility need to be compiled under at least C++17, using C++11 may cause lots of errors
-#define DA_11
-#elif __cplusplus < 201703L
-#warning Most features of Utility need to be compiled under at least C++17, using C++11 may cause lots of errors
-#define DA_11
-#define DA_14
-#elif __cplusplus < 202002L
-#define DA_11
-#define DA_14
-#define DA_17
-#else
-#define DA_11
-#define DA_14
-#define DA_17
-#define DA_20
+/// Editable configs
+/// Uncomment following lines to enable
+
+// #define DA_NO_EXCEPTIONS // Disable exceptions
+// #define DA_NO_NAMESPACE // Disable namespace
+
+// clang-format off
+
+/// Verify we have at least C++20
+#if !defined(__cplusplus) || __cplusplus < 202002L
+	#error LibDA should be compiled under at least C++20
 #endif
 
-#if defined(DA_11)
-#define DA_CONSTEXPR_11 constexpr
-#else
-#define DA_CONSTEXPR_11
-#endif
-
-#if defined(DA_14)
-#define DA_CONSTEXPR_14 constexpr
-#else
-#define DA_CONSTEXPR_14
-#endif
-
-#if defined(DA_17)
-#define DA_CONSTEXPR_17 constexpr
-#else
-#define DA_CONSTEXPR_17
-#endif
-
-#if defined(DA_20)
-#define DA_CONSTEXPR_20 constexpr
-#else
-#define DA_CONSTEXPR_20
-#endif
-
+/// Feature test macros
 #if defined(__has_cpp_attribute)
-#define DA_HAS_CPP_ATTRIBUTE(x) __has_cpp_attribute(x)
+	#define DA_HAS_CPP_ATTRIBUTE(x) __has_cpp_attribute(x)
 #else
-#define DA_HAS_CPP_ATTRIBUTE(x) 0
+	#define DA_HAS_CPP_ATTRIBUTE(x) 0
 #endif
 
 #if defined(__has_include)
-#define DA_HAS_INCLUDE(x) __has_include(x)
+	#define DA_HAS_INCLUDE(x) __has_include(x)
 #else
-#define DA_HAS_INCLUDE(x) 0
+	#define DA_HAS_INCLUDE(x) 0
 #endif
 
+/// Likely & unlikely
 #if DA_HAS_CPP_ATTRIBUTE(likely)
-#define DA_IFLIKELY(x)	 if(x) [[likely]]
-#define DA_IFUNLIKELY(x) if(x) [[unlikely]]
+	#define DA_IFLIKELY(x)	 if(x) [[likely]]
+	#define DA_IFUNLIKELY(x) if(x) [[unlikely]]
 #elif DA_11 // Most compiler support likely & unlikely since C++11
-#define DA_IFLIKELY(x)	 if(x) [[likely]]
-#define DA_IFUNLIKELY(x) if(x) [[unlikely]]
+	#define DA_IFLIKELY(x)	 if(x) [[likely]]
+	#define DA_IFUNLIKELY(x) if(x) [[unlikely]]
 #else
-#define DA_IFLIKELY(x)	 if(x)
-#define DA_IFUNLIKELY(x) if(x)
+	#define DA_IFLIKELY(x)	 if(x)
+	#define DA_IFUNLIKELY(x) if(x)
 #endif
 
-// Use DA_NO_EXCEPTION to disable all exceptions
+/// Exception
 #ifndef DA_NO_EXCEPTION
-#include <stdexcept>
-#define DA_TRY		   try
-#define DA_CATCH(x)	   catch(x)
-#define DA_THROW(x)	   throw(x)
-#define DA_THROW_AGAIN throw;
+	#include <stdexcept>
+	#define DA_TRY		   try
+	#define DA_CATCH(x)	   catch(x)
+	#define DA_THROW(x)	   throw(x)
+	#define DA_THROW_AGAIN throw
 #else
-#define DA_TRY		   DA_IFLIKELY(true)
-#define DA_CATCH	   DA_IFUNLIKELY(false)
-#define DA_THROW(x)	   std::terminate()
-#define DA_THROW_AGAIN std::terminate();
+	#define DA_TRY		   DA_IFLIKELY(true)
+	#define DA_CATCH	   DA_IFUNLIKELY(false)
+	#define DA_THROW(x)	   std::terminate()
+	#define DA_THROW_AGAIN std::terminate()
 #endif
 
-namespace da {
-	using std::ptrdiff_t;
-	using std::size_t;
-}
+/// Namespace
+#ifndef DA_NO_NAMESPACE
+	#define DA_BEGIN_NAMESPACE namespace da {
+	#define DA_END_NAMESPACE }
+	#define DA_NAMESAPCE ::da::
+#else
+	#define DA_BEGIN_NAMESPACE
+	#define DA_END_NAMESPACE
+	#define DA_NAMESPACE
+#endif
+
+// clang-format on
+
+DA_BEGIN_NAMESPACE
+
+using std::ptrdiff_t;
+using std::size_t;
+
+DA_END_NAMESPACE
 
 #endif // _LIBDA_CONFIG_HPP_

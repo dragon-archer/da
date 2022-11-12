@@ -12,29 +12,31 @@
 
 #include "../config.hpp"
 
-namespace da {
-	template<typename T>
-	struct aligned_buffer {
-	public:
-		alignas(alignof(T)) unsigned char m_storage[sizeof(T)];
+DA_BEGIN_NAMESPACE
 
-		aligned_buffer() = default;
-		// Avoid value-initialization zeroing m_storage
-		aligned_buffer(std::nullptr_t) { }
+template<typename T>
+struct aligned_buffer {
+public:
+	alignas(alignof(T)) unsigned char m_storage[sizeof(T)];
 
-		inline void* addr() noexcept {
-			return static_cast<void*>(&m_storage);
-		}
-		inline const void* addr() const noexcept {
-			return static_cast<const void*>(&m_storage);
-		}
-		inline T* ptr() noexcept {
-			return static_cast<T*>(&m_storage);
-		}
-		inline const T* ptr() const noexcept {
-			return static_cast<const T*>(&m_storage);
-		}
-	};
-}
+	aligned_buffer() = default;
+	// Avoid value-initialization zeroing m_storage
+	aligned_buffer(std::nullptr_t) { }
+
+	inline void* addr() noexcept {
+		return static_cast<void*>(&m_storage);
+	}
+	inline const void* addr() const noexcept {
+		return static_cast<const void*>(&m_storage);
+	}
+	inline T* ptr() noexcept {
+		return static_cast<T*>(&m_storage);
+	}
+	inline const T* ptr() const noexcept {
+		return static_cast<const T*>(&m_storage);
+	}
+};
+
+DA_END_NAMESPACE
 
 #endif // _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_

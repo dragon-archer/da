@@ -15,7 +15,7 @@
 
 /**
  * @brief Test whether the compiler support `__VA_OPT__`
- * @note  The trailing comma in `DA_HAS_VA_OPT_HELPER_1` is used to remove warning of zero arguments in `...`
+ * @note  The trailing comma in `DA_HAS_VA_OPT_HELPER` is used to remove warning of zero arguments in `...`
  */
 #define DA_HAS_VA_OPT_HELPER_2(_1, _2, x, ...) x
 #define DA_HAS_VA_OPT_HELPER(...)			   DA_HAS_VA_OPT_HELPER_2(__VA_OPT__(, ), 1, 0, )

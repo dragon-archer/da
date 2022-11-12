@@ -12,24 +12,28 @@
 
 #include "config.hpp"
 
+// clang-format off
+
 #if DA_HAS_INCLUDE(<format>) // If there is format library as C++ standard, use it
-#include <format>
-DA_BEGIN_NAMESPACE
-namespace fmt {
-	using std::format;
-	using std::format_to;
-	using std::format_to_n;
-	using std::formatted_size;
-	using std::vformat;
-	using std::vformat_to;
-}
-DA_END_NAMESPACE
-#elif DA_HAS_INCLUDE(<fmt / format.h>) // Otherwise if there is fmt library already installed in the system, use it
-#define FMT_HEADER_ONLY
-#include <fmt/format.h>
-DA_BEGIN_NAMESPACE
-namespace fmt = ::fmt;
-DA_END_NAMESPACE
+	#include <format>
+	DA_BEGIN_NAMESPACE
+	namespace fmt {
+		using std::format;
+		using std::format_to;
+		using std::format_to_n;
+		using std::formatted_size;
+		using std::vformat;
+		using std::vformat_to;
+	}
+	DA_END_NAMESPACE
+#elif DA_HAS_INCLUDE(<fmt/format.h>) // Otherwise if there is fmt library already installed in the system, use it
+	#define FMT_HEADER_ONLY
+	#include <fmt/format.h>
+	DA_BEGIN_NAMESPACE
+	namespace fmt = ::fmt;
+	DA_END_NAMESPACE
 #endif
+
+// clang-format on
 
 #endif // _LIBDA_FORMAT_HPP_

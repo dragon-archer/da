@@ -1,26 +1,32 @@
 ---
 Language: Cpp
 BasedOnStyle: WebKit
+
+AccessModifierOffset: 0
 AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: true
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
+AlignTrailingComments: true
+AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
-IfMacros:
-  - DA_IFLIKELY
-  - DA_IFUNLIKELY
-  - DA_TRY
-  - DA_CATCH
+Cpp11BracedListStyle: true
 IncludeCategories:
-  - Regex:         '.*'
-    Priority:      1
-    SortPriority:  0
-    CaseSensitive: false
+  - Regex:           'config\.h'
+    Priority:        -1
+  - Regex:           '".*"'
+    Priority:        1
+  - Regex:           ".*"
+    Priority:        2
+IncludeIsMainRegex: ''
+IncludeIsMainSourceRegex: ''
+IndentCaseLabels: true
+IndentPPDirectives: BeforeHash
 NamespaceIndentation:	All
-SortIncludes: false
 SpaceAfterTemplateKeyword: false
+SpaceBeforeCpp11BracedList: false
 SpaceBeforeParens: Never
 SpaceBeforeParensOptions:
   AfterIfMacros: false
 TabWidth: 4
-UseTab: Always
+UseTab: ForContinuationAndIndentation

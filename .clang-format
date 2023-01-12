@@ -11,6 +11,7 @@ AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
 Cpp11BracedListStyle: true
+IfMacros: ['DA_IFLIKELY', 'DA_IFUNLIKELY']
 IncludeCategories:
   - Regex:           'config\.h'
     Priority:        -1

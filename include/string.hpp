@@ -11,9 +11,9 @@
 #define _DA_STRING_HPP_
 
 #include "config.hpp"
-#include "string/string_fwd.hpp"
 #include "string/normal_string.hpp"
 #include "string/sso_string.hpp"
+#include "string/string_fwd.hpp"
 #include "type_traits.hpp"
 
 DA_BEGIN_NAMESPACE
@@ -21,30 +21,30 @@ DA_BEGIN_NAMESPACE
 template<typename Char, typename Traits, typename Alloc,
 		 template<typename, typename, typename> typename StringImpl>
 class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public inherit to wrap the interface
-private:
-	typedef StringImpl<Char, Traits, Alloc>				 Impl;
+	private:
+	typedef StringImpl<Char, Traits, Alloc>              Impl;
 	typedef string_base<Char, Traits, Alloc, StringImpl> Self;
 
-public:
-	typedef typename Impl::value_type			  value_type;
-	typedef typename Impl::traits_type			  traits_type;
-	typedef typename Impl::allocator_type		  allocator_type;
-	typedef typename Impl::alloc_traits			  alloc_traits;
-	typedef typename Impl::pointer				  pointer;
-	typedef typename Impl::const_pointer		  const_pointer;
-	typedef typename Impl::reference			  reference;
-	typedef typename Impl::const_reference		  const_reference;
-	typedef typename Impl::iterator				  iterator;
-	typedef typename Impl::const_iterator		  const_iterator;
-	typedef typename Impl::reverse_iterator		  reverse_iterator;
+	public:
+	typedef typename Impl::value_type             value_type;
+	typedef typename Impl::traits_type            traits_type;
+	typedef typename Impl::allocator_type         allocator_type;
+	typedef typename Impl::alloc_traits           alloc_traits;
+	typedef typename Impl::pointer                pointer;
+	typedef typename Impl::const_pointer          const_pointer;
+	typedef typename Impl::reference              reference;
+	typedef typename Impl::const_reference        const_reference;
+	typedef typename Impl::iterator               iterator;
+	typedef typename Impl::const_iterator         const_iterator;
+	typedef typename Impl::reverse_iterator       reverse_iterator;
 	typedef typename Impl::const_reverse_iterator const_reverse_iterator;
-	typedef typename Impl::size_type			  size_type;
-	typedef typename Impl::difference_type		  difference_type;
+	typedef typename Impl::size_type              size_type;
+	typedef typename Impl::difference_type        difference_type;
 
-	static constexpr size_type npos			  = Impl::npos;
+	static constexpr size_type npos           = Impl::npos;
 	static constexpr size_type start_capacity = 16; // Capacity should be no less than this
 
-private: // Declare feature test structures
+	private: // Declare feature test structures
 	/**
 	 * @brief Naming rule:
 	 *        1. Start with has_, followed by the function name
@@ -143,7 +143,7 @@ private: // Declare feature test structures
 
 	DA_DECLARE_MEMBER_FUNCTION_TEST(has_swap_scr, swap, const Self&)
 
-public: // Constructors
+	public: // Constructors
 	constexpr string_base() noexcept {
 		size_type c = start_capacity;
 		_M_data(_M_create(c, 0));
@@ -175,7 +175,7 @@ public: // Constructors
 	constexpr string_base(Iter it1, Iter it2) {
 		// TODO: Optimize this to avoid access two times, thus we can accept input iterator
 		const size_type n = std::distance(it1, it2);
-		size_type		c = n;
+		size_type       c = n;
 		_M_data(_M_create(c, 0));
 		_M_capacity(c);
 		_S_copy(data(), it1, n);
@@ -205,7 +205,7 @@ public: // Constructors
 		_M_dispose();
 	}
 
-protected: // Traits-oriented
+	protected: // Traits-oriented
 	constexpr allocator_type& _M_get_alloc() const noexcept {
 		if constexpr(has__M_get_alloc_v<const Impl>) {
 			return Impl::_M_get_alloc();
@@ -287,7 +287,7 @@ protected: // Traits-oriented
 		return traits_type::length(p);
 	}
 
-protected: // Internal functions
+	protected: // Internal functions
 	constexpr void _M_data(pointer p) noexcept {
 		if constexpr(has__M_data_p_v<Impl>) {
 			Impl::_M_data(p);
@@ -395,7 +395,7 @@ protected: // Internal functions
 		return ok ? offset : (size() - pos);
 	}
 
-public: // Basic operations
+	public: // Basic operations
 	constexpr pointer data() const noexcept {
 		if constexpr(has_data_v<const Impl>) {
 			return Impl::data();
@@ -432,7 +432,7 @@ public: // Basic operations
 		return std::min(npos, alloc_traits::max_size(_M_get_alloc())) - 1;
 	}
 
-public: // Iterators
+	public: // Iterators
 	constexpr iterator begin() noexcept {
 		if constexpr(has_begin_v<Impl>) {
 			return Impl::begin();
@@ -517,7 +517,7 @@ public: // Iterators
 		return const_reverse_iterator(begin());
 	}
 
-public: // Size-oriented
+	public: // Size-oriented
 	constexpr void reserve() {
 		if constexpr(has_reserve_v<Impl>) {
 			return Impl::reserve();
@@ -570,7 +570,7 @@ public: // Size-oriented
 		return size() == 0;
 	}
 
-public: // Member access
+	public: // Member access
 	constexpr reference operator[](size_type n) {
 		if constexpr(has_operator_square_i_v<Impl>) {
 			return Impl::operator[](n);
@@ -639,7 +639,7 @@ public: // Member access
 		return operator[](size() - 1);
 	}
 
-public: // Replace
+	public: // Replace
 	/**
 	 * @brief Change the content of the string in range [p, p + l1) to [s, s + l2)
 	 * @param p  The start position to change
@@ -656,10 +656,10 @@ public: // Replace
 		_M_check_pos(p, "da::string_base::replace");
 		_M_check_pos(p + l1, "da::string_base::replace");
 		_M_check_length(l1, l2, "da::string_base::replace");
-		const pointer	dat			 = data(); // Cache
-		const size_type remain_size	 = size() - l1 - p; // Remaining size of the origin string
-		size_type		new_capacity = size() - l1 + l2; // New capacity
-		if(new_capacity <= capacity()) { // No need to allocate the full string
+		const pointer   dat          = data();           // Cache
+		const size_type remain_size  = size() - l1 - p;  // Remaining size of the origin string
+		size_type       new_capacity = size() - l1 + l2; // New capacity
+		if(new_capacity <= capacity()) {                 // No need to allocate the full string
 			_S_copy_backward(dat + p + l2, dat + p + l1, remain_size);
 			if(s) { // The replace string is not empty
 				_S_copy(dat + p, s, l2);
@@ -694,10 +694,10 @@ public: // Replace
 		_M_check_pos(p, "da::string_base::replace");
 		_M_check_pos(p + l, "da::string_base::replace");
 		_M_check_length(l, n, "da::string_base::replace");
-		const pointer	dat			 = data(); // Cache
-		const size_type remain_size	 = size() - l - p; // Remaining size of the origin string
-		size_type		new_capacity = size() - l + n; // New capacity
-		if(new_capacity <= capacity()) { // No need to allocate the full string
+		const pointer   dat          = data();         // Cache
+		const size_type remain_size  = size() - l - p; // Remaining size of the origin string
+		size_type       new_capacity = size() - l + n; // New capacity
+		if(new_capacity <= capacity()) {               // No need to allocate the full string
 			_S_copy_backward(dat + p + n, dat + p + l, remain_size);
 			_S_assign(dat + p, n, c);
 		} else {
@@ -803,7 +803,7 @@ public: // Replace
 		return replace(it1 - begin(), it2 - it1, tmp.data(), tmp.size());
 	}
 
-public: // Append
+	public: // Append
 	/**
 	 * @brief  Append a string with length n to the end of the origin string
 	 * @param  p The string to append
@@ -902,7 +902,7 @@ public: // Append
 		return append(il);
 	}
 
-public: // Assignment
+	public: // Assignment
 	constexpr Self& assign(const_pointer p, size_type n) {
 		if constexpr(has_assign_pc_i_v<Impl>) {
 			return Impl::assign(p, n);
@@ -968,7 +968,7 @@ public: // Assignment
 		return assign(s);
 	}
 
-public: // Others
+	public: // Others
 	constexpr void swap(const Self& s) {
 		if constexpr(has_swap_scr_v<Impl>) {
 			Impl::swap(s);

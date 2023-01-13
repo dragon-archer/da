@@ -16,7 +16,7 @@ DA_BEGIN_NAMESPACE
 
 template<typename T>
 struct aligned_buffer {
-public:
+	public:
 	alignas(alignof(T)) unsigned char m_storage[sizeof(T)];
 
 	aligned_buffer() = default;

@@ -18,21 +18,21 @@ DA_BEGIN_NAMESPACE
 
 template<typename Iter, typename Container>
 class normal_iterator {
-protected:
+	protected:
 	Iter m_iter;
 	template<typename It>
 	using convertible_from = std::enable_if_t<std::is_convertible<It, Iter>::value>;
 
 	typedef normal_iterator Self;
 
-public:
-	typedef std::iterator_traits<Iter>			  traits_type;
-	typedef Iter								  iterator_type;
-	typedef std::random_access_iterator_tag		  iterator_catagory;
-	typedef typename traits_type::value_type	  value_type;
+	public:
+	typedef std::iterator_traits<Iter>            traits_type;
+	typedef Iter                                  iterator_type;
+	typedef std::random_access_iterator_tag       iterator_catagory;
+	typedef typename traits_type::value_type      value_type;
 	typedef typename traits_type::difference_type difference_type;
-	typedef typename traits_type::reference		  reference;
-	typedef typename traits_type::pointer		  pointer;
+	typedef typename traits_type::reference       reference;
+	typedef typename traits_type::pointer         pointer;
 
 	constexpr normal_iterator() noexcept
 		: m_iter(Iter()) { }
@@ -108,13 +108,13 @@ constexpr std::strong_ordering operator<=>(const normal_iterator<Iter1, Containe
 
 /// Iterator concepts
 
-using std::input_iterator;
-using std::output_iterator;
-using std::forward_iterator;
 using std::bidirectional_iterator;
-using std::random_access_iterator;
 using std::contiguous_iterator;
+using std::forward_iterator;
+using std::input_iterator;
 using std::input_or_output_iterator;
+using std::output_iterator;
+using std::random_access_iterator;
 
 DA_END_NAMESPACE
 

@@ -25,12 +25,13 @@
 #define DA_HAS_VA_OPT_HELPER(...)              DA_HAS_VA_OPT_HELPER_2(__VA_OPT__(, ), 1, 0, )
 #define DA_HAS_VA_OPT_HELPER_2(_1, _2, x, ...) x
 #if !DA_HAS_VA_OPT
+	#warning The compiler doesn't support __VA_OPT__, some macros might fail
 	#define __VA_OPT__(x) x
 #endif
 
 /**
  * @section DA_STR
- * @brief   A base macro to stringfy everything
+ * @brief   A basic macro to stringfy everything
  */
 #define DA_STR(x)        DA_STR_HELPER(x)
 #define DA_STR_HELPER(x) #x
@@ -47,13 +48,15 @@
 
 /**
  * @section DA_EXPAND
- * @brief   Fully expand a macro
+ * @brief   Fully expand anything
+ * @note    This macro is mainly used to enable a macro to repeat itself
+ *          You can @see DA_FOREACH and @see DA_FOLD_LEFT for detailed usage
  */
-#define DA_EXPAND(x)  DA_EXPAND1(DA_EXPAND1(DA_EXPAND1(DA_EXPAND1(x))))
-#define DA_EXPAND1(x) DA_EXPAND2(DA_EXPAND2(DA_EXPAND2(DA_EXPAND2(x))))
-#define DA_EXPAND2(x) DA_EXPAND3(DA_EXPAND3(DA_EXPAND3(DA_EXPAND3(x))))
-#define DA_EXPAND3(x) DA_EXPAND4(DA_EXPAND4(DA_EXPAND4(DA_EXPAND4(x))))
-#define DA_EXPAND4(x) x
+#define DA_EXPAND(...)  DA_EXPAND1(DA_EXPAND1(DA_EXPAND1(DA_EXPAND1(__VA_ARGS__))))
+#define DA_EXPAND1(...) DA_EXPAND2(DA_EXPAND2(DA_EXPAND2(DA_EXPAND2(__VA_ARGS__))))
+#define DA_EXPAND2(...) DA_EXPAND3(DA_EXPAND3(DA_EXPAND3(DA_EXPAND3(__VA_ARGS__))))
+#define DA_EXPAND3(...) DA_EXPAND4(DA_EXPAND4(DA_EXPAND4(DA_EXPAND4(__VA_ARGS__))))
+#define DA_EXPAND4(...) __VA_ARGS__
 
 #define DA_EXPAND_MAX 256
 

@@ -6,4 +6,4 @@ Some utility functions and classes, STL-compatible
 
 This project is published under MIT License
 
-Copyright(C) 2022 dragon-archer
+Copyright(C) 2022 - 2023 dragon-archer

@@ -4,7 +4,7 @@
  * @version   0.1
  * @author    dragon-archer (dragon-archer@outlook.com)
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #ifndef _LIBDA_TYPE_TRAITS_HPP_
@@ -23,24 +23,26 @@
  * @param FN  aka. function name
  * @param ... aka. the type of each parameter
  * @note  The template param is connected with @param SN to avoid conflict with user code
- * @note  This macro has been rewrite using @see DA_SUPER_FOREACH to avoid duplicate work
+ * @note  This macro has been rewrite using @see DA_FOREACH to avoid duplicate work
  */
-#define DA_DECLARE_MEMBER_FUNCTION_TEST(SN, FN, ...)                                                  \
-	template<typename T##SN>                                                                          \
-	struct SN {                                                                                       \
-	private:                                                                                          \
-		template<typename T2##SN>                                                                     \
-		static auto f(int)                                                                            \
-			-> decltype(std::declval<T2##SN>().FN(DA_SUPER_FOREACH(std::declval<, >(), __VA_ARGS__)), \
-						std::true_type());                                                            \
-		template<typename T2##SN>                                                                     \
-		static std::false_type f(...);                                                                \
-                                                                                                      \
-	public:                                                                                           \
-		static constexpr bool value = decltype(f<T##SN>(0))::value;                                   \
-	};                                                                                                \
-	template<typename T##SN>                                                                          \
+#define DA_DECLARE_MEMBER_FUNCTION_TEST(SN, FN, ...)                                            \
+	template<typename T##SN>                                                                    \
+	struct SN {                                                                                 \
+		private:                                                                                \
+		template<typename T2##SN>                                                               \
+		static auto f(int)                                                                      \
+			-> decltype(std::declval<T2##SN>().FN(DA_FOREACH(DA_DECLVAL_WRAPPER, __VA_ARGS__)), \
+						std::true_type());                                                      \
+		template<typename T2##SN>                                                               \
+		static std::false_type f(...);                                                          \
+                                                                                                \
+		public:                                                                                 \
+		static constexpr bool value = decltype(f<T##SN>(0))::value;                             \
+	};                                                                                          \
+	template<typename T##SN>                                                                    \
 	inline static constexpr bool SN##_v = SN<T##SN>::value;
+
+#define DA_DECLVAL_WRAPPER(type) std::declval<type>()
 
 /**
  * @brief Call OBJ.FN() and returns RT if exist, otherwise call the user-defined function below
@@ -135,7 +137,7 @@
  * @note  Currently the max number of parameters is 4
  */
 #define DA_USE_IF_EXIST(...)                              \
-	DA_CONCAT(DA_USE_IF_EXIST_, DA_VA_COUNT(__VA_ARGS__)) \
+	DA_CAT(DA_USE_IF_EXIST_, DA_CNT(__VA_ARGS__)) \
 	(__VA_ARGS__)
 
 DA_BEGIN_NAMESPACE
@@ -170,7 +172,7 @@ struct nth_type<N, T0, T1, T2, Ts...>
 /// make_sequence
 template<size_t Begin, ssize_t Step, size_t... Ns>
 inline constexpr auto _make_sequence(std::index_sequence<Ns...> = {}) {
-	return std::index_sequence<(Begin + Step * Ns)...> {};
+	return std::index_sequence<(Begin + Step * Ns)...>{};
 }
 
 template<size_t Begin, size_t End, ssize_t Step>
@@ -178,7 +180,7 @@ inline constexpr auto make_sequence() {
 	static_assert(Step != 0);
 	constexpr size_t count = (Step > 0) ? ((End - Begin + Step - 1) / Step)
 										: (ssize_t(End - Begin + Step + 1) / Step);
-	return _make_sequence<Begin, Step>(std::make_index_sequence<count> {});
+	return _make_sequence<Begin, Step>(std::make_index_sequence<count>{});
 }
 
 template<size_t Begin, size_t End>
@@ -203,7 +205,7 @@ struct typelist {
 
 	template<size_t... Ns>
 	static inline constexpr auto mask(std::index_sequence<Ns...> = {}) {
-		return typelist<type<Ns>...> {};
+		return typelist<type<Ns>...>{};
 	}
 
 	// Remove
@@ -244,7 +246,7 @@ struct typelist {
 	// Append
 	template<typename... Ts2>
 	static inline constexpr auto concat(typelist<Ts2...> = {}) {
-		return typelist<Ts..., Ts2...> {};
+		return typelist<Ts..., Ts2...>{};
 	}
 
 	// Compare

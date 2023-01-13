@@ -23,7 +23,7 @@
 
 /// Verify we have at least C++20
 #if !defined(__cplusplus) || __cplusplus < 202002L
-	#error LibDA should be compiled under at least C++20
+	#error "LibDA should be compiled under at least C++20"
 #endif
 
 /// Feature test macros

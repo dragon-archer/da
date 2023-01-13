@@ -25,7 +25,7 @@
 #define DA_HAS_VA_OPT_HELPER(...)              DA_HAS_VA_OPT_HELPER_2(__VA_OPT__(, ), 1, 0, )
 #define DA_HAS_VA_OPT_HELPER_2(_1, _2, x, ...) x
 #if !DA_HAS_VA_OPT
-	#warning The compiler doesn't support __VA_OPT__, some macros might fail
+	#warning "The compiler doesn't support __VA_OPT__, some macros might fail"
 	#define __VA_OPT__(x) x
 #endif
 

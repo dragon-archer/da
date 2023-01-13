@@ -11,6 +11,9 @@
 #define _LIBDA_PREPROCESSOR_HPP_
 
 #include "preprocessor/base.hpp"
+#include "preprocessor/cat.hpp"
+#include "preprocessor/fold.hpp"
 #include "preprocessor/foreach.hpp"
+#include "preprocessor/seq.hpp"
 
 #endif // _LIBDA_PREPROCESSOR_HPP_

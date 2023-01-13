@@ -75,11 +75,11 @@
 #ifndef DA_NO_NAMESPACE
 	#define DA_BEGIN_NAMESPACE namespace da {
 	#define DA_END_NAMESPACE   }
-	#define DA_NAMESAPCE       ::da
+	#define _DA                ::da::
 #else
 	#define DA_BEGIN_NAMESPACE
 	#define DA_END_NAMESPACE
-	#define DA_NAMESPACE
+	#define _DA ::
 #endif
 
 #endif // _LIBDA_CONFIG_HPP_

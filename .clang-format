@@ -11,19 +11,19 @@ AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
 Cpp11BracedListStyle: true
-IfMacros: ['DA_IFLIKELY', 'DA_IFUNLIKELY']
+IfMacros: ["DA_IFLIKELY", "DA_IFUNLIKELY"]
 IncludeCategories:
-  - Regex:           'config\.h'
-    Priority:        -1
-  - Regex:           '".*"'
-    Priority:        1
-  - Regex:           ".*"
-    Priority:        2
-IncludeIsMainRegex: ''
-IncludeIsMainSourceRegex: ''
+  - Regex: 'config\.h'
+    Priority: -1
+  - Regex: '".*"'
+    Priority: 1
+  - Regex: ".*"
+    Priority: 2
+IncludeIsMainRegex: ""
+IncludeIsMainSourceRegex: ""
 IndentCaseLabels: true
 IndentPPDirectives: BeforeHash
-NamespaceIndentation:	All
+NamespaceIndentation: All
 SpaceAfterTemplateKeyword: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeParens: Never

@@ -17,13 +17,13 @@ DA_BEGIN_NAMESPACE
 
 template<typename Char, typename Traits, typename Alloc>
 class string_traits : protected Alloc { // Empty-Base Optimization
-public:
+	public:
 	typedef typename Traits::char_type value_type;
 	typedef typename Alloc::size_type  size_type;
-	typedef value_type*				   pointer;
-	typedef const pointer			   const_pointer;
-	typedef value_type&				   reference;
-	typedef const value_type&		   const_reference;
+	typedef value_type*                pointer;
+	typedef const pointer              const_pointer;
+	typedef value_type&                reference;
+	typedef const value_type&          const_reference;
 
 	operator Alloc() {
 		return *static_cast<Alloc*>(this);

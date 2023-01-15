@@ -26,22 +26,22 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 
 	typedef sso_string_base<Char, Traits, Alloc> Self;
 
-public:
-	typedef Traits											traits_type;
-	typedef string_traits<Char, Traits, Alloc>				string_traits;
-	typedef typename traits_type::char_type					value_type;
-	typedef Alloc											allocator_type;
-	typedef std::allocator_traits<allocator_type>			alloc_traits;
-	typedef typename alloc_traits::size_type				size_type;
-	typedef typename alloc_traits::difference_type			difference_type;
-	typedef typename alloc_traits::pointer					pointer;
-	typedef typename alloc_traits::const_pointer			const_pointer;
-	typedef value_type&										reference;
-	typedef const value_type&								const_reference;
-	typedef normal_iterator<pointer, sso_string_base>		iterator;
+	public:
+	typedef Traits                                          traits_type;
+	typedef string_traits<Char, Traits, Alloc>              string_traits;
+	typedef typename traits_type::char_type                 value_type;
+	typedef Alloc                                           allocator_type;
+	typedef std::allocator_traits<allocator_type>           alloc_traits;
+	typedef typename alloc_traits::size_type                size_type;
+	typedef typename alloc_traits::difference_type          difference_type;
+	typedef typename alloc_traits::pointer                  pointer;
+	typedef typename alloc_traits::const_pointer            const_pointer;
+	typedef value_type&                                     reference;
+	typedef const value_type&                               const_reference;
+	typedef normal_iterator<pointer, sso_string_base>       iterator;
 	typedef normal_iterator<const_pointer, sso_string_base> const_iterator;
-	typedef std::reverse_iterator<iterator>					reverse_iterator;
-	typedef std::reverse_iterator<const_iterator>			const_reverse_iterator;
+	typedef std::reverse_iterator<iterator>                 reverse_iterator;
+	typedef std::reverse_iterator<const_iterator>           const_reverse_iterator;
 
 	// 2 represents alignment & '\0'
 	static constexpr size_type max_sso_size = ((2 * sizeof(size_type) + sizeof(pointer)) / sizeof(value_type)) - 2;
@@ -50,9 +50,9 @@ public:
 	static constexpr size_type npos = std::numeric_limits<size_type>::max() / 2;
 
 	constexpr sso_string_base() noexcept
-		: m_data { .short_string = { 0x80, { '\0' } } } { }
+		: m_data{.short_string = {0x80, {'\0'}}} { }
 
-private:
+	private:
 	// The memory layout is like:
 	// SSO:
 	// ---------------------------------
@@ -67,17 +67,17 @@ private:
 	// otherwise, it is in normal state;
 	union data_type {
 		struct {
-			uint8_t	   m_size;
+			uint8_t    m_size;
 			value_type m_ptr[max_sso_size + 1]; // One more Char for '\0'
 		} short_string;
 		struct {
 			size_type m_size;
 			size_type m_capacity;
-			pointer	  m_ptr;
+			pointer   m_ptr;
 		} long_string;
 	} m_data;
 
-protected: // Internal functions used by da::string
+	protected: // Internal functions used by da::string
 	// Check whether the string is optimized
 	constexpr bool is_sso() const noexcept {
 		return (*reinterpret_cast<const uint8_t* const>(&m_data)) & (0x80);
@@ -88,9 +88,9 @@ protected: // Internal functions used by da::string
 			return;
 		}
 		data_type new_data;
-		size_type s						= size();
+		size_type s                     = size();
 		new_data.long_string.m_capacity = 32 / sizeof(value_type); // nearest power of 2 that bigger than max_sso_size
-		new_data.long_string.m_ptr		= _M_create(new_data.long_string.m_capacity, max_sso_size);
+		new_data.long_string.m_ptr      = _M_create(new_data.long_string.m_capacity, max_sso_size);
 		_S_copy(new_data.long_string.m_ptr, data(), s);
 		m_data = new_data;
 		_M_size(s);
@@ -112,7 +112,7 @@ protected: // Internal functions used by da::string
 		_M_size(s);
 	}
 
-public: // Allocators
+	public: // Allocators
 	constexpr allocator_type& _M_get_alloc() const noexcept {
 		// Force convert this to non-const to make it work on const string
 		// Required by: max_size()
@@ -154,7 +154,7 @@ public: // Allocators
 		}
 	}
 
-public: // Basic operations
+	public: // Basic operations
 	constexpr size_type size() const noexcept {
 		return is_sso() ? static_cast<size_type>(m_data.short_string.m_size - 0x80) // SSO bit
 						: m_data.long_string.m_size;
@@ -201,15 +201,15 @@ public: // Basic operations
 		} else {
 			if(p != data()) {
 				data_type new_data;
-				new_data.long_string.m_ptr		= p;
+				new_data.long_string.m_ptr      = p;
 				new_data.long_string.m_capacity = capacity();
-				new_data.long_string.m_size		= size();
-				m_data							= new_data;
+				new_data.long_string.m_size     = size();
+				m_data                          = new_data;
 			}
 		}
 	}
 
-public:
+	public:
 	constexpr void reserve() {
 		if(is_sso()) {
 			return;

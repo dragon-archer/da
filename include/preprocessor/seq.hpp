@@ -25,4 +25,21 @@
 #define DA_SEQ_HEAD(...)              __VA_OPT__(DA_SEQ_HEAD_HELPER(__VA_ARGS__))
 #define DA_SEQ_HEAD_HELPER(head, ...) head
 
+/**
+ * @section DA_SEQ_REVERSE
+ * @brief   Reverse a sequence
+ */
+#define DA_SEQ_REVERSE(...) \
+	__VA_OPT__(DA_EXPAND(DA_SEQ_REVERSE_HELPER(__VA_ARGS__)))
+#define DA_SEQ_REVERSE_HELPER(head, ...)                      \
+	__VA_OPT__(DA_SEQ_REVERSE_AGAIN DA_PARENS(__VA_ARGS__), ) \
+	head
+#define DA_SEQ_REVERSE_AGAIN() DA_SEQ_REVERSE_HELPER
+
+/**
+ * @section DA_SEQ_TAIL
+ * @brief   Returns the last element of a sequence
+ */
+#define DA_SEQ_TAIL(...) DA_SEQ_HEAD(DA_SEQ_REVERSE(__VA_ARGS__))
+
 #endif // _LIBDA_PREPROCESSOR_SEQ_HPP_

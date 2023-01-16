@@ -14,9 +14,9 @@
  * @section preprocessor.dependency_graph
  * @brief   Dependency graph of preprocessor
  *
- * base ----> fold ----> cat
- *      \          \
- *       ---> seq -->--> foreach
+ * base ----> seq ----> fold ----> cat
+ *      \
+ *       ---> foreach
  */
 
 /**
@@ -103,6 +103,29 @@ TEST(preprocessor, DA_SEQ_HEAD) {
 
 	// Varadic arguments => rest of arguments ignored, can be anything
 	EXPECT_EQ(DA_SEQ_HEAD(42, 1a, int, ()), 42);
+}
+
+TEST(preprocessor, DA_SEQ_REVERSE) {
+	// Empty => nothing
+	EXPECT_STREQ(DA_STR(DA_SEQ_REVERSE()), "");
+
+	// Single => change nothing
+	EXPECT_EQ(DA_SEQ_REVERSE(1), 1);
+
+	// Varadic arguments => reverse
+	auto sequence_dependent_func = [](int a, int b, int c, int d) {
+		return a * 1 + b * 2 + c * 3 + d * 4;
+	};
+	EXPECT_EQ(sequence_dependent_func(DA_SEQ_REVERSE(1, 2, 3, 4)),
+			  sequence_dependent_func(4, 3, 2, 1));
+}
+
+TEST(preprocessor, DA_SEQ_TAIL) {
+	// Empty => nothing
+	EXPECT_STREQ(DA_STR(DA_SEQ_TAIL()), "");
+
+	// Varadic arguments => rest of arguments ignored, can be anything
+	EXPECT_EQ(DA_SEQ_TAIL(1a, int, (), 42), 42);
 }
 
 /**

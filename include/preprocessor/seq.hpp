@@ -22,19 +22,19 @@
  * @section DA_SEQ_HEAD
  * @brief   Simply return the first element of a sequence
  */
-#define DA_SEQ_HEAD(...)              __VA_OPT__(DA_SEQ_HEAD_HELPER(__VA_ARGS__))
-#define DA_SEQ_HEAD_HELPER(head, ...) head
+#define DA_SEQ_HEAD(...)         __VA_OPT__(DA_SEQ_HEAD_I(__VA_ARGS__))
+#define DA_SEQ_HEAD_I(head, ...) head
 
 /**
  * @section DA_SEQ_REVERSE
  * @brief   Reverse a sequence
  */
 #define DA_SEQ_REVERSE(...) \
-	__VA_OPT__(DA_EXPAND(DA_SEQ_REVERSE_HELPER(__VA_ARGS__)))
-#define DA_SEQ_REVERSE_HELPER(head, ...)                      \
-	__VA_OPT__(DA_SEQ_REVERSE_AGAIN DA_PARENS(__VA_ARGS__), ) \
+	__VA_OPT__(DA_EXPAND(DA_SEQ_REVERSE_I(__VA_ARGS__)))
+#define DA_SEQ_REVERSE_I(head, ...)                         \
+	__VA_OPT__(DA_SEQ_REVERSE_R DA_PARENS()(__VA_ARGS__), ) \
 	head
-#define DA_SEQ_REVERSE_AGAIN() DA_SEQ_REVERSE_HELPER
+#define DA_SEQ_REVERSE_R() DA_SEQ_REVERSE_I
 
 /**
  * @section DA_SEQ_TAIL

@@ -23,6 +23,12 @@
 #define DA_EMPTY(...)
 
 /**
+ * @section DA_COMMA
+ * @brief   Generate a comma
+ */
+#define DA_COMMA() ,
+
+/**
  * @section DA_HAS_VA_OPT
  * @brief   Test whether the compiler support `__VA_OPT__`, if not then define it
  * @note    The trailing comma in `DA_HAS_VA_OPT_I` is used to remove warning of zero arguments in `...`

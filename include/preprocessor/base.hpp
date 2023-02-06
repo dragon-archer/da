@@ -72,4 +72,10 @@
 
 #define DA_EXPAND_MAX 256
 
+/**
+ * @section DA_STATEMENT
+ * @brief   Make the macro a statement, that is, force the user to add a semicolon
+ */
+#define DA_STATEMENT() static_assert(true, "Missing semicolon!")
+
 #endif // _LIBDA_PREPROCESSOR_BASE_HPP_

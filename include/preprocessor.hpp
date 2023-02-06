@@ -14,6 +14,7 @@
 #include "preprocessor/bool.hpp"
 #include "preprocessor/cat.hpp"
 #include "preprocessor/conditional.hpp"
+#include "preprocessor/enum.hpp"
 #include "preprocessor/fold.hpp"
 #include "preprocessor/foreach.hpp"
 #include "preprocessor/logical.hpp"

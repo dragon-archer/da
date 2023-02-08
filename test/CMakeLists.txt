@@ -7,9 +7,11 @@
 # @copyright Copyright (c) 2023
 #
 
-set(GTEST_LIBS gtest gtest_main)
+find_package(GTest MODULE REQUIRED)
+
+set(GTEST_LIBS GTest::GTest GTest::Main)
 
 add_executable(test_preprocessor test_preprocessor.cpp)
-target_link_libraries(test_preprocessor ${GTEST_LIBS})
+target_link_libraries(test_preprocessor PRIVATE ${GTEST_LIBS})
 
 add_test(NAME test_preprocessor COMMAND test_preprocessor)

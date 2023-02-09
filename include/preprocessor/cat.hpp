@@ -14,15 +14,9 @@
 #include "fold.hpp"
 
 /**
- * @section DA_CAT2
- * @brief   Concat exact 2 params
- */
-#define DA_CAT2(_1, _2)   DA_CAT2_I(_1, _2)
-#define DA_CAT2_I(_1, _2) _1##_2
-
-/**
- * @section DA_CAT
- * @brief   Concat everything
+ * @brief Concat everything
+ * 
+ * This macro is the super version of DA_CAT2(), and can concat any number of params
  */
 #define DA_CAT(...) __VA_OPT__(DA_FOLD(DA_CAT2, __VA_ARGS__))
 

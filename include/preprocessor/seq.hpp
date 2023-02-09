@@ -17,17 +17,17 @@
 #define _LIBDA_PREPROCESSOR_SEQ_HPP_
 
 #include "base.hpp"
+#include "conditional.hpp"
+#include "dec.hpp"
 
 /**
- * @section DA_SEQ_HEAD
- * @brief   Simply return the first element of a sequence
+ * @brief Simply return the first element of a sequence
  */
 #define DA_SEQ_HEAD(...)         __VA_OPT__(DA_SEQ_HEAD_I(__VA_ARGS__))
 #define DA_SEQ_HEAD_I(head, ...) head
 
 /**
- * @section DA_SEQ_REVERSE
- * @brief   Reverse a sequence
+ * @brief Reverse a sequence
  */
 #define DA_SEQ_REVERSE(...) \
 	__VA_OPT__(DA_EXPAND(DA_SEQ_REVERSE_I(__VA_ARGS__)))
@@ -37,9 +37,18 @@
 #define DA_SEQ_REVERSE_R() DA_SEQ_REVERSE_I
 
 /**
- * @section DA_SEQ_TAIL
- * @brief   Returns the last element of a sequence
+ * @brief Returns the last element of a sequence
  */
 #define DA_SEQ_TAIL(...) DA_SEQ_HEAD(DA_SEQ_REVERSE(__VA_ARGS__))
+
+/**
+ * @brief Get nth param of a sequence
+ */
+#define DA_SEQ_GET(n, ...) DA_EXPAND(DA_SEQ_GET_I(n, __VA_ARGS__))
+#define DA_SEQ_GET_I(n, _1, ...)     \
+	DA_IF(n, DA_SEQ_GET_R, DA_EMPTY) \
+	DA_PARENS()                      \
+	DA_IF(n, (DA_DEC(n) __VA_OPT__(, ) __VA_ARGS__), _1)
+#define DA_SEQ_GET_R() DA_SEQ_GET_I
 
 #endif // _LIBDA_PREPROCESSOR_SEQ_HPP_

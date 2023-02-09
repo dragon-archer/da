@@ -10,13 +10,15 @@
 #ifndef _LIBDA_PREPROCESSOR_BOOL_HPP_
 #define _LIBDA_PREPROCESSOR_BOOL_HPP_
 
-#include "cat.hpp"
+#include "base.hpp"
 
 /**
- * @section DA_BOOL
- * @brief   Act like bool(x)
+ * @brief Make the param a boolean
  */
-#define DA_BOOL(x)  DA_CAT2(DA_BOOL_, x)
+#define DA_BOOL(x) DA_CAT2(DA_BOOL_, x)
+
+#define DA_BOOL_MAX 256
+
 #define DA_BOOL_0   0
 #define DA_BOOL_1   1
 #define DA_BOOL_2   1
@@ -274,7 +276,5 @@
 #define DA_BOOL_254 1
 #define DA_BOOL_255 1
 #define DA_BOOL_256 1
-
-#define DA_BOOL_MAX 256
 
 #endif // _LIBDA_PREPROCESSOR_BOOL_HPP_

@@ -10,11 +10,10 @@
 #ifndef _LIBDA_PREPROCESSOR_DEC_HPP_
 #define _LIBDA_PREPROCESSOR_DEC_HPP_
 
-#include "cat.hpp"
+#include "base.hpp"
 
 /**
- * @section DA_DEC
- * @brief   Return @param x - 1
+ * @brief Decrease the param
  */
 #define DA_DEC(x) DA_CAT2(DA_DEC_, x)
 

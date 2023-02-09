@@ -10,11 +10,10 @@
 #ifndef _LIBDA_PREPROCESSOR_INC_HPP_
 #define _LIBDA_PREPROCESSOR_INC_HPP_
 
-#include "cat.hpp"
+#include "base.hpp"
 
 /**
- * @section DA_INC
- * @brief   Return @param x + 1
+ * @brief Increase the param
  */
 #define DA_INC(x) DA_CAT2(DA_INC_, x)
 

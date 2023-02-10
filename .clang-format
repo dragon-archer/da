@@ -15,7 +15,7 @@ IfMacros: ["DA_IFLIKELY", "DA_IFUNLIKELY"]
 IncludeCategories:
   - Regex: 'config\.h'
     Priority: -1
-  - Regex: '".*"'
+  - Regex: 'da/'
     Priority: 1
   - Regex: ".*"
     Priority: 2

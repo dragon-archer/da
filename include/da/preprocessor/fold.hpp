@@ -10,8 +10,8 @@
 #ifndef _LIBDA_PREPROCESSOR_FOLD_HPP_
 #define _LIBDA_PREPROCESSOR_FOLD_HPP_
 
-#include "base.hpp"
-#include "seq.hpp"
+#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/seq.hpp>
 
 /**
  * @section DA_FOLD

@@ -16,9 +16,9 @@
 #ifndef _LIBDA_PREPROCESSOR_SEQ_HPP_
 #define _LIBDA_PREPROCESSOR_SEQ_HPP_
 
-#include "base.hpp"
-#include "conditional.hpp"
-#include "dec.hpp"
+#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/conditional.hpp>
+#include <da/preprocessor/dec.hpp>
 
 /**
  * @brief Simply return the first element of a sequence

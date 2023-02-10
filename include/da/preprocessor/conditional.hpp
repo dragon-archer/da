@@ -10,8 +10,8 @@
 #ifndef _LIBDA_PREPROCESSOR_CONDITIONAL_HPP_
 #define _LIBDA_PREPROCESSOR_CONDITIONAL_HPP_
 
-#include "base.hpp"
-#include "bool.hpp"
+#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/bool.hpp>
 
 /**
  * @brief Conditional support

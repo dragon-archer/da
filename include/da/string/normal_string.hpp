@@ -10,9 +10,9 @@
 #ifndef _DA_STRING_NORMAL_STRING_HPP_
 #define _DA_STRING_NORMAL_STRING_HPP_
 
-#include "../config.hpp"
-#include "string_fwd.hpp"
-#include "string_traits.hpp"
+#include <da/config.hpp>
+#include <da/string/string_fwd.hpp>
+#include <da/string/string_traits.hpp>
 
 DA_BEGIN_NAMESPACE
 

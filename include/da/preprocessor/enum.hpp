@@ -10,8 +10,7 @@
 #ifndef _LIBDA_PREPROCESSOR_ENUM_HPP_
 #define _LIBDA_PREPROCESSOR_ENUM_HPP_
 
-#include "base.hpp"
-#include "cat.hpp"
+#include <da/preprocessor/base.hpp>
 #include <type_traits>
 
 /**

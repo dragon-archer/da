@@ -10,8 +10,8 @@
 #ifndef _LIBDA_TYPE_TRAITS_HPP_
 #define _LIBDA_TYPE_TRAITS_HPP_
 
-#include "config.hpp"
-#include "preprocessor.hpp"
+#include <da/config.hpp>
+#include <da/preprocessor.hpp>
 #include <type_traits>
 
 /// Macros
@@ -136,7 +136,7 @@
  *        which may not work proper with overloading
  * @note  Currently the max number of parameters is 4
  */
-#define DA_USE_IF_EXIST(...)                              \
+#define DA_USE_IF_EXIST(...)                      \
 	DA_CAT(DA_USE_IF_EXIST_, DA_CNT(__VA_ARGS__)) \
 	(__VA_ARGS__)
 

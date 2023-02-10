@@ -10,11 +10,11 @@
 #ifndef _LIBDA_PREPROCESSOR_LOGICAL_HPP_
 #define _LIBDA_PREPROCESSOR_LOGICAL_HPP_
 
-#include "base.hpp"
-#include "bool.hpp"
-#include "cat.hpp"
-#include "conditional.hpp"
-#include "empty.hpp"
+#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/bool.hpp>
+#include <da/preprocessor/cat.hpp>
+#include <da/preprocessor/conditional.hpp>
+#include <da/preprocessor/empty.hpp>
 
 /**
  * @brief Bitnot

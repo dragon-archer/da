@@ -10,7 +10,7 @@
 #ifndef _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
 #define _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
 
-#include "../config.hpp"
+#include <da/config.hpp>
 
 DA_BEGIN_NAMESPACE
 

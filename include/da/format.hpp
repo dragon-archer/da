@@ -10,7 +10,7 @@
 #ifndef _LIBDA_FORMAT_HPP_
 #define _LIBDA_FORMAT_HPP_
 
-#include "config.hpp"
+#include <da/config.hpp>
 
 // clang-format off
 

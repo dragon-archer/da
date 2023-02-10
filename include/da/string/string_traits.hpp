@@ -10,8 +10,8 @@
 #ifndef _DA_STRING_STRING_TRAITS_HPP_
 #define _DA_STRING_STRING_TRAITS_HPP_
 
-#include "../config.hpp"
-#include "string_fwd.hpp"
+#include <da/config.hpp>
+#include <da/string/string_fwd.hpp>
 
 DA_BEGIN_NAMESPACE
 

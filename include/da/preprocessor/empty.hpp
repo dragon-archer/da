@@ -10,8 +10,8 @@
 #ifndef _LIBDA_PREPROCESSOR_EMPTY_HPP_
 #define _LIBDA_PREPROCESSOR_EMPTY_HPP_
 
-#include "base.hpp"
-#include "seq.hpp"
+#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/seq.hpp>
 
 /**
  * @brief Detect whether the argument is empty

@@ -10,7 +10,7 @@
 #ifndef _LIBDA_MEMORY_HPP_
 #define _LIBDA_MEMORY_HPP_
 
-#include "config.hpp"
-#include "memory/aligned_buffer.hpp"
+#include <da/config.hpp>
+#include <da/memory/aligned_buffer.hpp>
 
 #endif // _LIBDA_MEMORY_HPP_

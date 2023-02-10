@@ -10,7 +10,7 @@
 #ifndef _LIBDA_ITERATOR_HPP_
 #define _LIBDA_ITERATOR_HPP_
 
-#include "config.hpp"
+#include <da/config.hpp>
 #include <compare>
 #include <iterator>
 

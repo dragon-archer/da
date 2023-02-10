@@ -10,9 +10,9 @@
 #ifndef _DA_STRING_STRING_FWD_HPP_
 #define _DA_STRING_STRING_FWD_HPP_
 
-#include "../config.hpp"
-#include "../format.hpp"
-#include "../iterator.hpp"
+#include <da/config.hpp>
+#include <da/format.hpp>
+#include <da/iterator.hpp>
 #include <bits/alloc_traits.h> // for std::alloc_traits
 #include <bits/char_traits.h>  // for std::char_traits
 #include <limits>              // for std::numeric_limits

@@ -13,6 +13,16 @@
 #include "base.hpp"
 
 /**
+ * @brief Always return 1
+ */
+#define DA_TRUE(...) 1
+
+/**
+ * @brief Always return 0
+ */
+#define DA_FALSE(...) 0
+
+/**
  * @brief Make the param a boolean
  */
 #define DA_BOOL(x) DA_CAT2(DA_BOOL_, x)

@@ -14,10 +14,14 @@
 #include "preprocessor/bool.hpp"
 #include "preprocessor/cat.hpp"
 #include "preprocessor/conditional.hpp"
+#include "preprocessor/dec.hpp"
 #include "preprocessor/enum.hpp"
 #include "preprocessor/fold.hpp"
 #include "preprocessor/foreach.hpp"
+#include "preprocessor/inc.hpp"
 #include "preprocessor/logical.hpp"
+#include "preprocessor/range.hpp"
 #include "preprocessor/seq.hpp"
+#include "preprocessor/tuple.hpp"
 
 #endif // _LIBDA_PREPROCESSOR_HPP_

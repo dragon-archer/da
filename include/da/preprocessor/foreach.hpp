@@ -13,8 +13,7 @@
 #include "base.hpp"
 
 /**
- * @section DA_FOREACH
- * @brief   This macro implements a basic foreach at preprocess time
+ * @brief This macro implements a basic foreach at preprocess time
  */
 #define DA_FOREACH(op, ...) \
 	__VA_OPT__(DA_EXPAND(DA_FOREACH_I(op, __VA_ARGS__)))

@@ -49,15 +49,15 @@ endif()
 include(CMakePackageConfigHelpers)
 
 write_basic_package_version_file(
-	${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
 	VERSION ${PROJECT_VERSION}
 	COMPATIBILITY SameMajorVersion
 	ARCH_INDEPENDENT
 )
 
 configure_package_config_file(
-	${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
-	${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+	${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}-config.cmake.in
+	${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
 	INSTALL_DESTINATION ${INSTALL_CMAKE_DIR}
 )
 
@@ -70,19 +70,19 @@ if(DA_Install)
 
 	install(
 		TARGETS ${TARGET_NAME}
-		EXPORT ${PROJECT_NAME}Targets
+		EXPORT ${PROJECT_NAME}-targets
 	)
 
 	install(
-		EXPORT      ${PROJECT_NAME}Targets
+		EXPORT      ${PROJECT_NAME}-targets
 		NAMESPACE   "${PROJECT_NAME}::"
 		DESTINATION ${INSTALL_CMAKE_DIR}
 	)
 
 	install(
 		FILES
-			${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-			${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+			${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+			${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
 		DESTINATION
 			${INSTALL_CMAKE_DIR}
 	)

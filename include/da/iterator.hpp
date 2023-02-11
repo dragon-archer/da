@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _LIBDA_ITERATOR_HPP_
-#define _LIBDA_ITERATOR_HPP_
+#ifndef _DA_ITERATOR_HPP_
+#define _DA_ITERATOR_HPP_
 
 #include <da/config.hpp>
 #include <compare>
@@ -118,4 +118,4 @@ using std::random_access_iterator;
 
 DA_END_NAMESPACE
 
-#endif // _LIBDA_ITERATOR_HPP_
+#endif // _DA_ITERATOR_HPP_

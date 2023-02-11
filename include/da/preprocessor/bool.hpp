@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_BOOL_HPP_
-#define _LIBDA_PREPROCESSOR_BOOL_HPP_
+#ifndef _DA_PREPROCESSOR_BOOL_HPP_
+#define _DA_PREPROCESSOR_BOOL_HPP_
 
 #include <da/preprocessor/base.hpp>
 
@@ -287,4 +287,4 @@
 #define DA_BOOL_255 1
 #define DA_BOOL_256 1
 
-#endif // _LIBDA_PREPROCESSOR_BOOL_HPP_
+#endif // _DA_PREPROCESSOR_BOOL_HPP_

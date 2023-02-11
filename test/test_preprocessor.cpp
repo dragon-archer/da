@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2023
  */
 
-#include "../include/preprocessor.hpp"
+#include <da/preprocessor.hpp>
 #include <gtest/gtest.h>
 
 /**
@@ -175,4 +175,23 @@ TEST(preprocessor, DA_FOREACH) {
 	EXPECT_EQ(c, 1);
 
 #undef DA_TEST_MACRO_ASSIGN
+}
+
+TEST(preprocessor, DA_AND) {
+	_MSVC_TRADITIONAL;
+	DA_AND();
+	DA_AND(0);
+	DA_AND(1);
+	DA_AND(0, 0);
+	DA_AND(0, 1);
+	DA_AND(1, 0);
+	DA_AND(1, 1);
+	DA_AND(0, 0, 0);
+	DA_AND(0, 0, 1);
+	DA_AND(0, 1, 0);
+	DA_AND(0, 1, 1);
+	DA_AND(1, 0, 0);
+	DA_AND(1, 0, 1);
+	DA_AND(1, 1, 0);
+	DA_AND(1, 1, 1);
 }

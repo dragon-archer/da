@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022 - 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_HPP_
-#define _LIBDA_PREPROCESSOR_HPP_
+#ifndef _DA_PREPROCESSOR_HPP_
+#define _DA_PREPROCESSOR_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/bool.hpp>
@@ -24,4 +24,4 @@
 #include <da/preprocessor/seq.hpp>
 #include <da/preprocessor/tuple.hpp>
 
-#endif // _LIBDA_PREPROCESSOR_HPP_
+#endif // _DA_PREPROCESSOR_HPP_

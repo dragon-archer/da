@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_ENUM_HPP_
-#define _LIBDA_PREPROCESSOR_ENUM_HPP_
+#ifndef _DA_PREPROCESSOR_ENUM_HPP_
+#define _DA_PREPROCESSOR_ENUM_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <type_traits>
@@ -64,4 +64,4 @@
 	DA_ENUM_ASSIGN_OP(enum_, ^); \
 	DA_ENUM_UNARY_OP(enum_, ~);
 
-#endif // _LIBDA_PREPROCESSOR_ENUM_HPP_
+#endif // _DA_PREPROCESSOR_ENUM_HPP_

@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022- 2023
  */
 
-#ifndef _LIBDA_CONFIG_HPP_
-#define _LIBDA_CONFIG_HPP_
+#ifndef _DA_CONFIG_HPP_
+#define _DA_CONFIG_HPP_
 
 #include <cassert>
 #include <cstddef>
@@ -23,7 +23,7 @@
 
 /// Verify we have at least C++20
 #if !defined(__cplusplus) || __cplusplus < 202002L
-	#error "LibDA should be compiled under at least C++20"
+	#error "DA should be compiled under at least C++20"
 #endif
 
 /// Feature test macros
@@ -82,4 +82,4 @@
 	#define _DA ::
 #endif
 
-#endif // _LIBDA_CONFIG_HPP_
+#endif // _DA_CONFIG_HPP_

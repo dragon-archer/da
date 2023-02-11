@@ -1,5 +1,5 @@
-#ifndef _LIBDA_CONCEPTS_HPP_
-#define _LIBDA_CONCEPTS_HPP_
+#ifndef _DA_CONCEPTS_HPP_
+#define _DA_CONCEPTS_HPP_
 
 #include <da/config.hpp>
 #include <concepts>
@@ -13,4 +13,4 @@ concept invocable_r = std::is_invocable_r_v<Ret, Func, Args...>;
 
 DA_END_NAMESPACE
 
-#endif // _LIBDA_CONCEPTS_HPP_
+#endif // _DA_CONCEPTS_HPP_

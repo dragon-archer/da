@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_TUPLE_HPP_
-#define _LIBDA_PREPROCESSOR_TUPLE_HPP_
+#ifndef _DA_PREPROCESSOR_TUPLE_HPP_
+#define _DA_PREPROCESSOR_TUPLE_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/conditional.hpp>
@@ -41,4 +41,4 @@
  */
 #define DA_TUPLE_GET(n, x) DA_SEQ_GET(n, DA_TUPLE_UNPACK(x))
 
-#endif // _LIBDA_PREPROCESSOR_TUPLE_HPP_
+#endif // _DA_PREPROCESSOR_TUPLE_HPP_

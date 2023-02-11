@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_FOREACH_HPP_
-#define _LIBDA_PREPROCESSOR_FOREACH_HPP_
+#ifndef _DA_PREPROCESSOR_FOREACH_HPP_
+#define _DA_PREPROCESSOR_FOREACH_HPP_
 
 #include <da/preprocessor/base.hpp>
 
@@ -21,4 +21,4 @@
 	op(_1) __VA_OPT__(DA_FOREACH_R DA_PARENS()(op, __VA_ARGS__))
 #define DA_FOREACH_R() DA_FOREACH_I
 
-#endif // _LIBDA_PREPROCESSOR_FOREACH_HPP_
+#endif // _DA_PREPROCESSOR_FOREACH_HPP_

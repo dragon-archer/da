@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_CONDITIONAL_HPP_
-#define _LIBDA_PREPROCESSOR_CONDITIONAL_HPP_
+#ifndef _DA_PREPROCESSOR_CONDITIONAL_HPP_
+#define _DA_PREPROCESSOR_CONDITIONAL_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/bool.hpp>
@@ -20,4 +20,4 @@
 #define DA_IF_0(t, f)  f
 #define DA_IF_1(t, f)  t
 
-#endif // _LIBDA_PREPROCESSOR_CONDITIONAL_HPP_
+#endif // _DA_PREPROCESSOR_CONDITIONAL_HPP_

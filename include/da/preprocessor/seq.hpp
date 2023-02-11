@@ -13,8 +13,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_SEQ_HPP_
-#define _LIBDA_PREPROCESSOR_SEQ_HPP_
+#ifndef _DA_PREPROCESSOR_SEQ_HPP_
+#define _DA_PREPROCESSOR_SEQ_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/conditional.hpp>
@@ -51,4 +51,4 @@
 	DA_IF(n, (DA_DEC(n) __VA_OPT__(, ) __VA_ARGS__), _1)
 #define DA_SEQ_GET_R() DA_SEQ_GET_I
 
-#endif // _LIBDA_PREPROCESSOR_SEQ_HPP_
+#endif // _DA_PREPROCESSOR_SEQ_HPP_

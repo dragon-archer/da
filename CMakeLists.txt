@@ -8,7 +8,7 @@
 #
 
 cmake_minimum_required(VERSION 3.16)
-project(libda VERSION 0.1 LANGUAGES CXX)
+project(da VERSION 0.1 LANGUAGES CXX)
 
 enable_testing()
 

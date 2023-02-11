@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_FOLD_HPP_
-#define _LIBDA_PREPROCESSOR_FOLD_HPP_
+#ifndef _DA_PREPROCESSOR_FOLD_HPP_
+#define _DA_PREPROCESSOR_FOLD_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/seq.hpp>
@@ -34,4 +34,4 @@
 	op(_1, _2)
 #define DA_FOLD_LEFT_R() DA_FOLD_LEFT_II
 
-#endif // _LIBDA_PREPROCESSOR_FOLD_HPP_
+#endif // _DA_PREPROCESSOR_FOLD_HPP_

@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_DEC_HPP_
-#define _LIBDA_PREPROCESSOR_DEC_HPP_
+#ifndef _DA_PREPROCESSOR_DEC_HPP_
+#define _DA_PREPROCESSOR_DEC_HPP_
 
 #include <da/preprocessor/base.hpp>
 
@@ -276,4 +276,4 @@
 #define DA_DEC_255 254
 #define DA_DEC_256 255
 
-#endif // _LIBDA_PREPROCESSOR_DEC_HPP_
+#endif // _DA_PREPROCESSOR_DEC_HPP_

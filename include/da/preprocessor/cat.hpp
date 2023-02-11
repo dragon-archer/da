@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_CAT_HPP_
-#define _LIBDA_PREPROCESSOR_CAT_HPP_
+#ifndef _DA_PREPROCESSOR_CAT_HPP_
+#define _DA_PREPROCESSOR_CAT_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/fold.hpp>
@@ -20,4 +20,4 @@
  */
 #define DA_CAT(...) __VA_OPT__(DA_FOLD(DA_CAT2, __VA_ARGS__))
 
-#endif // _LIBDA_PREPROCESSOR_CAT_HPP_
+#endif // _DA_PREPROCESSOR_CAT_HPP_

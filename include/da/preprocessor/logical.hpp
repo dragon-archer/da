@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2023
  */
 
-#ifndef _LIBDA_PREPROCESSOR_LOGICAL_HPP_
-#define _LIBDA_PREPROCESSOR_LOGICAL_HPP_
+#ifndef _DA_PREPROCESSOR_LOGICAL_HPP_
+#define _DA_PREPROCESSOR_LOGICAL_HPP_
 
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/bool.hpp>
@@ -90,4 +90,4 @@
 	(__VA_ARGS__)
 #define DA_OR_R() DA_OR_I
 
-#endif // _LIBDA_PREPROCESSOR_LOGICAL_HPP_
+#endif // _DA_PREPROCESSOR_LOGICAL_HPP_

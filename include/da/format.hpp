@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _LIBDA_FORMAT_HPP_
-#define _LIBDA_FORMAT_HPP_
+#ifndef _DA_FORMAT_HPP_
+#define _DA_FORMAT_HPP_
 
 #include <da/config.hpp>
 
@@ -36,4 +36,4 @@
 
 // clang-format on
 
-#endif // _LIBDA_FORMAT_HPP_
+#endif // _DA_FORMAT_HPP_

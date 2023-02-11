@@ -1,4 +1,4 @@
-# LibDA
+# DA
 
 Some utility functions and classes, STL-compatible
 

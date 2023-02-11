@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022 - 2023
  */
 
-#ifndef _LIBDA_TYPE_TRAITS_HPP_
-#define _LIBDA_TYPE_TRAITS_HPP_
+#ifndef _DA_TYPE_TRAITS_HPP_
+#define _DA_TYPE_TRAITS_HPP_
 
 #include <da/config.hpp>
 #include <da/preprocessor.hpp>
@@ -288,4 +288,4 @@ using rebind_types = typename __rebind_types<T1>::template type<T2>;
 
 DA_END_NAMESPACE
 
-#endif // _LIBDA_TYPE_TRAITS_HPP_
+#endif // _DA_TYPE_TRAITS_HPP_

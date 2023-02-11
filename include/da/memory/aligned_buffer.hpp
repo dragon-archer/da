@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#ifndef _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
-#define _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
+#ifndef _DA_MEMORY_ALIGNED_BUFFER_HPP_
+#define _DA_MEMORY_ALIGNED_BUFFER_HPP_
 
 #include <da/config.hpp>
 
@@ -39,4 +39,4 @@ struct aligned_buffer {
 
 DA_END_NAMESPACE
 
-#endif // _LIBDA_MEMORY_ALIGNED_BUFFER_HPP_
+#endif // _DA_MEMORY_ALIGNED_BUFFER_HPP_

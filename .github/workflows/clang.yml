@@ -17,10 +17,8 @@ jobs:
         build_type: [Debug, Release]
     steps:
     - uses: actions/checkout@v3
-    - name: Install Google Test
-      run: vcpkg install gtest
     - name: Run CMake
-      run: cmake -S . -B build -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake" -DDA_BuildTests=ON
+      run: cmake -S . -B build -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DDA_BuildTests=ON
     - name: Build
       run: cmake --build build
     - name: Test

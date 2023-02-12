@@ -176,22 +176,3 @@ TEST(preprocessor, DA_FOREACH) {
 
 #undef DA_TEST_MACRO_ASSIGN
 }
-
-TEST(preprocessor, DA_AND) {
-	_MSVC_TRADITIONAL;
-	DA_AND();
-	DA_AND(0);
-	DA_AND(1);
-	DA_AND(0, 0);
-	DA_AND(0, 1);
-	DA_AND(1, 0);
-	DA_AND(1, 1);
-	DA_AND(0, 0, 0);
-	DA_AND(0, 0, 1);
-	DA_AND(0, 1, 0);
-	DA_AND(0, 1, 1);
-	DA_AND(1, 0, 0);
-	DA_AND(1, 0, 1);
-	DA_AND(1, 1, 0);
-	DA_AND(1, 1, 1);
-}

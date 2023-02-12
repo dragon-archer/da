@@ -1,4 +1,4 @@
-name: Windows
+name: GCC
 
 on:
   push:
@@ -10,19 +10,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  msvc:
-    runs-on: windows-latest
+  gcc:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         build_type: [Debug, Release]
-
     steps:
     - uses: actions/checkout@v3
     - name: Install Google Test
-      run: vcpkg install gtest:x64-windows
+      run: vcpkg install gtest
     - name: Run CMake
-      run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake" -DDA_BuildTests=ON
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_TOOLCHAIN_FILE="$VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake" -DDA_BuildTests=ON
     - name: Build
-      run: cmake --build build --config ${{ matrix.build_type }}
+      run: cmake --build build
     - name: Test
       run: cd build && ctest -C ${{ matrix.build_type }} --output-on-failure

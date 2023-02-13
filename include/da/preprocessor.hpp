@@ -14,6 +14,7 @@
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/bool.hpp>
 #include <da/preprocessor/cat.hpp>
+#include <da/preprocessor/compare.hpp>
 #include <da/preprocessor/conditional.hpp>
 #include <da/preprocessor/dec.hpp>
 #include <da/preprocessor/enum.hpp>

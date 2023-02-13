@@ -17,6 +17,34 @@
 #define DA_TEST_MACRO_PRED(data) DA_TUPLE_GET(0, data)
 #define DA_TEST_MACRO_OP(data)   (DA_DEC(DA_TUPLE_GET(0, data)), (DA_TUPLE_GET(1, data) + DA_TUPLE_GET(0, data)))
 
+TEST_CASE("preprocessor::arithmatic") {
+	SUBCASE("DA_ADD") {
+		// Basic use
+		CHECK_EQ(DA_ADD(0, 3), 3);
+		CHECK_EQ(DA_ADD(1, 2), 3);
+		CHECK_EQ(DA_ADD(2, 1), 3);
+		CHECK_EQ(DA_ADD(3, 0), 3);
+
+		// Edge case
+		CHECK_EQ(DA_ADD(0, 0), 0);
+		CHECK_EQ(DA_ADD(0, 256), 256);
+		CHECK_EQ(DA_ADD(1, 255), 256);
+		CHECK_EQ(DA_ADD(255, 1), 256);
+		CHECK_EQ(DA_ADD(256, 0), 256);
+	}
+
+	SUBCASE("DA_SUB") {
+		// Basic use
+		CHECK_EQ(DA_SUB(2, 1), 1);
+		CHECK_EQ(DA_SUB(3, 0), 3);
+
+		// Edge case
+		CHECK_EQ(DA_SUB(0, 0), 0);
+		CHECK_EQ(DA_SUB(256, 1), 255);
+		CHECK_EQ(DA_SUB(256, 0), 256);
+	}
+}
+
 TEST_CASE("preprocessor::base") {
 	SUBCASE("DA_STR") {
 		// Nothing => empty string

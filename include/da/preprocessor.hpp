@@ -24,5 +24,6 @@
 #include <da/preprocessor/range.hpp>
 #include <da/preprocessor/seq.hpp>
 #include <da/preprocessor/tuple.hpp>
+#include <da/preprocessor/while.hpp>
 
 #endif // _DA_PREPROCESSOR_HPP_

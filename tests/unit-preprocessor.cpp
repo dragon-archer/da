@@ -14,6 +14,8 @@
 #define DA_TEST_MACRO_ADD(a, b)  (a + b)
 #define DA_TEST_MACRO_SUB(a, b)  (a - b)
 #define DA_TEST_MACRO_DECLARE(x) int x = 1;
+#define DA_TEST_MACRO_PRED(data) DA_TUPLE_GET(0, data)
+#define DA_TEST_MACRO_OP(data)   (DA_DEC(DA_TUPLE_GET(0, data)), (DA_TUPLE_GET(1, data) + DA_TUPLE_GET(0, data)))
 
 TEST_CASE("preprocessor::base") {
 	SUBCASE("DA_STR") {
@@ -378,7 +380,16 @@ TEST_CASE("preprocessor::tuple") {
 	}
 }
 
+TEST_CASE("preprocessor::while") {
+	SUBCASE("DA_WHILE") {
+		// Basic use
+		CHECK_EQ(DA_WHILE(DA_TEST_MACRO_PRED, DA_TEST_MACRO_OP, (2, 4)), 7);
+	}
+}
+
 #undef DA_TEST_VAR
 #undef DA_TEST_MACRO_ADD
 #undef DA_TEST_MACRO_SUB
 #undef DA_TEST_MACRO_DECLARE
+#undef DA_TEST_MACRO_PRED
+#undef DA_TEST_MACRO_OP

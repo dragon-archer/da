@@ -11,19 +11,20 @@
 #define _DA_PREPROCESSOR_FOLD_HPP_
 
 #include <da/preprocessor/base.hpp>
+#include <da/preprocessor/expand.hpp>
 #include <da/preprocessor/seq.hpp>
 
 /**
- * @section DA_FOLD
- * @brief   Wrapper of @ref DA_FOLD_LEFT
+ * @brief Wrapper of DA_FOLD_LEFT()
  */
 #define DA_FOLD(op, ...) __VA_OPT__(DA_FOLD_LEFT(op, __VA_ARGS__))
 
 /**
- * @section DA_FOLD_LEFT
- * @brief   Left fold with @param op
- * @note    The result would be like:
- *          op(op(...(op(_1, _2), _3), ...), _n)
+ * @brief Left fold with op(x, y)
+ * 
+ * The result would be like: 
+ * op(op(...(op(_1, _2), _3), ...), _n)
+ * 
  */
 #define DA_FOLD_LEFT(op, ...) \
 	__VA_OPT__(DA_FOLD_LEFT_I(op, __VA_ARGS__))

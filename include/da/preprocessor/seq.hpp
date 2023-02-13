@@ -19,6 +19,7 @@
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/conditional.hpp>
 #include <da/preprocessor/dec.hpp>
+#include <da/preprocessor/expand.hpp>
 
 /**
  * @brief Simply return the first element of a sequence

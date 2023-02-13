@@ -65,22 +65,6 @@
 #define DA_CNT_MAX 64
 
 /**
- * @brief Fully expand anything
- * 
- * This macro is mainly used to enable a macro to repeat itself
- * Since macros can not reentrant by default, this macro simulate the reentrance
- * 
- * @see DA_FOREACH()
- */
-#define DA_EXPAND(...)  DA_EXPAND1(DA_EXPAND1(DA_EXPAND1(DA_EXPAND1(__VA_ARGS__))))
-#define DA_EXPAND1(...) DA_EXPAND2(DA_EXPAND2(DA_EXPAND2(DA_EXPAND2(__VA_ARGS__))))
-#define DA_EXPAND2(...) DA_EXPAND3(DA_EXPAND3(DA_EXPAND3(DA_EXPAND3(__VA_ARGS__))))
-#define DA_EXPAND3(...) DA_EXPAND4(DA_EXPAND4(DA_EXPAND4(DA_EXPAND4(__VA_ARGS__))))
-#define DA_EXPAND4(...) __VA_ARGS__
-
-#define DA_EXPAND_MAX 256
-
-/**
  * @brief Make statements
  * 
  * Make the macro a statement, that is, force the user to add a semicolon

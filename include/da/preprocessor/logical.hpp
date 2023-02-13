@@ -15,6 +15,7 @@
 #include <da/preprocessor/cat.hpp>
 #include <da/preprocessor/conditional.hpp>
 #include <da/preprocessor/empty.hpp>
+#include <da/preprocessor/expand.hpp>
 
 /**
  * @brief Bitnot

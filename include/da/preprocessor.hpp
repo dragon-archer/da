@@ -16,6 +16,7 @@
 #include <da/preprocessor/conditional.hpp>
 #include <da/preprocessor/dec.hpp>
 #include <da/preprocessor/enum.hpp>
+#include <da/preprocessor/expand.hpp>
 #include <da/preprocessor/fold.hpp>
 #include <da/preprocessor/foreach.hpp>
 #include <da/preprocessor/inc.hpp>

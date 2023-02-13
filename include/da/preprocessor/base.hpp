@@ -16,7 +16,7 @@
 #define DA_PARENS() ()
 
 /**
- * @brief mpty macro, used to eat parens
+ * @brief Empty macro, used to eat parens
  */
 #define DA_EMPTY(...)
 
@@ -37,10 +37,10 @@
 #endif
 
 /**
- * @brief Stringfy anything
+ * @brief Stringify anything
  */
-#define DA_STR(x)   DA_STR_I(x)
-#define DA_STR_I(x) #x
+#define DA_STR(...)   DA_STR_I(__VA_ARGS__)
+#define DA_STR_I(...) #__VA_ARGS__
 
 /**
  * @brief Get the count of args
@@ -91,7 +91,7 @@
 /**
  * @brief Simply returns the param
  */
-#define DA_IDENTITY(x) x
+#define DA_IDENTITY(...) __VA_ARGS__
 
 /**
  * @brief Concat exact 2 params

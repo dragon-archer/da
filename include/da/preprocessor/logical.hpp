@@ -91,4 +91,12 @@
 	(__VA_ARGS__)
 #define DA_OR_R() DA_OR_I
 
+/**
+ * @brief Wrappers of DA_NOT( DA_(AND2|OR2|AND|OR|) )
+ */
+#define DA_NAND2(x, y) DA_NOT(DA_AND2(x, y))
+#define DA_NOR2(x, y)  DA_NOT(DA_OR2(x, y))
+#define DA_NAND(...)   DA_NOT(DA_AND(__VA_ARGS__))
+#define DA_NOR(...)    DA_NOT(DA_OR(__VA_ARGS__))
+
 #endif // _DA_PREPROCESSOR_LOGICAL_HPP_

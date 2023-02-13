@@ -18,7 +18,7 @@
 /**
  * @brief Detect whether it is a tuple
  */
-#define DA_IS_TUPLE(x) DA_IS_EMPTY(DA_EMPTY x)
+#define DA_IS_TUPLE(...) DA_IS_EMPTY(DA_EMPTY __VA_ARGS__)
 
 /**
  * @brief Unpack tuple
@@ -29,7 +29,7 @@
 /**
  * @brief Unpack if it is a tuple, else do nothing
  */
-#define DA_TUPLE_UNPACK_OPT(x) DA_IF(DA_IS_TUPLE(x), DA_TUPLE_UNPACK, DA_IDENTITY)(x)
+#define DA_TUPLE_UNPACK_OPT(...) DA_IF(DA_IS_TUPLE(__VA_ARGS__), DA_TUPLE_UNPACK, DA_IDENTITY)(__VA_ARGS__)
 
 /**
  * @brief Get the size of a tuple

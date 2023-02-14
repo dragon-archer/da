@@ -18,7 +18,7 @@
  * @param pred The predictor
  * @param op The iterate operation
  * @param data The initial data
- * 
+ *
  * As long as pred(data) returns 1,
  * the loop will continue with DA_WHILE(pred, op, op(data))
  * When pred(data) returns 0, the loop will return the data now

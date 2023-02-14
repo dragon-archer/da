@@ -13,14 +13,16 @@
 #include <da/preprocessor/base.hpp>
 #include <da/preprocessor/conditional.hpp>
 
+// clang-format off
+
 /**
  * @brief Detect which depth of macro has been used
  */
-#define DA_AUTO_DIM(check)                          \
-	DA_IF(check(2), DA_AUTO_DIM_12, DA_AUTO_DIM_34) \
-	(check)
-#define DA_AUTO_DIM_12(check) DA_IF(check(1), 1, 2)
-#define DA_AUTO_DIM_34(check) DA_IF(check(3), 3, 4)
+#define DA_AUTO_DIM(check) DA_IF(check(2), DA_AUTO_DIM_2, DA_AUTO_DIM_3)(check)
+	#define DA_AUTO_DIM_2(check) DA_IF(check(1), 1, 2)
+	#define DA_AUTO_DIM_3(check) DA_IF(check(3), 3, 4)
+
+// clang-format on
 
 /**
  * @brief Fully expand anything

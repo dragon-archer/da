@@ -10,9 +10,9 @@
 #ifndef _DA_PREPROCESSOR_ARITHMATIC_HPP_
 #define _DA_PREPROCESSOR_ARITHMATIC_HPP_
 
-#include <da/preprocessor/base.hpp>
 #include <da/preprocessor/dec.hpp>
 #include <da/preprocessor/inc.hpp>
+#include <da/preprocessor/tuple.hpp>
 #include <da/preprocessor/while.hpp>
 
 /**

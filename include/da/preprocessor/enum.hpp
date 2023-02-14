@@ -16,19 +16,30 @@
 #include <type_traits>
 
 /**
+ * @brief Define a scoped mask enum e
+ */
+#define DA_DEFINE_SCOPED_MASK_ENUM(e, ...) \
+	enum class e {                         \
+		DA_DEFINE_MASK_ENUM_I(__VA_ARGS__) \
+	}
+
+/**
  * @brief Define a mask enum e
  */
-#define DA_DEFINE_MASK_ENUM(e, ...)                \
-	enum e {                                       \
-		DA_TUPLE_UNPACK(                           \
-			DA_TUPLE_REMOVE_HEAD(                  \
-				DA_TUPLE_GET(                      \
-					2,                             \
-					DA_WHILE(                      \
-						DA_DEFINE_MASK_ENUM_P,     \
-						DA_DEFINE_MASK_ENUM_O,     \
-						(0, (__VA_ARGS__), ()))))) \
-	};
+#define DA_DEFINE_MASK_ENUM(e, ...)        \
+	enum e {                               \
+		DA_DEFINE_MASK_ENUM_I(__VA_ARGS__) \
+	}
+
+#define DA_DEFINE_MASK_ENUM_I(...)         \
+	DA_TUPLE_UNPACK(                       \
+		DA_TUPLE_REMOVE_HEAD(              \
+			DA_TUPLE_GET(                  \
+				2,                         \
+				DA_WHILE(                  \
+					DA_DEFINE_MASK_ENUM_P, \
+					DA_DEFINE_MASK_ENUM_O, \
+					(0, (__VA_ARGS__), ())))))
 #define DA_DEFINE_MASK_ENUM_P(d) DA_TUPLE_SIZE(DA_TUPLE_GET(1, d))
 #define DA_DEFINE_MASK_ENUM_O(d)               \
 	(DA_INC(DA_TUPLE_HEAD(d)),                 \

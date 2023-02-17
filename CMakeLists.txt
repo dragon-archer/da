@@ -13,7 +13,7 @@ project(da VERSION 0.1 LANGUAGES CXX)
 # Detect whether it is built as a subproject or a main project
 set(MAIN_PROJECT OFF)
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    set(MAIN_PROJECT ON)
+	set(MAIN_PROJECT ON)
 endif()
 
 option(DA_BuildTests "Build unit tests" ${MAIN_PROJECT})

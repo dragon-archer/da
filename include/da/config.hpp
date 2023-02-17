@@ -22,7 +22,13 @@
 // #define DA_NO_NAMESPACE // Disable namespace
 
 /// Verify we have at least C++20
-#if !defined(__cplusplus) || __cplusplus < 202002L
+#ifdef _MSC_VER
+	#define DA_CPPVER _MSVC_LANG
+#else
+	#define DA_CPPVER __cplusplus
+#endif
+
+#if DA_CPPVER < 202002L
 	#error "DA should be compiled under at least C++20"
 #endif
 

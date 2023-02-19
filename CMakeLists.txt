@@ -16,8 +16,15 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	set(MAIN_PROJECT ON)
 endif()
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+
 option(DA_BuildTests "Build unit tests" ${MAIN_PROJECT})
 option(DA_Install    "Install ${PROJECT_NAME}" ${MAIN_PROJECT})
+option(DA_Coverage   "Enable code coverage target" OFF)
+
+if(DA_Coverage)
+	include(coverage)
+endif()
 
 include(GNUInstallDirs)
 

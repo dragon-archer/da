@@ -1,0 +1,25 @@
+name: Code Coverage
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  code_coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run CMake
+      run: cmake -S . -B build -DDA_Coverage=ON
+    - name: Build
+      run: cmake --build build --target code_coverage
+    - name: Publish report to Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ${{ github.workspace }}/build/da.info.filtered

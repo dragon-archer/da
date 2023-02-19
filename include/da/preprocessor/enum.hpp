@@ -59,7 +59,7 @@
  */
 #define DA_ENUM_BINARY_OP(e, op)                                       \
 	DA_ASSERT_ENUM(e);                                                 \
-	inline constexpr e operator op(e x, e y) {                         \
+	inline static constexpr e operator op(e x, e y) noexcept {         \
 		using t = std::underlying_type_t<e>;                           \
 		return static_cast<e>(static_cast<t>(x) op static_cast<t>(y)); \
 	}                                                                  \
@@ -68,22 +68,22 @@
 /**
  * @brief Define unary operation op for e
  */
-#define DA_ENUM_UNARY_OP(e, op)                      \
-	DA_ASSERT_ENUM(e);                               \
-	inline constexpr e operator op(e x) {            \
-		using t = std::underlying_type_t<e>;         \
-		return static_cast<e>(op static_cast<t>(x)); \
-	}                                                \
+#define DA_ENUM_UNARY_OP(e, op)                           \
+	DA_ASSERT_ENUM(e);                                    \
+	inline static constexpr e operator op(e x) noexcept { \
+		using t = std::underlying_type_t<e>;              \
+		return static_cast<e>(op static_cast<t>(x));      \
+	}                                                     \
 	DA_STATEMENT()
 
 /**
  * @brief Define assignment operation op= for e
  */
-#define DA_ENUM_ASSIGN_OP(e, op)                             \
-	DA_ASSERT_ENUM(e);                                       \
-	inline constexpr e& operator DA_CAT2(op, =)(e& x, e y) { \
-		return x = x op y;                                   \
-	}                                                        \
+#define DA_ENUM_ASSIGN_OP(e, op)                                             \
+	DA_ASSERT_ENUM(e);                                                       \
+	inline static constexpr e& operator DA_CAT2(op, =)(e& x, e y) noexcept { \
+		return x = x op y;                                                   \
+	}                                                                        \
 	DA_STATEMENT()
 
 /**

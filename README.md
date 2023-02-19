@@ -3,6 +3,7 @@
 [![MSVC](https://github.com/dragon-archer/da/actions/workflows/msvc.yml/badge.svg)](https://github.com/dragon-archer/da/actions/workflows/msvc.yml)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9c00226519bb405a85d070fd40124e6b)](https://www.codacy.com/gh/dragon-archer/da/dashboard)
+[![Coverage Status](https://coveralls.io/repos/github/dragon-archer/da/badge.svg?branch=master)](https://coveralls.io/github/dragon-archer/da?branch=master)
 
 # DA
 

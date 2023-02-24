@@ -51,7 +51,6 @@ if(DA_BuildTests)
 	add_subdirectory(tests)
 endif()
 
-
 # Configure CMake Package
 include(CMakePackageConfigHelpers)
 

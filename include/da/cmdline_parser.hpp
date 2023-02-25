@@ -12,30 +12,38 @@
 
 #include <da/config.hpp>
 #include <da/preprocessor/enum.hpp>
+#include <functional>
+#include <map>
 #include <string_view>
 
 DA_BEGIN_NAMESPACE
 
 class cmdline_parser {
 	public:
-	constexpr uint32_t flags() {
-		return _flags;
+	using callback_t = std::function<void(std::string_view)>;
+
+	cmdline_parser()
+		: _argc(0)
+		, _argv(nullptr) { }
+
+	cmdline_parser(int argc, char const** argv)
+		: _argc(argc)
+		, _argv(argv) { }
+
+	bool add_option(std::string_view name, callback_t const& callback) {
+		return add_option(name, '\0', callback);
 	}
 
-	constexpr bool enabled(uint32_t flag) {
-		return (_flags & flag) == flag;
-	}
-
-	constexpr void enable(uint32_t flag) {
-		_flags |= flag;
-	}
-
-	constexpr void disable(uint32_t flag) {
-		_flags &= ~flag;
+	bool add_option(std::string_view name, char shortname, callback_t const& callback) {
+		return _options.emplace(name, callback).second
+			&& _shortoptions.emplace(shortname, callback).second;
 	}
 
 	private:
-	uint32_t _flags;
+	int                                    _argc;
+	char const**                           _argv;
+	std::map<std::string_view, callback_t> _options;
+	std::map<char, callback_t>             _shortoptions;
 };
 
 DA_END_NAMESPACE

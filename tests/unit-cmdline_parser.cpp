@@ -10,12 +10,36 @@
 #include <da/cmdline_parser.hpp>
 #include <doctest/doctest.h>
 
-TEST_CASE("cmdline_parser::base") {
+TEST_CASE("cmdline_parser") {
 	using namespace da;
-	cmdline_parser cp{};
-	cp.enable(1);
-	cp.disable(1);
-	(void)cp.enabled(1);
-	(void)cp.flags();
-	CHECK(true);
+
+	int                        argc      = 2;
+	char const*                argv[]    = {"program", "--option"};
+	std::string_view           name      = "option";
+	char                       shortname = 'o';
+	cmdline_parser::callback_t callback  = [](std::string_view content) {};
+
+	SUBCASE("constructors") {
+		SUBCASE("empty constructor") {
+			cmdline_parser cp{};
+			CHECK(true);
+		}
+
+		SUBCASE("construct with argc and argv") {
+			cmdline_parser cp{argc, argv};
+			CHECK(true);
+		}
+	}
+
+	SUBCASE("add_option") {
+		SUBCASE("no short option") {
+			cmdline_parser cp{};
+			CHECK(cp.add_option(name, callback));
+		}
+
+		SUBCASE("with short option") {
+			cmdline_parser cp{};
+			CHECK(cp.add_option(name, shortname, callback));
+		}
+	}
 }

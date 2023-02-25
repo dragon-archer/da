@@ -35,8 +35,10 @@ class cmdline_parser {
 	}
 
 	bool add_option(std::string_view name, char shortname, callback_t const& callback) {
-		return _options.emplace(name, callback).second
-			&& _shortoptions.emplace(shortname, callback).second;
+		return !name.empty()
+			&& _options.emplace(name, callback).second
+			&& ((shortname == '\0')
+				|| _shortoptions.emplace(shortname, callback).second);
 	}
 
 	private:

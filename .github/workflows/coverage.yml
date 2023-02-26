@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install LCOV
-      run: sudo apt-get install lcov -y
+      run: sudo apt-get update && apt-get install -y lcov
     - name: Run CMake
       run: cmake -S . -B build -DDA_Coverage=ON
     - name: Build

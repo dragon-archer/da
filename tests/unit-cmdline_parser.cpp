@@ -9,17 +9,19 @@
 
 #include <da/cmdline_parser.hpp>
 #include <doctest/doctest.h>
+#if DA_MSVC
+	#include <iostream> // Fix for MSVC
+#endif
 
 TEST_CASE("cmdline_parser") {
 	using namespace da;
 
-	int                        argc       = 2;
-	char const*                argv[]     = {"program", "--option"};
-	std::string_view           name       = "option";
-	std::string_view           name2      = "option2";
+	cmdline_parser::string_t   name       = "option";
+	cmdline_parser::string_t   name2      = "option2";
 	char                       shortname  = 'o';
 	char                       shortname2 = 'p';
-	cmdline_parser::callback_t callback   = [](std::string_view content) {};
+	cmdline_parser::callback_t callback   = [](std::string_view content) { CHECK_EQ(content, "hello"); };
+	cmdline_parser::callback_t callback2  = [](std::string_view content) { CHECK_EQ(content, "hello2"); };
 
 #define VALID_HANDLE(handle)   CHECK_NE((handle), cmdline_parser::invalid_handle)
 #define INVALID_HANDLE(handle) CHECK_EQ((handle), cmdline_parser::invalid_handle)
@@ -72,6 +74,18 @@ TEST_CASE("cmdline_parser") {
 		SUBCASE("get by short name") {
 			CHECK_EQ(cp.get_handle(shortname), h);
 			INVALID_HANDLE(cp.get_handle(shortname2));
+		}
+	}
+
+	SUBCASE("parse") {
+		int            argc   = 5;
+		char const*    argv[] = {"program", "--option=hello", "--option2=hello2", "-ohello", "-phello2", nullptr};
+		cmdline_parser cp{};
+		cp.add_option(name, shortname, callback);
+		cp.add_option(name2, shortname2, callback2);
+
+		SUBCASE("normal use") {
+			CHECK_EQ(cp.parse(argc, argv), cmdline_parser::SUCCESS);
 		}
 	}
 }

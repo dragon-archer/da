@@ -87,5 +87,52 @@ TEST_CASE("cmdline_parser") {
 		SUBCASE("normal use") {
 			CHECK_EQ(cp.parse(argc, argv), cmdline_parser::SUCCESS);
 		}
+
+		SUBCASE("unexpected end") {
+			CHECK_EQ(cp.parse(0, argv), cmdline_parser::UNEXPECTED_END);
+			CHECK_EQ(cp.parse(argc, nullptr), cmdline_parser::UNEXPECTED_END);
+			CHECK_EQ(cp.parse(argc + 1, argv), cmdline_parser::UNEXPECTED_END);
+		}
+
+		SUBCASE("empty argument") {
+			int         argc   = 2;
+			char const* argv[] = {"program", "", nullptr};
+
+			CHECK_EQ(cp.parse(argc, argv), cmdline_parser::SUCCESS);
+		}
+
+		SUBCASE("missing argument") {
+			int         argc    = 2;
+			char const* argv1[] = {"program", "--abcd", nullptr};
+			char const* argv2[] = {"program", "-o", nullptr};
+
+			CHECK_EQ(cp.parse(argc, argv1), cmdline_parser::MISSING_ARGUMENT);
+			CHECK_EQ(cp.parse(argc, argv2), cmdline_parser::MISSING_ARGUMENT);
+		}
+
+		SUBCASE("missing option") {
+			int         argc    = 2;
+			char const* argv1[] = {"program", "--", nullptr};
+			char const* argv2[] = {"program", "-", nullptr};
+
+			CHECK_EQ(cp.parse(argc, argv1), cmdline_parser::MISSING_OPTION);
+			CHECK_EQ(cp.parse(argc, argv2), cmdline_parser::MISSING_OPTION);
+		}
+
+		SUBCASE("unknown option") {
+			int         argc    = 2;
+			char const* argv1[] = {"program", "--unknown=1", nullptr};
+			char const* argv2[] = {"program", "-u1", nullptr};
+
+			CHECK_EQ(cp.parse(argc, argv1), cmdline_parser::UNKNOWN_OPTION);
+			CHECK_EQ(cp.parse(argc, argv2), cmdline_parser::UNKNOWN_OPTION);
+		}
+
+		SUBCASE("unexpected argument") {
+			int         argc    = 2;
+			char const* argv[] = {"program", "unknown", nullptr};
+
+			CHECK_EQ(cp.parse(argc, argv), cmdline_parser::UNEXPECTED_ARGUMENT);
+		}
 	}
 }

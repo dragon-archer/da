@@ -28,7 +28,6 @@ class cmdline_parser {
 
 	enum error_code {
 		SUCCESS = 0,
-		INTERNAL_ERROR,
 		MISSING_ARGUMENT,
 		MISSING_OPTION,
 		UNEXPECTED_ARGUMENT,
@@ -104,19 +103,17 @@ class cmdline_parser {
 					DA_IFUNLIKELY(*p == '\0') {
 						return MISSING_OPTION;
 					}
-					string_t s{p};
+					string_t   s{p};
 					auto const it = s.find('=');
 					DA_IFUNLIKELY(it == string_t::npos) {
-						return MISSING_OPTION;
+						return MISSING_ARGUMENT;
 					}
 					auto const it2 = _options.find(s.substr(0, it));
 					DA_IFUNLIKELY(it2 == _options.end()) {
 						return UNKNOWN_OPTION;
 					}
 					auto const it3 = _records.find(it2->second);
-					DA_IFUNLIKELY(it3 == _records.end()) {
-						return INTERNAL_ERROR;
-					}
+					DA_ASSUME(it3 != _records.end());
 					it3->second(s.substr(it + 1));
 				} else { // Short option
 					DA_IFUNLIKELY(*p == '\0') {
@@ -127,9 +124,7 @@ class cmdline_parser {
 						return UNKNOWN_OPTION;
 					}
 					auto const it2 = _records.find(it->second);
-					DA_IFUNLIKELY(it2 == _records.end()) {
-						return INTERNAL_ERROR;
-					}
+					DA_ASSUME(it2 != _records.end());
 					++p;
 					DA_IFUNLIKELY(*p == '\0') {
 						return MISSING_ARGUMENT;

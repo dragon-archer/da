@@ -24,4 +24,4 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{ github.workspace }}/build/da.info.filtered
+        path-to-lcov: ${{ github.workspace }}/build/filtered.info

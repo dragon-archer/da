@@ -20,15 +20,12 @@ TEST_CASE("cmdline_parser") {
 	char                       shortname = 'o';
 	cmdline_parser::callback_t callback  = [](std::string_view content) {};
 
+#define VALID_HANDLE(handle)   CHECK_NE((handle), cmdline_parser::invalid_handle)
+#define INVALID_HANDLE(handle) CHECK_EQ((handle), cmdline_parser::invalid_handle)
+
 	SUBCASE("constructors") {
 		SUBCASE("empty constructor") {
 			cmdline_parser cp{};
-
-			CHECK(true);
-		}
-
-		SUBCASE("construct with argc and argv") {
-			cmdline_parser cp{argc, argv};
 
 			CHECK(true);
 		}
@@ -38,26 +35,26 @@ TEST_CASE("cmdline_parser") {
 		SUBCASE("no short option") {
 			cmdline_parser cp{};
 
-			CHECK(cp.add_option(name, callback));
+			VALID_HANDLE(cp.add_option(name, callback));
 		}
 
 		SUBCASE("with short option") {
 			cmdline_parser cp{};
 
-			CHECK(cp.add_option(name, shortname, callback));
+			VALID_HANDLE(cp.add_option(name, shortname, callback));
 		}
 
 		SUBCASE("fail if already existed") {
 			cmdline_parser cp1{}, cp2{};
 
-			CHECK(!cp1.add_option("", callback));
-			CHECK(cp1.add_option(name, callback));
-			CHECK(!cp1.add_option(name, shortname, callback));
-			CHECK(cp1.add_option(name2, shortname, callback));
+			INVALID_HANDLE(cp1.add_option("", callback));
+			VALID_HANDLE(cp1.add_option(name, callback));
+			INVALID_HANDLE(cp1.add_option(name, shortname, callback));
+			VALID_HANDLE(cp1.add_option(name2, shortname, callback));
 
-			CHECK(cp2.add_option(name, shortname, callback));
-			CHECK(!cp2.add_option(name2, shortname, callback));
-			CHECK(!cp2.add_option(name2, callback));
+			VALID_HANDLE(cp2.add_option(name, shortname, callback));
+			INVALID_HANDLE(cp2.add_option(name2, shortname, callback));
+			VALID_HANDLE(cp2.add_option(name2, callback));
 		}
 	}
 }

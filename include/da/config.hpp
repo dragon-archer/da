@@ -126,7 +126,7 @@
 	#if DA_MSVC
 		#define DA_ASSUME(expr) __assume(expr)
 	#else
-		#define DA_ASSUME(expr) (void)(!!(expr) || DA_UNREACHABLE())
+		#define DA_ASSUME(expr) (void)(!(expr) ? DA_UNREACHABLE() : void())
 	#endif
 #endif
 

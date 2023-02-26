@@ -21,13 +21,30 @@
 // #define DA_NO_EXCEPTION // Disable exception
 // #define DA_NO_NAMESPACE // Disable namespace
 
-/// Verify we have at least C++20
-#ifdef _MSC_VER
+/// Detect compiler & C++ Version
+#ifdef __clang__
+	#define DA_CLANG 1
+	#define DA_GCC   0
+	#define DA_MSVC  0
+#elif defined(__GNUC__)
+	#define DA_CLANG 0
+	#define DA_GCC   1
+	#define DA_MSVC  0
+#elif defined(_MSC_VER)
+	#define DA_CLANG 0
+	#define DA_GCC   0
+	#define DA_MSVC  1
+#else
+	#error Unknown compiler! Please use Clang, GCC or MSVC
+#endif
+
+#if DA_MSVC
 	#define DA_CPPVER _MSVC_LANG
 #else
 	#define DA_CPPVER __cplusplus
 #endif
 
+/// Verify we have at least C++20
 #if DA_CPPVER < 202002L
 	#error "DA should be compiled under at least C++20"
 #endif
@@ -86,6 +103,31 @@
 	#define DA_BEGIN_NAMESPACE
 	#define DA_END_NAMESPACE
 	#define _DA ::
+#endif
+
+/// Basic debug support
+
+// DA_UNREACHABLE
+#ifdef __cpp_lib_unreachable
+	#define DA_UNREACHABLE() ::std::unreachable()
+#elif DA_GCC || DA_CLANG
+	#define DA_UNREACHABLE() __builtin_unreachable()
+#elif DA_MSVC
+	#define DA_UNREACHABLE() __assume(false)
+#endif
+
+// DA_ASSUME
+#ifdef DA_ON_CODE_COVERAGE
+	// No tests for assume failure
+	#define DA_ASSUME(expr) (void)(expr)
+#elif defined(_DEBUG)
+	#define DA_ASSUME(expr) assert(expr)
+#else
+	#if DA_MSVC
+		#define DA_ASSUME(expr) __assume(expr)
+	#else
+		#define DA_ASSUME(expr) (void)(!!(expr) || DA_UNREACHABLE();)
+	#endif
 #endif
 
 #endif // _DA_CONFIG_HPP_

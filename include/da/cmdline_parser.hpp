@@ -37,16 +37,16 @@ class cmdline_parser {
 			return invalid_handle;
 		}
 		++_max_handle;
-		const auto& [it1, ok1] = _options.try_emplace(name, _max_handle);
+		auto const [it1, ok1] = _options.try_emplace(name, _max_handle);
 		DA_IFLIKELY(ok1) {
 			do {
 				if(shortname != '\0') {
-					const auto& [it2, ok2] = _shortoptions.try_emplace(shortname, _max_handle);
+					auto const [it2, ok2] = _shortoptions.try_emplace(shortname, _max_handle);
 					DA_IFUNLIKELY(!ok2) {
 						break;
 					}
 				}
-				const auto& [it3, ok3] = _records.try_emplace(_max_handle, callback);
+				auto const [it3, ok3] = _records.try_emplace(_max_handle, callback);
 				DA_ASSUME(ok3);
 				return _max_handle;
 			} while(false);
@@ -55,6 +55,22 @@ class cmdline_parser {
 		}
 		--_max_handle;
 		return invalid_handle;
+	}
+
+	handle_t get_handle(std::string_view name) const {
+		auto const it = _options.find(name);
+		DA_IFUNLIKELY(it == _options.cend()) {
+			return invalid_handle;
+		}
+		return it->second;
+	}
+
+	handle_t get_handle(char shortname) const {
+		auto const it = _shortoptions.find(shortname);
+		DA_IFUNLIKELY(it == _shortoptions.cend()) {
+			return invalid_handle;
+		}
+		return it->second;
 	}
 
 	private:

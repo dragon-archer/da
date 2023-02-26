@@ -50,9 +50,9 @@
 /**
  * @brief Define binary operation op for e
  */
-#define DA_ENUM_BINARY_OP(e, op)                                       \
+#define DA_ENUM_BINARY_OP(e, op, prefix)                               \
 	DA_ASSERT_ENUM(e);                                                 \
-	inline static constexpr e operator op(e x, e y) noexcept {         \
+	prefix e operator op(e x, e y) noexcept {                          \
 		using t = std::underlying_type_t<e>;                           \
 		return static_cast<e>(static_cast<t>(x) op static_cast<t>(y)); \
 	}                                                                  \
@@ -61,34 +61,34 @@
 /**
  * @brief Define unary operation op for e
  */
-#define DA_ENUM_UNARY_OP(e, op)                           \
-	DA_ASSERT_ENUM(e);                                    \
-	inline static constexpr e operator op(e x) noexcept { \
-		using t = std::underlying_type_t<e>;              \
-		return static_cast<e>(op static_cast<t>(x));      \
-	}                                                     \
+#define DA_ENUM_UNARY_OP(e, op, prefix)              \
+	DA_ASSERT_ENUM(e);                               \
+	prefix e operator op(e x) noexcept {             \
+		using t = std::underlying_type_t<e>;         \
+		return static_cast<e>(op static_cast<t>(x)); \
+	}                                                \
 	DA_STATEMENT()
 
 /**
  * @brief Define assignment operation op= for e
  */
-#define DA_ENUM_ASSIGN_OP(e, op)                                             \
-	DA_ASSERT_ENUM(e);                                                       \
-	inline static constexpr e& operator DA_CAT2(op, =)(e& x, e y) noexcept { \
-		return x = x op y;                                                   \
-	}                                                                        \
+#define DA_ENUM_ASSIGN_OP(e, op, prefix)                    \
+	DA_ASSERT_ENUM(e);                                      \
+	prefix e& operator DA_CAT2(op, =)(e& x, e y) noexcept { \
+		return x = x op y;                                  \
+	}                                                       \
 	DA_STATEMENT()
 
 /**
  * @brief Define bit operations for enum e
  */
-#define DA_DEFINE_ENUM_OPS(e) \
-	DA_ENUM_BINARY_OP(e, &);  \
-	DA_ENUM_BINARY_OP(e, |);  \
-	DA_ENUM_BINARY_OP(e, ^);  \
-	DA_ENUM_ASSIGN_OP(e, &);  \
-	DA_ENUM_ASSIGN_OP(e, |);  \
-	DA_ENUM_ASSIGN_OP(e, ^);  \
-	DA_ENUM_UNARY_OP(e, ~);
+#define DA_DEFINE_ENUM_OPS(e, prefix) \
+	DA_ENUM_BINARY_OP(e, &, prefix);  \
+	DA_ENUM_BINARY_OP(e, |, prefix);  \
+	DA_ENUM_BINARY_OP(e, ^, prefix);  \
+	DA_ENUM_ASSIGN_OP(e, &, prefix);  \
+	DA_ENUM_ASSIGN_OP(e, |, prefix);  \
+	DA_ENUM_ASSIGN_OP(e, ^, prefix);  \
+	DA_ENUM_UNARY_OP(e, ~, prefix);
 
 #endif // _DA_PREPROCESSOR_ENUM_HPP_

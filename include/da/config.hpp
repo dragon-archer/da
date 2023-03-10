@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      config.hpp
  * @brief     Some basic configs
  * @version   0.1
  * @author    dragon-archer
  *
- * @copyright Copyright (c) 2022- 2023
+ * @copyright Copyright (c) 2022- 2023 dragon-archer
  */
 
 #ifndef _DA_CONFIG_HPP_

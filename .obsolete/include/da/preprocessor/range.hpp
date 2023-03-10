@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      range.hpp
  * @brief     Range related macros
@@ -9,7 +10,7 @@
  * 2. Each element is a number
  * 3. Ordered as (start, stop, step)
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023 dragon-archer
  */
 
 #ifndef _DA_PREPROCESSOR_RANGE_HPP_

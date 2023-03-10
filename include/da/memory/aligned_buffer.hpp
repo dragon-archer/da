@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      aligned_buffer.hpp
  * @brief     A wrapper for aligned_buffer, like __gnu_cxx::aligned_buffer
  * @version   0.1
  * @author    dragon-archer (dragon-archer@outlook.com)
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022-2023 dragon-archer
  */
 
 #ifndef _DA_MEMORY_ALIGNED_BUFFER_HPP_

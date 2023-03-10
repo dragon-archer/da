@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      memory.hpp
  * @brief     structures of memory
  * @version   0.1
  * @author    dragon-archer (dragon-archer@outlook.com)
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022-2023 dragon-archer
  */
 
 #ifndef _DA_MEMORY_HPP_

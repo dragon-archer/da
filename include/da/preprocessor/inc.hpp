@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      inc.hpp
  * @brief     Implement DA_INC
  * @version   0.1
  * @author    dragon-archer
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023 dragon-archer
  */
 
 #ifndef _DA_PREPROCESSOR_INC_HPP_

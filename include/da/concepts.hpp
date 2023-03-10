@@ -1,3 +1,13 @@
+/* SPDX-License-Identifier: MIT */
+/**
+ * @file      concepts.hpp
+ * @brief     Concepts
+ * @version   0.1
+ * @author    dragon-archer
+ *
+ * @copyright Copyright (c) 2022-2023 dragon-archer
+ */
+
 #ifndef _DA_CONCEPTS_HPP_
 #define _DA_CONCEPTS_HPP_
 

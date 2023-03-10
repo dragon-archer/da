@@ -4,7 +4,7 @@
 # @version   0.1
 # @author    dragon-archer
 #
-# @copyright Copyright (c) 2023
+# @copyright Copyright (c) 2023 dragon-archer
 #
 
 add_library(test_main OBJECT unit.cpp)

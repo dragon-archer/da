@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      unit-cmdline_parser.cpp
  * @brief     Unit test for module cmdline_parser
  * @version   0.1
  * @author    dragon-archer
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023 dragon-archer
  */
 
 #include <da/cmdline_parser.hpp>

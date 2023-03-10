@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      enum.hpp
  * @brief     Generate enums
  * @version   0.1
  * @author    dragon-archer
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023 dragon-archer
  */
 
 #ifndef _DA_PREPROCESSOR_ENUM_HPP_

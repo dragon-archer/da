@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      fold.hpp
  * @brief     Implement macro DA_FOLD
  * @version   0.1
  * @author    dragon-archer
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023 dragon-archer
  */
 
 #ifndef _DA_PREPROCESSOR_FOLD_HPP_

@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      normal_string.hpp
  * @brief     A normal string implemtion
  * @version   0.1
  * @author    dragon-archer (dragon-archer@outlook.com)
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022-2023 dragon-archer
  */
 
 #ifndef _DA_STRING_NORMAL_STRING_HPP_

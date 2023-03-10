@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT */
 /**
  * @file      seq.hpp
  * @brief     Macros for sequence operations
@@ -12,7 +13,7 @@
  * it's recommended not to exceed DA_EXPAND_MAX (currently 256),
  * or some of the macros might fail.
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023 dragon-archer
  */
 
 #ifndef _DA_PREPROCESSOR_SEQ_HPP_

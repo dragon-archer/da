@@ -11,7 +11,7 @@
 #ifndef _DA_PREPROCESSOR_CAT_HPP_
 #define _DA_PREPROCESSOR_CAT_HPP_
 
-#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/config.hpp>
 #include <da/preprocessor/fold.hpp>
 
 /**

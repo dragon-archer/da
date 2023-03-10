@@ -11,8 +11,8 @@
 #ifndef _DA_PREPROCESSOR_HPP_
 #define _DA_PREPROCESSOR_HPP_
 
+#include <da/preprocessor/config.hpp>
 #include <da/preprocessor/arithmatic.hpp>
-#include <da/preprocessor/base.hpp>
 #include <da/preprocessor/bool.hpp>
 #include <da/preprocessor/cat.hpp>
 #include <da/preprocessor/compare.hpp>

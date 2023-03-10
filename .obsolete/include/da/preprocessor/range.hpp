@@ -16,7 +16,7 @@
 #ifndef _DA_PREPROCESSOR_RANGE_HPP_
 #define _DA_PREPROCESSOR_RANGE_HPP_
 
-#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/config.hpp>
 #include <da/preprocessor/compare.hpp>
 #include <da/preprocessor/conditional.hpp>
 #include <da/preprocessor/logical.hpp>

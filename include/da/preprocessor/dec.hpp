@@ -11,7 +11,7 @@
 #ifndef _DA_PREPROCESSOR_DEC_HPP_
 #define _DA_PREPROCESSOR_DEC_HPP_
 
-#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/config.hpp>
 
 /**
  * @brief Decrease the param

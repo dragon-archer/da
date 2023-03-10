@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 /**
- * @file      base.hpp
+ * @file      config.hpp
  * @brief     Basic fetures of da/preprocessor
  * @version   0.1
  * @author    dragon-archer
@@ -8,8 +8,10 @@
  * @copyright Copyright (c) 2023 dragon-archer
  */
 
-#ifndef _DA_PREPROCESSOR_BASE_HPP_
-#define _DA_PREPROCESSOR_BASE_HPP_
+#ifndef _DA_PREPROCESSOR_CONFIG_HPP_
+#define _DA_PREPROCESSOR_CONFIG_HPP_
+
+#include <da/config.hpp>
 
 /**
  * @brief A simple pair of parens, used to let it expand later
@@ -84,4 +86,4 @@
 #define DA_CAT2(_1, _2)   DA_CAT2_I(_1, _2)
 #define DA_CAT2_I(_1, _2) _1##_2
 
-#endif // _DA_PREPROCESSOR_BASE_HPP_
+#endif // _DA_PREPROCESSOR_CONFIG_HPP_

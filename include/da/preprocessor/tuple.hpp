@@ -11,7 +11,7 @@
 #ifndef _DA_PREPROCESSOR_TUPLE_HPP_
 #define _DA_PREPROCESSOR_TUPLE_HPP_
 
-#include <da/preprocessor/base.hpp>
+#include <da/preprocessor/config.hpp>
 #include <da/preprocessor/conditional.hpp>
 #include <da/preprocessor/empty.hpp>
 #include <da/preprocessor/seq.hpp>

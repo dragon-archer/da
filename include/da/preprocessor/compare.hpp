@@ -22,8 +22,8 @@
  * Returns a two-element tuple, with at least one 0
  */
 #define DA_CMP(x, y) DA_WHILE(DA_CMP_P, DA_CMP_O, (x, y))
-#define DA_CMP_P(d)  DA_AND2(DA_TUPLE_GET(0, d), DA_TUPLE_GET(1, d))
-#define DA_CMP_O(d)  (DA_DEC(DA_TUPLE_GET(0, d)), DA_DEC(DA_TUPLE_GET(1, d)))
+#define DA_CMP_P(d)  DA_AND2(DA_TUPLE_HEAD(d), DA_TUPLE_GET(1, d))
+#define DA_CMP_O(d)  (DA_DEC(DA_TUPLE_HEAD(d)), DA_DEC(DA_TUPLE_GET(1, d)))
 
 /**
  * @return 1 if x == y, 0 otherwise

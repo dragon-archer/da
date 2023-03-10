@@ -15,8 +15,8 @@
 #define DA_TEST_MACRO_ADD(a, b)  (a + b)
 #define DA_TEST_MACRO_SUB(a, b)  (a - b)
 #define DA_TEST_MACRO_DECLARE(x) int x = 1;
-#define DA_TEST_MACRO_PRED(data) DA_TUPLE_GET(0, data)
-#define DA_TEST_MACRO_OP(data)   (DA_DEC(DA_TUPLE_GET(0, data)), (DA_TUPLE_GET(1, data) + DA_TUPLE_GET(0, data)))
+#define DA_TEST_MACRO_PRED(data) DA_TUPLE_HEAD(data)
+#define DA_TEST_MACRO_OP(data)   (DA_DEC(DA_TUPLE_HEAD(data)), (DA_TUPLE_GET(1, data) + DA_TUPLE_HEAD(data)))
 
 TEST_CASE("preprocessor") {
 	SUBCASE("arithmatic") {
@@ -446,7 +446,7 @@ TEST_CASE("preprocessor") {
 
 		SUBCASE("DA_TUPLE_GET") {
 			// Basic use
-			CHECK_EQ(DA_TUPLE_GET(0, ("a")), "a");
+			CHECK_EQ(DA_TUPLE_HEAD(("a")), "a");
 			CHECK_EQ(DA_TUPLE_GET(1, ("a", "b")), "b");
 
 			// Unused arguments ignored

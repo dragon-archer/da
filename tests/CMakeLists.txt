@@ -11,6 +11,7 @@ add_library(test_main OBJECT unit.cpp)
 target_compile_definitions(test_main PUBLIC
 	DOCTEST_CONFIG_SUPER_FAST_ASSERTS
 	DOCTEST_CONFIG_TREAT_CHAR_STAR_AS_STRING
+	DOCTEST_CONFIG_USE_STD_HEADERS
 )
 target_link_libraries(test_main PUBLIC ${TARGET_NAME})
 target_include_directories(test_main PUBLIC thirdparty)

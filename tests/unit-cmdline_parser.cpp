@@ -10,9 +10,6 @@
 
 #include <da/cmdline_parser.hpp>
 #include <doctest/doctest.h>
-#if DA_MSVC
-	#include <iostream> // Fix for MSVC
-#endif
 
 TEST_CASE("cmdline_parser") {
 	using namespace da;

@@ -99,11 +99,17 @@
 #ifndef DA_NO_NAMESPACE
 	#define DA_BEGIN_NAMESPACE namespace da {
 	#define DA_END_NAMESPACE   }
+	#define DA_BEGIN_DETAIL    namespace da::detail {
+	#define DA_END_DETAIL      }
 	#define _DA                ::da::
+	#define _DA_DETAIL         ::da::detail::
 #else
 	#define DA_BEGIN_NAMESPACE
 	#define DA_END_NAMESPACE
-	#define _DA ::
+	#define DA_BEGIN_DETAIL
+	#define DA_END_DETAIL
+	#define _DA        ::
+	#define _DA_DETAIL ::
 #endif
 
 /// Basic debug support
@@ -130,5 +136,13 @@
 		#define DA_ASSUME(expr) (void)(!(expr) ? DA_UNREACHABLE() : void())
 	#endif
 #endif
+
+// Make sure to import widely used types to da
+DA_BEGIN_NAMESPACE
+
+using std::size_t;
+using ssize_t = std::ptrdiff_t;
+
+DA_END_NAMESPACE
 
 #endif // _DA_CONFIG_HPP_

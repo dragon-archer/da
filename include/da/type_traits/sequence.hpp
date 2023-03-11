@@ -16,7 +16,7 @@
 DA_BEGIN_DETAIL
 
 template<size_t Start, ssize_t Step, size_t... Ns>
-inline constexpr auto make_sequence(std::index_sequence<Ns...> = {}) noexcept {
+inline constexpr auto make_sequence_helper(std::index_sequence<Ns...> = {}) noexcept {
 	return std::index_sequence<(Start + Step * Ns)...>{};
 }
 
@@ -32,7 +32,7 @@ template<size_t Start, size_t Stop, ssize_t Step>
 inline constexpr auto make_sequence() noexcept {
 	constexpr size_t  count = (Step > 0) ? ((Stop - Start + Step - 1) / Step)
 										 : (ssize_t(Stop - Start + Step + 1) / Step);
-	return _DA_DETAIL make_sequence<Start, Step>(std::make_index_sequence<count>{});
+	return _DA_DETAIL make_sequence_helper<Start, Step>(std::make_index_sequence<count>{});
 }
 
 /**

@@ -4,9 +4,9 @@ BasedOnStyle: WebKit
 
 AccessModifierOffset: 0
 AlignAfterOpenBracket: Align
-AlignConsecutiveMacros: true
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
 AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
@@ -17,17 +17,14 @@ IncludeCategories:
     Priority: -1
   - Regex: 'da/'
     Priority: 1
-  - Regex: ".*"
+  - Regex: '.*'
     Priority: 2
-IncludeIsMainRegex: ""
-IncludeIsMainSourceRegex: ""
+IncludeIsMainRegex: ''
 IndentCaseLabels: true
 IndentPPDirectives: BeforeHash
 NamespaceIndentation: All
 SpaceAfterTemplateKeyword: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeParens: Never
-SpaceBeforeParensOptions:
-  AfterIfMacros: false
 TabWidth: 4
 UseTab: ForContinuationAndIndentation

@@ -12,5 +12,6 @@
 #define _DA_TYPE_TRAITS_HPP_
 
 #include <da/type_traits/config.hpp>
+#include <da/type_traits/function_detect.hpp>
 
 #endif // _DA_TYPE_TRAITS_HPP_

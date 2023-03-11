@@ -55,4 +55,4 @@ inline constexpr auto make_sequence() {
 
 DA_END_NAMESPACE
 
-#endif _DA_TYPE_TRAITS_SEQUENCE_HPP_
+#endif // _DA_TYPE_TRAITS_SEQUENCE_HPP_

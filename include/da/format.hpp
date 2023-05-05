@@ -3,7 +3,7 @@
  * @file      format.hpp
  * @brief     A wrapper for std::format or fmt::format if std::format doesn't exist
  * @version   0.1
- * @author    dragon-archer (dragon-archer@outlook.com)
+ * @author    dragon-archer
  *
  * @copyright Copyright (c) 2022-2023 dragon-archer
  */

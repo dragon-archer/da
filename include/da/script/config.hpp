@@ -12,6 +12,7 @@
 #define _DA_SCRIPT_CONFIG_HPP_
 
 #include <da/config.hpp>
+#include <cstring>
 #include <string_view>
 
 #define DA_BEGIN_SCRIPT \

@@ -30,22 +30,22 @@ constexpr size_t fnv1a_hash(const uint8_t* p, size_t len) noexcept {
 
 template<typename T>
 constexpr size_t hash(const T& x) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(&x), sizeof(T));
+	return fnv1a_hash((const uint8_t*)(&x), sizeof(T));
 }
 
 template<>
 constexpr size_t hash(const std::string_view& x) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(x.data()), x.size());
+	return fnv1a_hash((const uint8_t*)(x.data()), x.size());
 }
 
 template<>
 constexpr size_t hash(const char* const& x) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(x), std::strlen(x));
+	return fnv1a_hash((const uint8_t*)(x), std::strlen(x));
 }
 
 template<size_t N>
 constexpr size_t hash(const char (&x)[N]) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(x), N - 1); // Discard '\0'
+	return fnv1a_hash((const uint8_t*)(x), N - 1); // Discard '\0'
 }
 
 DA_END_SCRIPT

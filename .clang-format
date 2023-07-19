@@ -13,9 +13,11 @@ BreakBeforeBraces: Attach
 Cpp11BracedListStyle: true
 IfMacros: ["DA_IFLIKELY", "DA_IFUNLIKELY"]
 IncludeCategories:
+  - Regex: 'pch\.h'
+    Priority: -2
   - Regex: 'config\.h'
     Priority: -1
-  - Regex: 'da/'
+  - Regex: '/'
     Priority: 1
   - Regex: '.*'
     Priority: 2

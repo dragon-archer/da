@@ -11,9 +11,7 @@
 #ifndef _DA_SCRIPT_CONFIG_HPP_
 #define _DA_SCRIPT_CONFIG_HPP_
 
-#include <da/config.hpp>
-#include <cstring>
-#include <string_view>
+#include "pch.hpp"
 
 #define DA_BEGIN_SCRIPT \
 	DA_BEGIN_NAMESPACE  \
@@ -21,5 +19,6 @@
 #define DA_END_SCRIPT \
 	}                 \
 	DA_END_NAMESPACE
+#define DA_SCRIPT ::da::script
 
 #endif // _DA_SCRIPT_CONFIG_HPP_

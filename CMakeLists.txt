@@ -51,6 +51,9 @@ if(DA_BuildTests)
 	add_subdirectory(tests)
 endif()
 
+# Script
+add_subdirectory(script)
+
 # Configure CMake Package
 include(CMakePackageConfigHelpers)
 

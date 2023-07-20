@@ -52,7 +52,6 @@
  * @brief Define binary operation op for e
  */
 #define DA_ENUM_BINARY_OP(e, op, prefix)                               \
-	DA_ASSERT_ENUM(e);                                                 \
 	prefix e operator op(e x, e y) noexcept {                          \
 		using t = std::underlying_type_t<e>;                           \
 		return static_cast<e>(static_cast<t>(x) op static_cast<t>(y)); \
@@ -63,7 +62,6 @@
  * @brief Define unary operation op for e
  */
 #define DA_ENUM_UNARY_OP(e, op, prefix)              \
-	DA_ASSERT_ENUM(e);                               \
 	prefix e operator op(e x) noexcept {             \
 		using t = std::underlying_type_t<e>;         \
 		return static_cast<e>(op static_cast<t>(x)); \
@@ -74,7 +72,6 @@
  * @brief Define assignment operation op= for e
  */
 #define DA_ENUM_ASSIGN_OP(e, op, prefix)                    \
-	DA_ASSERT_ENUM(e);                                      \
 	prefix e& operator DA_CAT2(op, =)(e& x, e y) noexcept { \
 		return x = x op y;                                  \
 	}                                                       \

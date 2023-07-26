@@ -20,8 +20,7 @@ jobs:
       run: cmake -S . -B build -DDA_Coverage=ON
     - name: Build
       run: cmake --build build --target code_coverage
-    - name: Publish report to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ${{ github.workspace }}/build/filtered.info
+    - name: Publish report to Codacy
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r build/filtered.info

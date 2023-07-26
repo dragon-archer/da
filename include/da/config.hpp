@@ -25,17 +25,17 @@
 
 /// Detect compiler & C++ Version
 #ifdef __clang__
-	#define DA_CLANG 1
+	#define DA_CLANG __clang__
 	#define DA_GCC   0
 	#define DA_MSVC  0
 #elif defined(__GNUC__)
 	#define DA_CLANG 0
-	#define DA_GCC   1
+	#define DA_GCC   __GNUC__
 	#define DA_MSVC  0
 #elif defined(_MSC_VER)
 	#define DA_CLANG 0
 	#define DA_GCC   0
-	#define DA_MSVC  1
+	#define DA_MSVC  _MSC_VER
 #else
 	#error Unknown compiler! Please use Clang, GCC or MSVC
 #endif

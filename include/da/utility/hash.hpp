@@ -13,11 +13,12 @@
 
 #include <da/config.hpp>
 #include <cstring>
+#include <string>
 #include <string_view>
 
 DA_BEGIN_NAMESPACE
 
-inline size_t fnv1a_hash(const uint8_t* p, size_t len) noexcept {
+constexpr size_t fnv1a_hash(const char* p, size_t len) noexcept {
 	constexpr size_t fnv_prime        = 0x00000100000001B3;
 	constexpr size_t fnv_offset_basis = 0xCBF29CE484222325;
 
@@ -32,22 +33,27 @@ inline size_t fnv1a_hash(const uint8_t* p, size_t len) noexcept {
 
 template<typename T>
 inline size_t hash(const T& x) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(&x), sizeof(T));
+	return fnv1a_hash(reinterpret_cast<const char*>(&x), sizeof(T));
 }
 
 template<>
-inline size_t hash(const std::string_view& x) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(x.data()), x.size());
+constexpr size_t hash(const std::string& x) noexcept {
+	return fnv1a_hash(x.data(), x.size());
 }
 
 template<>
-inline size_t hash(const char* const& x) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(x), std::strlen(x));
+constexpr size_t hash(const std::string_view& x) noexcept {
+	return fnv1a_hash(x.data(), x.size());
+}
+
+template<>
+constexpr size_t hash(const char* const& x) noexcept {
+	return fnv1a_hash(x, std::strlen(x));
 }
 
 template<size_t N>
-inline size_t hash(const char (&x)[N]) noexcept {
-	return fnv1a_hash(reinterpret_cast<const uint8_t*>(x), N - 1); // Discard '\0'
+constexpr size_t hash(const char (&x)[N]) noexcept {
+	return fnv1a_hash(x, N - 1); // Discard '\0'
 }
 
 DA_END_NAMESPACE

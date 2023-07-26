@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023 dragon-archer
  */
 
-#include <da/hash.hpp>
+#include <da/utility/hash.hpp>
 #include <doctest/doctest.h>
 
 TEST_CASE("hash") {

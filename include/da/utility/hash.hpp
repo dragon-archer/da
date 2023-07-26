@@ -18,6 +18,12 @@
 
 DA_BEGIN_NAMESPACE
 
+#if(DA_GCC && (DA_GCC < 12)) || (DA_CLANG && (DA_CLANG < 15))
+	#define DA_STRING_CONSTEXPR inline
+#else
+	#define DA_STRING_CONSTEXPR constexpr
+#endif
+
 constexpr size_t fnv1a_hash(const char* p, size_t len) noexcept {
 	constexpr size_t fnv_prime        = 0x00000100000001B3;
 	constexpr size_t fnv_offset_basis = 0xCBF29CE484222325;
@@ -37,7 +43,7 @@ inline size_t hash(const T& x) noexcept {
 }
 
 template<>
-constexpr size_t hash(const std::string& x) noexcept {
+DA_STRING_CONSTEXPR size_t hash(const std::string& x) noexcept {
 	return fnv1a_hash(x.data(), x.size());
 }
 
@@ -47,7 +53,7 @@ constexpr size_t hash(const std::string_view& x) noexcept {
 }
 
 template<>
-constexpr size_t hash(const char* const& x) noexcept {
+inline size_t hash(const char* const& x) noexcept { // TODO: Use our constexpr version of strlen to make this constexpr
 	return fnv1a_hash(x, std::strlen(x));
 }
 

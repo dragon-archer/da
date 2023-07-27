@@ -14,8 +14,7 @@
 #include <da/config.hpp>
 #include <da/format.hpp>
 #include <da/iterator.hpp>
-#include <bits/alloc_traits.h> // for std::alloc_traits
-#include <bits/char_traits.h>  // for std::char_traits
+#include <string>
 #include <limits>              // for std::numeric_limits
 #include <type_traits>         // for std::enable_if etc.
 

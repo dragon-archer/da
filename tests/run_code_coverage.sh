@@ -2,7 +2,7 @@
 cd $(dirname $0) && \
 mkdir -p ../out/coverage && \
 cd ../out/coverage && 
-cmake -S../.. -B. -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-coverage -DDA_ON_CODE_COVERAGE" -DDA_BuildTests=ON -DCMAKE_CXX_COMPILER=g++ && \
+cmake -S../.. -B. -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-coverage -DDA_ON_CODE_COVERAGE" -DDA_BuildTests=ON -DUSE_CCACHE=True -DCMAKE_CXX_COMPILER=g++ && \
 cmake --build . && 
 lcov -d . -z && \
 ctest --output-on-failure && \

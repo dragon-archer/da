@@ -142,11 +142,11 @@ struct typelist : typelist_base<Ts...> {
 	}
 
 	static constexpr auto front() noexcept {
-		return get<0>();
+		return typelist_base<Ts...>::template get<0>();
 	}
 
 	static constexpr auto back() noexcept {
-		return get<size() - 1>();
+		return typelist_base<Ts...>::template get<size() - 1>();
 	}
 
 	static constexpr auto pop_front() noexcept {
@@ -158,7 +158,7 @@ struct typelist : typelist_base<Ts...> {
 	}
 
 	template<size_t N>
-	using get_t = decltype(get<N>());
+	using get_t = decltype(typelist_base<Ts...>::template get<N>());
 
 	using front_t     = decltype(front());
 	using back_t      = decltype(back());

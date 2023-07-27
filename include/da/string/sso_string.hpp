@@ -88,7 +88,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		DA_IFUNLIKELY(!is_sso()) {
 			return;
 		}
-		data_type new_data;
+		data_type new_data{};
 		size_type s                     = size();
 		new_data.long_string.m_capacity = 32 / sizeof(value_type); // nearest power of 2 that bigger than max_sso_size
 		new_data.long_string.m_ptr      = _M_create(new_data.long_string.m_capacity, max_sso_size);
@@ -104,7 +104,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		DA_IFUNLIKELY(size() > max_sso_size) {
 			DA_THROW(std::out_of_range(fmt::format("da::sso_string_base::change_normal_to_sso: Current size (which is {}) exceeds max_sso_size (which is {})", size(), max_sso_size)));
 		}
-		data_type new_data;
+		data_type new_data{};
 		size_type s = size();
 		// Since new_data is allocated on stack, it should not throw errors
 		_S_copy(new_data.short_string.m_ptr, data(), s);
@@ -201,7 +201,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 			m_data.long_string.m_ptr = p;
 		} else {
 			if(p != data()) {
-				data_type new_data;
+				data_type new_data{};
 				new_data.long_string.m_ptr      = p;
 				new_data.long_string.m_capacity = capacity();
 				new_data.long_string.m_size     = size();

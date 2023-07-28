@@ -54,6 +54,7 @@ target_compile_options(${TARGET_NAME} INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/Zc:pr
 
 # Tests
 if(DA_BuildTests)
+	set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1) # Forbid CTest to add targets
 	include(CTest)
 	enable_testing()
 	add_subdirectory(tests)

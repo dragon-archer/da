@@ -11,12 +11,6 @@
 #ifndef _DA_CONFIG_HPP_
 #define _DA_CONFIG_HPP_
 
-#include <cassert>
-#include <cstddef>
-#include <cstdint>
-#include <cstdlib>
-#include <exception> // for std::terminate()
-
 /// Editable configs
 /// Uncomment following lines to enable
 
@@ -48,7 +42,7 @@
 
 /// Verify we have at least C++20
 #if DA_CPPVER < 202002L
-	#error "DA should be compiled under at least C++20"
+	#error DA should be compiled under at least C++20
 #endif
 
 /// Feature test macros
@@ -80,6 +74,16 @@
 #else
 	#define DA_IFLIKELY(x)   if(x)
 	#define DA_IFUNLIKELY(x) if(x)
+#endif
+
+/// Standard headers
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <cstdlib>
+#include <exception> // for std::terminate()
+#if DA_HAS_INCLUDE(<version>)
+	#include <version>
 #endif
 
 /// Exception
@@ -115,27 +119,32 @@
 
 /// Basic debug support
 
-// DA_UNREACHABLE
-#ifdef __cpp_lib_unreachable
-	#define DA_UNREACHABLE() ::std::unreachable()
-#elif DA_GCC || DA_CLANG
-	#define DA_UNREACHABLE() __builtin_unreachable()
-#elif DA_MSVC
-	#define DA_UNREACHABLE() __assume(false)
+// DA_ASSUME
+#ifdef _DEBUG
+	#ifdef DA_ON_CODE_COVERAGE // No tests for assume failure
+		#define DA_ASSUME(expr) (void)(expr)
+	#else
+		#define DA_ASSUME(expr) assert(expr)
+	#endif
+#else
+	#if DA_HAS_CPP_ATTRIBUTE(assume) // Prefer c++ attribute
+		#define DA_ASSUME(expr) [[assume(expr)]]
+	#elif DA_HAS_BUILTIN(__assume) // Usually MSVC
+		#define DA_ASSUME(expr) __assume(expr)
+	#elif DA_HAS_BUILTIN(__builtin_assume) // Usually Clang
+		#define DA_ASSUME(expr) __builtin_assume(expr)
+	#else // No suitable assume
+		#define DA_ASSUME(expr) (void)(expr)
+	#endif
 #endif
 
-// DA_ASSUME
-#ifdef DA_ON_CODE_COVERAGE
-	// No tests for assume failure
-	#define DA_ASSUME(expr) (void)(expr)
-#elif defined(_DEBUG)
-	#define DA_ASSUME(expr) assert(expr)
-#else
-	#if DA_MSVC
-		#define DA_ASSUME(expr) __assume(expr)
-	#else
-		#define DA_ASSUME(expr) (void)(!(expr) ? DA_UNREACHABLE() : void())
-	#endif
+// DA_UNREACHABLE
+#ifdef __cpp_lib_unreachable // Prefer std function
+	#define DA_UNREACHABLE() ::std::unreachable()
+#elif DA_HAS_BUILTIN(__builtin_unreachable) // Usually GCC or Clang
+	#define DA_UNREACHABLE() __builtin_unreachable()
+#else // Use assume to simulate
+	#define DA_UNREACHABLE() DA_ASSUME(false)
 #endif
 
 // Make sure to import widely used types to da

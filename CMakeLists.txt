@@ -44,7 +44,22 @@ set(BUILD_INCLUDE_DIR   ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 add_library(${TARGET_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${TARGET_NAME} ALIAS ${TARGET_NAME})
 
-target_compile_features(${TARGET_NAME} INTERFACE cxx_std_20)
+list(FIND CMAKE_CXX_COMPILE_FEATURES cxx_std_20 DA_HAS_CXX20)
+if(NOT DA_HAS_CXX20)
+	message(FATAL_ERROR "DA should be compiled under at least C++20")
+endif()
+if(DA_USE_CXX23)
+	list(FIND CMAKE_CXX_COMPILE_FEATURES cxx_std_23 DA_HAS_CXX23)
+	if(NOT DA_HAS_CXX23)
+		message(STATUS "No suitable C++23 support, use C++20 instead")
+		target_compile_features(${TARGET_NAME} INTERFACE cxx_std_20)
+	else()
+		target_compile_features(${TARGET_NAME} INTERFACE cxx_std_23)
+	endif()
+else()
+	target_compile_features(${TARGET_NAME} INTERFACE cxx_std_20)
+endif()
+
 target_include_directories(${TARGET_NAME} INTERFACE 
 	$<BUILD_INTERFACE:${BUILD_INCLUDE_DIR}>
 	$<INSTALL_INTERFACE:include>

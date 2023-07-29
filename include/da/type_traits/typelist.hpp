@@ -82,7 +82,9 @@ using rebind = _DA_DETAIL rebind<T>;
  * @brief Rebind U's template arguments to T
  */
 template<template<typename...> typename T, typename U>
+#if !DA_GCC || DA_GCC > 11
 	requires requires { typename rebind<T>::template type<U>; }
+#endif
 using rebind_t = typename rebind<T>::template type<U>;
 
 DA_END_NAMESPACE

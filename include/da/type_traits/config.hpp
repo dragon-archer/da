@@ -13,5 +13,6 @@
 
 #include <da/config.hpp>
 #include <type_traits>
+#include <utility>
 
 #endif // _DA_TYPE_TRAITS_CONFIG_HPP_

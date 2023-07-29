@@ -12,7 +12,7 @@
 #define _DA_HASH_HPP_
 
 #include <da/config.hpp>
-#include <cstring>
+#include <da/string/misc.hpp>
 #include <string>
 #include <string_view>
 
@@ -53,8 +53,8 @@ constexpr size_t hash(const std::string_view& x) noexcept {
 }
 
 template<>
-inline size_t hash(const char* const& x) noexcept { // TODO: Use our constexpr version of strlen to make this constexpr
-	return fnv1a_hash(x, std::strlen(x));
+constexpr size_t hash(const char* const& x) noexcept {
+	return fnv1a_hash(x, strlen(x));
 }
 
 template<size_t N>

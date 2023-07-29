@@ -23,7 +23,7 @@ class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 
 	public:
 	typedef Traits                                             traits_type;
-	typedef string_traits<Char, Traits, Alloc>                 string_traits;
+	typedef string_traits<Char, Traits, Alloc>                 string_traits_type;
 	typedef typename traits_type::char_type                    value_type;
 	typedef Alloc                                              allocator_type;
 	typedef std::allocator_traits<allocator_type>              alloc_traits;
@@ -55,13 +55,13 @@ class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 	constexpr allocator_type& _M_get_alloc() const noexcept {
 		// Force convert this to non-const to make it work on const string
 		// Required by: max_size()
-		return *static_cast<string_traits*>(const_cast<Self*>(this));
+		return *static_cast<string_traits_type*>(const_cast<Self*>(this));
 	}
 
-	using string_traits::_M_allocate;
-	using string_traits::_M_deallocate;
-	using string_traits::_S_assign;
-	using string_traits::_S_copy;
+	using string_traits_type::_M_allocate;
+	using string_traits_type::_M_deallocate;
+	using string_traits_type::_S_assign;
+	using string_traits_type::_S_copy;
 
 	public: // Basic operations
 	constexpr size_type size() const noexcept {

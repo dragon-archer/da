@@ -33,6 +33,8 @@
 	DA_BEGIN_NAMESPACE
 	namespace fmt = ::fmt;
 	DA_END_NAMESPACE
+#else
+	#error No suitable fmt found.
 #endif
 
 // clang-format on

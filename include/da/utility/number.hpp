@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022-2023 dragon-archer
  */
 
-#ifndef _DA_NUMBER_HPP_
-#define _DA_NUMBER_HPP_
+#ifndef _DA_UTILITY_NUMBER_HPP_
+#define _DA_UTILITY_NUMBER_HPP_
 
 #include <da/config.hpp>
 #include <da/type_traits/config.hpp>
@@ -235,4 +235,4 @@ template<size_t P, arithmetic B, arithmetic T>
 
 DA_END_NAMESPACE
 
-#endif // _DA_NUMBER_HPP_
+#endif // _DA_UTILITY_NUMBER_HPP_

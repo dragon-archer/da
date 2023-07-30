@@ -12,7 +12,8 @@
 #define _DA_UTILITY_MATH_HPP_
 
 #include <da/config.hpp>
-#include <da/type_traits.hpp>
+#include <da/type_traits/config.hpp>
+#include <da/concepts.hpp>
 #include <cmath>
 
 DA_BEGIN_NAMESPACE
@@ -24,9 +25,8 @@ DA_BEGIN_NAMESPACE
  * @param exp The exponent, must be integer
  * @return base^exp
  * @note 0^0 returns 0 instead of arithmetic error
-*/
-template<typename T>
-	requires std::is_arithmetic_v<T>
+ */
+template<arithmetic T>
 [[nodiscard]] constexpr T pow(T base, ssize_t exp) noexcept {
 	if(base == 0 || base == 1) {
 		return base;

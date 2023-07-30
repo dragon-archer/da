@@ -13,5 +13,6 @@
 
 #include <da/utility/hash.hpp>
 #include <da/utility/math.hpp>
+#include <da/utility/number.hpp>
 
 #endif // _DA_UTILITY_HPP_

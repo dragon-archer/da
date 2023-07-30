@@ -100,12 +100,10 @@ TEST_CASE("cmdline_parser") {
 		}
 
 		SUBCASE("missing argument") {
-			int         argc    = 2;
-			char const* argv1[] = {"program", "--abcd", nullptr};
-			char const* argv2[] = {"program", "-o", nullptr};
+			int         argc   = 2;
+			char const* argv[] = {"program", "-o", nullptr};
 
-			CHECK_EQ(cp.parse(argc, argv1), cmdline_parser::MISSING_ARGUMENT);
-			CHECK_EQ(cp.parse(argc, argv2), cmdline_parser::MISSING_ARGUMENT);
+			CHECK_EQ(cp.parse(argc, argv), cmdline_parser::MISSING_ARGUMENT);
 		}
 
 		SUBCASE("missing option") {
@@ -128,9 +126,11 @@ TEST_CASE("cmdline_parser") {
 
 		SUBCASE("unexpected argument") {
 			int         argc    = 2;
-			char const* argv[] = {"program", "unknown", nullptr};
+			char const* argv1[] = {"program", "unknown", nullptr};
+			char const* argv2[] = {"program", "u", nullptr};
 
-			CHECK_EQ(cp.parse(argc, argv), cmdline_parser::UNEXPECTED_ARGUMENT);
+			CHECK_EQ(cp.parse(argc, argv1), cmdline_parser::UNEXPECTED_ARGUMENT);
+			CHECK_EQ(cp.parse(argc, argv2), cmdline_parser::UNEXPECTED_ARGUMENT);
 		}
 	}
 }

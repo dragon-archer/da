@@ -42,8 +42,8 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	typedef typename Impl::size_type              size_type;
 	typedef typename Impl::difference_type        difference_type;
 
-	static DA_CONSTEXPR size_type npos           = Impl::npos;
-	static DA_CONSTEXPR size_type start_capacity = 16; // Capacity should be no less than this
+	static inline DA_CONSTEXPR size_type npos           = Impl::npos;
+	static inline DA_CONSTEXPR size_type start_capacity = 16; // Capacity should be no less than this
 
 	private: // Declare feature test structures
 	/**
@@ -199,7 +199,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 		: string_base(il.begin(), il.size()) { }
 
 	DA_CONSTEXPR ~string_base() {
-		if DA_CONSTEXPR(has_destructor_v<Impl>) {
+		if constexpr(has_destructor_v<Impl>) {
 			Impl::~Impl();
 			return;
 		}
@@ -208,14 +208,14 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	protected: // Traits-oriented
 	DA_CONSTEXPR allocator_type& _M_get_alloc() const noexcept {
-		if DA_CONSTEXPR(has__M_get_alloc_v<const Impl>) {
+		if constexpr(has__M_get_alloc_v<const Impl>) {
 			return Impl::_M_get_alloc();
 		}
 		static_assert(has__M_get_alloc_v<Impl>, "The implemention of string should provide `allocator_type& _M_get_alloc()` as interface.");
 	}
 
 	DA_CONSTEXPR pointer _M_allocate(size_type n) {
-		if DA_CONSTEXPR(has__M_allocate_i_v<Impl>) {
+		if constexpr(has__M_allocate_i_v<Impl>) {
 			return Impl::_M_allocate(n);
 		}
 		assert(n != 0);
@@ -223,7 +223,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void _M_deallocate(pointer p, size_type n) {
-		if DA_CONSTEXPR(has__M_deallocate_p_i_v<Impl>) {
+		if constexpr(has__M_deallocate_p_i_v<Impl>) {
 			Impl::_M_deallocate(p, n);
 			return;
 		}
@@ -232,7 +232,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	static DA_CONSTEXPR pointer _S_copy(pointer dest, const_pointer src, size_type n) noexcept {
-		if DA_CONSTEXPR(has__S_copy_p_pc_i_v<Impl>) {
+		if constexpr(has__S_copy_p_pc_i_v<Impl>) {
 			return Impl::_S_copy(dest, src, n);
 		}
 		DA_IFUNLIKELY(n == 0) {
@@ -246,7 +246,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	static DA_CONSTEXPR pointer _S_copy_backward(pointer dest, const_pointer src, size_type n) noexcept {
-		if DA_CONSTEXPR(has__S_copy_backward_p_pc_i_v<Impl>) {
+		if constexpr(has__S_copy_backward_p_pc_i_v<Impl>) {
 			return Impl::_S_copy_backward(dest, src, n);
 		}
 		DA_IFUNLIKELY(n == 0) {
@@ -260,7 +260,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	static DA_CONSTEXPR void _S_assign(reference dest, const_reference src) noexcept {
-		if DA_CONSTEXPR(has__S_assign_vr_vcr_v<Impl>) {
+		if constexpr(has__S_assign_vr_vcr_v<Impl>) {
 			Impl::_S_assign(dest, src);
 			return;
 		}
@@ -268,7 +268,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	static DA_CONSTEXPR pointer _S_assign(pointer dest, size_type n, value_type src) noexcept {
-		if DA_CONSTEXPR(has__S_assign_p_i_v_v<Impl>) {
+		if constexpr(has__S_assign_p_i_v_v<Impl>) {
 			return Impl::_S_assign(dest, n, src);
 		}
 		DA_IFUNLIKELY(n == 0) {
@@ -282,7 +282,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	static DA_CONSTEXPR size_type _S_length(const_pointer p) noexcept {
-		if DA_CONSTEXPR(has__S_length_pc_v<Impl>) {
+		if constexpr(has__S_length_pc_v<Impl>) {
 			return Impl::_S_length(p);
 		}
 		return traits_type::length(p);
@@ -290,7 +290,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	protected: // Internal functions
 	DA_CONSTEXPR void _M_data(pointer p) noexcept {
-		if DA_CONSTEXPR(has__M_data_p_v<Impl>) {
+		if constexpr(has__M_data_p_v<Impl>) {
 			Impl::_M_data(p);
 			return;
 		}
@@ -298,7 +298,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void _M_size(size_type n) noexcept {
-		if DA_CONSTEXPR(has__M_size_i_v<Impl>) {
+		if constexpr(has__M_size_i_v<Impl>) {
 			Impl::_M_size(n);
 			return;
 		}
@@ -306,7 +306,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void _M_capacity(size_type n) noexcept {
-		if DA_CONSTEXPR(has__M_capacity_i_v<Impl>) {
+		if constexpr(has__M_capacity_i_v<Impl>) {
 			Impl::_M_capacity(n);
 			return;
 		}
@@ -314,7 +314,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR pointer _M_create(size_type& new_capacity, size_type old_capacity) {
-		if DA_CONSTEXPR(has__M_create_ir_i_v<Impl>) {
+		if constexpr(has__M_create_ir_i_v<Impl>) {
 			return Impl::_M_create(new_capacity, old_capacity);
 		}
 		DA_IFUNLIKELY(new_capacity > max_size()) {
@@ -336,7 +336,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @param what If errors, the string to be throw
 	 */
 	DA_CONSTEXPR void _M_check_length(size_type n1, size_type n2, const char* what = "da::string_base::_M_check_length") const {
-		if DA_CONSTEXPR(has__M_check_length_i_i_w_v<Impl>) {
+		if constexpr(has__M_check_length_i_i_w_v<Impl>) {
 			Impl::_M_check_length(n1, n2, what);
 			return;
 		}
@@ -353,7 +353,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @note   Access to the '\0' letter is allowed here
 	 */
 	DA_CONSTEXPR size_type _M_check_pos(size_type p, const char* what) const {
-		if DA_CONSTEXPR(has__M_check_pos_i_w_v<Impl>) {
+		if constexpr(has__M_check_pos_i_w_v<Impl>) {
 			return Impl::_M_check_pos(p, what);
 		}
 		DA_IFUNLIKELY(p > size()) {
@@ -363,7 +363,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void _M_dispose() {
-		if DA_CONSTEXPR(has__M_dispose_v<Impl>) {
+		if constexpr(has__M_dispose_v<Impl>) {
 			Impl::_M_dispose();
 			return;
 		}
@@ -371,7 +371,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void _M_destroy(size_type n) {
-		if DA_CONSTEXPR(has__M_destroy_i_v<Impl>) {
+		if constexpr(has__M_destroy_i_v<Impl>) {
 			Impl::_M_destroy(n);
 			return;
 		}
@@ -389,7 +389,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @note   This function DO NOT check the pos
 	 */
 	DA_CONSTEXPR size_type _M_limit_length(size_type pos, size_type offset) const noexcept {
-		if DA_CONSTEXPR(has__M_limit_length_i_i_v<Impl>) {
+		if constexpr(has__M_limit_length_i_i_v<Impl>) {
 			return Impl::_M_limit_length(pos, offset);
 		}
 		bool ok = offset < (size() - pos);
@@ -398,35 +398,35 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	public: // Basic operations
 	DA_CONSTEXPR pointer data() const noexcept {
-		if DA_CONSTEXPR(has_data_v<const Impl>) {
+		if constexpr(has_data_v<const Impl>) {
 			return Impl::data();
 		}
 		static_assert(has_data_v<const Impl>, "The implemention of string should provide `pointer data() const` as interface.");
 	}
 
 	DA_CONSTEXPR size_type size() const noexcept {
-		if DA_CONSTEXPR(has_size_v<const Impl>) {
+		if constexpr(has_size_v<const Impl>) {
 			return Impl::size();
 		}
 		static_assert(has_size_v<const Impl>, "The implemention of string should provide `size_type size() const` as interface.");
 	}
 
 	DA_CONSTEXPR size_type capacity() const noexcept {
-		if DA_CONSTEXPR(has_capacity_v<const Impl>) {
+		if constexpr(has_capacity_v<const Impl>) {
 			return Impl::capacity();
 		}
 		static_assert(has_capacity_v<const Impl>, "The implemention of string should provide `size_type capacity() const` as interface.");
 	}
 
 	DA_CONSTEXPR size_type length() const noexcept {
-		if DA_CONSTEXPR(has_length_v<const Impl>) {
+		if constexpr(has_length_v<const Impl>) {
 			return Impl::length();
 		}
 		return size(); // Use size() instead
 	}
 
 	DA_CONSTEXPR size_type max_size() const noexcept {
-		if DA_CONSTEXPR(has_max_size_v<const Impl>) {
+		if constexpr(has_max_size_v<const Impl>) {
 			return Impl::max_size();
 		}
 		// Apply npos if the implemention requires
@@ -435,84 +435,84 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	public: // Iterators
 	DA_CONSTEXPR iterator begin() noexcept {
-		if DA_CONSTEXPR(has_begin_v<Impl>) {
+		if constexpr(has_begin_v<Impl>) {
 			return Impl::begin();
 		}
 		return iterator(data());
 	}
 
 	DA_CONSTEXPR const_iterator begin() const noexcept {
-		if DA_CONSTEXPR(has_begin_v<const Impl>) {
+		if constexpr(has_begin_v<const Impl>) {
 			return Impl::begin();
 		}
 		return const_iterator(data());
 	}
 
 	DA_CONSTEXPR iterator end() noexcept {
-		if DA_CONSTEXPR(has_end_v<Impl>) {
+		if constexpr(has_end_v<Impl>) {
 			return Impl::end();
 		}
 		return iterator(data() + size());
 	}
 
 	DA_CONSTEXPR const_iterator end() const noexcept {
-		if DA_CONSTEXPR(has_end_v<const Impl>) {
+		if constexpr(has_end_v<const Impl>) {
 			return Impl::end();
 		}
 		return const_iterator(data() + size());
 	}
 
 	DA_CONSTEXPR reverse_iterator rbegin() noexcept {
-		if DA_CONSTEXPR(has_rbegin_v<Impl>) {
+		if constexpr(has_rbegin_v<Impl>) {
 			return Impl::rbegin();
 		}
 		return reverse_iterator(end());
 	}
 
 	DA_CONSTEXPR const_reverse_iterator rbegin() const noexcept {
-		if DA_CONSTEXPR(has_rbegin_v<const Impl>) {
+		if constexpr(has_rbegin_v<const Impl>) {
 			return Impl::rbegin();
 		}
 		return const_reverse_iterator(end());
 	}
 
 	DA_CONSTEXPR reverse_iterator rend() noexcept {
-		if DA_CONSTEXPR(has_rend_v<Impl>) {
+		if constexpr(has_rend_v<Impl>) {
 			return Impl::rend();
 		}
 		return reverse_iterator(begin());
 	}
 
 	DA_CONSTEXPR const_reverse_iterator rend() const noexcept {
-		if DA_CONSTEXPR(has_rend_v<const Impl>) {
+		if constexpr(has_rend_v<const Impl>) {
 			return Impl::rend();
 		}
 		return const_reverse_iterator(begin());
 	}
 
 	DA_CONSTEXPR const_iterator cbegin() const noexcept {
-		if DA_CONSTEXPR(has_cbegin_v<const Impl>) {
+		if constexpr(has_cbegin_v<const Impl>) {
 			return Impl::cbegin();
 		}
 		return const_iterator(data());
 	}
 
 	DA_CONSTEXPR const_iterator cend() const noexcept {
-		if DA_CONSTEXPR(has_cend_v<const Impl>) {
+		if constexpr(has_cend_v<const Impl>) {
 			return Impl::cend();
 		}
 		return const_iterator(data() + size());
 	}
 
 	DA_CONSTEXPR const_reverse_iterator crbegin() const noexcept {
-		if DA_CONSTEXPR(has_crbegin_v<const Impl>) {
+		if constexpr(has_crbegin_v<const Impl>) {
 			return Impl::crbegin();
 		}
 		return const_reverse_iterator(end());
 	}
 
 	DA_CONSTEXPR const_reverse_iterator crend() const noexcept {
-		if DA_CONSTEXPR(has_crend_v<const Impl>) {
+		if constexpr(has_crend_v<const Impl>) {
 			return Impl::crend();
 		}
 		return const_reverse_iterator(begin());
@@ -520,7 +520,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	public: // Size-oriented
 	DA_CONSTEXPR void reserve() {
-		if DA_CONSTEXPR(has_reserve_v<Impl>) {
+		if constexpr(has_reserve_v<Impl>) {
 			return Impl::reserve();
 		}
 		const size_type s = size();
@@ -534,7 +534,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void reserve(size_type n) {
-		if DA_CONSTEXPR(has_reserve_i_v<Impl>) {
+		if constexpr(has_reserve_i_v<Impl>) {
 			Impl::reserve(n);
 			return;
 		}
@@ -549,7 +549,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 		_M_capacity(n);
 	}
 	DA_CONSTEXPR void shrink_to_fit() {
-		if DA_CONSTEXPR(has_shrink_to_fit_v<Impl>) {
+		if constexpr(has_shrink_to_fit_v<Impl>) {
 			Impl::shrink_to_fit();
 			return;
 		}
@@ -557,7 +557,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void clear() noexcept {
-		if DA_CONSTEXPR(has_clear_v<Impl>) {
+		if constexpr(has_clear_v<Impl>) {
 			Impl::clear();
 			return;
 		}
@@ -565,7 +565,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR bool empty() const noexcept {
-		if DA_CONSTEXPR(has_empty_v<const Impl>) {
+		if constexpr(has_empty_v<const Impl>) {
 			return Impl::empty();
 		}
 		return size() == 0;
@@ -573,7 +573,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	public: // Member access
 	DA_CONSTEXPR reference operator[](size_type n) {
-		if DA_CONSTEXPR(has_operator_square_i_v<Impl>) {
+		if constexpr(has_operator_square_i_v<Impl>) {
 			return Impl::operator[](n);
 		}
 		assert(n <= size()); // Allow access the '\0'
@@ -581,7 +581,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR const_reference operator[](size_type n) const noexcept {
-		if DA_CONSTEXPR(has_operator_square_i_v<const Impl>) {
+		if constexpr(has_operator_square_i_v<const Impl>) {
 			return Impl::operator[](n);
 		}
 		assert(n <= size()); // Allow access the '\0'
@@ -589,7 +589,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR reference at(size_type n) {
-		if DA_CONSTEXPR(has_at_i_v<Impl>) {
+		if constexpr(has_at_i_v<Impl>) {
 			return Impl::at(n);
 		}
 		DA_IFUNLIKELY(n >= size()) {
@@ -599,7 +599,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR const_reference at(size_type n) const {
-		if DA_CONSTEXPR(has_at_i_v<const Impl>) {
+		if constexpr(has_at_i_v<const Impl>) {
 			return Impl::at(n);
 		}
 		DA_IFUNLIKELY(n >= size()) {
@@ -609,7 +609,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR reference front() noexcept {
-		if DA_CONSTEXPR(has_front_v<Impl>) {
+		if constexpr(has_front_v<Impl>) {
 			return Impl::front();
 		}
 		assert(!empty());
@@ -617,7 +617,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR const_reference front() const noexcept {
-		if DA_CONSTEXPR(has_front_v<const Impl>) {
+		if constexpr(has_front_v<const Impl>) {
 			return Impl::front();
 		}
 		assert(!empty());
@@ -625,7 +625,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR reference back() noexcept {
-		if DA_CONSTEXPR(has_back_v<Impl>) {
+		if constexpr(has_back_v<Impl>) {
 			return Impl::back();
 		}
 		assert(!empty());
@@ -633,7 +633,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR const_reference back() const noexcept {
-		if DA_CONSTEXPR(has_back_v<const Impl>) {
+		if constexpr(has_back_v<const Impl>) {
 			return Impl::back();
 		}
 		assert(!empty());
@@ -651,7 +651,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @note  This function is the base of almost all insertion & deletion functions
 	 */
 	DA_CONSTEXPR Self& replace(size_type p, size_type l1, const_pointer s, size_type l2) {
-		if DA_CONSTEXPR(has_replace_i_i_pc_i_v<Impl>) {
+		if constexpr(has_replace_i_i_pc_i_v<Impl>) {
 			return Impl::replace(p, l1, s, l2);
 		}
 		_M_check_pos(p, "da::string_base::replace");
@@ -689,7 +689,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @note  This function is the base of almost all insertion & deletion functions
 	 */
 	DA_CONSTEXPR Self& replace(size_type p, size_type l, size_type n, value_type c) {
-		if DA_CONSTEXPR(has_replace_i_i_i_v_v<Impl>) {
+		if constexpr(has_replace_i_i_i_v_v<Impl>) {
 			return Impl::replace(p, l, n, c);
 		}
 		_M_check_pos(p, "da::string_base::replace");
@@ -715,84 +715,84 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR Self& replace(size_type p, size_type l, const_pointer s) {
-		if DA_CONSTEXPR(has_replace_i_i_pc_v<Impl>) {
+		if constexpr(has_replace_i_i_pc_v<Impl>) {
 			return Impl::replace(p, l, s);
 		}
 		return replace(p, l, s, _S_length(s));
 	}
 
 	DA_CONSTEXPR Self& replace(size_type p, size_type l, const Self& s) {
-		if DA_CONSTEXPR(has_replace_i_i_scr_v<Impl>) {
+		if constexpr(has_replace_i_i_scr_v<Impl>) {
 			return Impl::replace(p, l, s);
 		}
 		return replace(p, l, s.data(), s.size());
 	}
 
 	DA_CONSTEXPR Self& replace(size_type p, size_type l, const Self& s, size_type p2, size_type n = npos) {
-		if DA_CONSTEXPR(has_replace_i_i_scr_i_i_v<Impl>) {
+		if constexpr(has_replace_i_i_scr_i_i_v<Impl>) {
 			return Impl::replace(p, l, s, p2, n);
 		}
 		return replace(p, l, s.data() + s._M_check_pos(p2, "da::string_base::replace"), s._M_limit_length(p2, n));
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, const_pointer s, size_type n) {
-		if DA_CONSTEXPR(has_replace_tc_tc_pc_i_v<Impl>) {
+		if constexpr(has_replace_tc_tc_pc_i_v<Impl>) {
 			return Impl::replace(it1, it2, s, n);
 		}
 		return replace(it1 - begin(), it2 - it1, s, n);
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, size_type n, value_type v) {
-		if DA_CONSTEXPR(has_replace_tc_tc_i_v_v<Impl>) {
+		if constexpr(has_replace_tc_tc_i_v_v<Impl>) {
 			return Impl::replace(it1, it2, n, v);
 		}
 		return replace(it1 - begin(), it2 - it1, n, v);
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, const_pointer s) {
-		if DA_CONSTEXPR(has_replace_tc_tc_pc_v<Impl>) {
+		if constexpr(has_replace_tc_tc_pc_v<Impl>) {
 			return Impl::replace(it1, it2, s);
 		}
 		return replace(it1 - begin(), it2 - it1, s, _S_length(s));
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, const Self& s) {
-		if DA_CONSTEXPR(has_replace_tc_tc_scr_v<Impl>) {
+		if constexpr(has_replace_tc_tc_scr_v<Impl>) {
 			return Impl::replace(it1, it2, s);
 		}
 		return replace(it1 - begin(), it2 - it1, s.data(), s.size());
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, pointer p1, pointer p2) {
-		if DA_CONSTEXPR(has_replace_tc_tc_p_p_v<Impl>) {
+		if constexpr(has_replace_tc_tc_p_p_v<Impl>) {
 			return Impl::replace(it1, it2, p1, p2);
 		}
 		return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, const_pointer p1, const_pointer p2) {
-		if DA_CONSTEXPR(has_replace_tc_tc_pc_pc_v<Impl>) {
+		if constexpr(has_replace_tc_tc_pc_pc_v<Impl>) {
 			return Impl::replace(it1, it2, p1, p2);
 		}
 		return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, iterator p1, iterator p2) {
-		if DA_CONSTEXPR(has_replace_tc_tc_t_t_v<Impl>) {
+		if constexpr(has_replace_tc_tc_t_t_v<Impl>) {
 			return Impl::replace(it1, it2, p1, p2);
 		}
 		return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, const_iterator p1, const_iterator p2) {
-		if DA_CONSTEXPR(has_replace_tc_tc_tc_tc_v<Impl>) {
+		if constexpr(has_replace_tc_tc_tc_tc_v<Impl>) {
 			return Impl::replace(it1, it2, p1, p2);
 		}
 		return replace(it1 - begin(), it2 - it1, p1, p2 - p1);
 	}
 
 	DA_CONSTEXPR Self& replace(const_iterator it1, const_iterator it2, std::initializer_list<value_type> il) {
-		if DA_CONSTEXPR(has_replace_tc_tc_vl_v<Impl>) {
+		if constexpr(has_replace_tc_tc_vl_v<Impl>) {
 			return Impl::replace(it1, it2, il);
 		}
 		return replace(it1 - begin(), it2 - it1, il.begin(), il.size());
@@ -813,7 +813,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @note   This function is the base of all append functions
 	 */
 	DA_CONSTEXPR Self& append(const_pointer p, size_type n) {
-		if DA_CONSTEXPR(has_append_pc_i_v<Impl>) {
+		if constexpr(has_append_pc_i_v<Impl>) {
 			return Impl::append(p, n);
 		}
 		return replace(size(), 0, p, n);
@@ -823,35 +823,35 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 * @brief This function is similar to the function above, the only difference is that the length is calculated dynamically
 	 */
 	DA_CONSTEXPR Self& append(const_pointer p) {
-		if DA_CONSTEXPR(has_append_pc_v<Impl>) {
+		if constexpr(has_append_pc_v<Impl>) {
 			return Impl::append(p);
 		}
 		return append(p, _S_length(p));
 	}
 
 	DA_CONSTEXPR Self& append(const Self& s) {
-		if DA_CONSTEXPR(has_append_scr_v<Impl>) {
+		if constexpr(has_append_scr_v<Impl>) {
 			return Impl::append(s);
 		}
 		return append(s.data(), s.size());
 	}
 
 	DA_CONSTEXPR Self& append(const Self& s, size_type p, size_type n = npos) {
-		if DA_CONSTEXPR(has_append_scr_i_i_v<Impl>) {
+		if constexpr(has_append_scr_i_i_v<Impl>) {
 			return Impl::append(s, p, n);
 		}
 		return append(s.data() + s._M_check_pos(p, "da::string_base::append"), s._M_limit_length(p, n));
 	}
 
 	DA_CONSTEXPR Self& append(std::initializer_list<Char> il) {
-		if DA_CONSTEXPR(has_append_vl_v<Impl>) {
+		if constexpr(has_append_vl_v<Impl>) {
 			return Impl::append(il);
 		}
 		return append(il.begin(), il.size());
 	}
 
 	DA_CONSTEXPR Self& append(size_type n, value_type c) {
-		if DA_CONSTEXPR(has_append_i_v_v<Impl>) {
+		if constexpr(has_append_i_v_v<Impl>) {
 			return Impl::append(n, c);
 		}
 		return replace(size(), 0, n, c);
@@ -863,7 +863,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR void push_back(value_type c) {
-		if DA_CONSTEXPR(has_push_back_v_v<Impl>) {
+		if constexpr(has_push_back_v_v<Impl>) {
 			Impl::push_back(c);
 			return;
 		}
@@ -875,21 +875,21 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR Self& operator+=(const Self& s) {
-		if DA_CONSTEXPR(has_operator_plusequal_scr_v<Impl>) {
+		if constexpr(has_operator_plusequal_scr_v<Impl>) {
 			return Impl::operator+=(s);
 		}
 		return append(s);
 	}
 
 	DA_CONSTEXPR Self& operator+=(const_pointer s) {
-		if DA_CONSTEXPR(has_operator_plusequal_pc_v<Impl>) {
+		if constexpr(has_operator_plusequal_pc_v<Impl>) {
 			return Impl::operator+=(s);
 		}
 		return append(s);
 	}
 
 	DA_CONSTEXPR Self& operator+=(value_type c) {
-		if DA_CONSTEXPR(has_operator_plusequal_v_v<Impl>) {
+		if constexpr(has_operator_plusequal_v_v<Impl>) {
 			return Impl::operator+=(c);
 		}
 		push_back(c);
@@ -897,7 +897,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR Self& operator+=(std::initializer_list<value_type> il) {
-		if DA_CONSTEXPR(has_operator_plusequal_vl_v<Impl>) {
+		if constexpr(has_operator_plusequal_vl_v<Impl>) {
 			return Impl::operator+=(il);
 		}
 		return append(il);
@@ -905,7 +905,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	public: // Assignment
 	DA_CONSTEXPR Self& assign(const_pointer p, size_type n) {
-		if DA_CONSTEXPR(has_assign_pc_i_v<Impl>) {
+		if constexpr(has_assign_pc_i_v<Impl>) {
 			return Impl::assign(p, n);
 		}
 		if(data() == p) {
@@ -915,7 +915,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR Self& assign(Self&& s) {
-		if DA_CONSTEXPR(has_assign_sR_v<Impl>) {
+		if constexpr(has_assign_sR_v<Impl>) {
 			return Impl::assign(s);
 		}
 		swap(move(s));
@@ -923,35 +923,35 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR Self& assign(const_pointer p) {
-		if DA_CONSTEXPR(has_assign_pc_v<Impl>) {
+		if constexpr(has_assign_pc_v<Impl>) {
 			return Impl::assign(p);
 		}
 		return assign(p, _S_length(p));
 	}
 
 	DA_CONSTEXPR Self& assign(const Self& s) {
-		if DA_CONSTEXPR(has_assign_scr_v<Impl>) {
+		if constexpr(has_assign_scr_v<Impl>) {
 			return Impl::assign(s);
 		}
 		return assign(s.data(), s.size());
 	}
 
 	DA_CONSTEXPR Self& assign(const Self& s, size_type p, size_type n = npos) {
-		if DA_CONSTEXPR(has_assign_scr_i_i_v<Impl>) {
+		if constexpr(has_assign_scr_i_i_v<Impl>) {
 			return Impl::assign(s, p, n);
 		}
 		return assign(s.data() + s._M_check_pos(p, "da::string_base::assign"), s._M_limit_length(p, n));
 	}
 
 	DA_CONSTEXPR Self& assign(std::initializer_list<Char> il) {
-		if DA_CONSTEXPR(has_assign_vl_v<Impl>) {
+		if constexpr(has_assign_vl_v<Impl>) {
 			return Impl::assign(il);
 		}
 		return assign(il.begin(), il.size());
 	}
 
 	DA_CONSTEXPR Self& assign(size_type n, value_type c) {
-		if DA_CONSTEXPR(has_assign_i_v_v<Impl>) {
+		if constexpr(has_assign_i_v_v<Impl>) {
 			return Impl::assign(n, c);
 		}
 		return replace(0, size(), n, c);
@@ -963,7 +963,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	}
 
 	DA_CONSTEXPR Self& operator=(Self&& s) {
-		if DA_CONSTEXPR(has_operator_equal_sR_v<Impl>) {
+		if constexpr(has_operator_equal_sR_v<Impl>) {
 			return Impl::operator=(s);
 		}
 		return assign(s);
@@ -971,7 +971,7 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 
 	public: // Others
 	DA_CONSTEXPR void swap(const Self& s) {
-		if DA_CONSTEXPR(has_swap_scr_v<Impl>) {
+		if constexpr(has_swap_scr_v<Impl>) {
 			Impl::swap(s);
 			return;
 		}

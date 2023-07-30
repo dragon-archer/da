@@ -45,10 +45,10 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 	typedef std::reverse_iterator<const_iterator>           const_reverse_iterator;
 
 	// 2 represents alignment & '\0'
-	static DA_CONSTEXPR size_type max_sso_size = ((2 * sizeof(size_type) + sizeof(pointer)) / sizeof(value_type)) - 2;
+	static inline DA_CONSTEXPR size_type max_sso_size = ((2 * sizeof(size_type) + sizeof(pointer)) / sizeof(value_type)) - 2;
 	// Since the highest bit of m_size is used to identify whether it is optimized,
 	// we can only use half of the size
-	static DA_CONSTEXPR size_type npos = std::numeric_limits<size_type>::max() / 2;
+	static inline DA_CONSTEXPR size_type npos = std::numeric_limits<size_type>::max() / 2;
 
 	DA_CONSTEXPR sso_string_base() noexcept
 		: m_data{.short_string = {0x80, {'\0'}}} { }

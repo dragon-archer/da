@@ -34,7 +34,7 @@ template<arithmetic T>
 	if(exp == 0) {
 		return 1;
 	} else if(exp < 0) {
-		if DA_CONSTEXPR(std::is_integral_v<T>) {
+		if constexpr(std::is_integral_v<T>) {
 			DA_IFUNLIKELY(base == 2 && exp == -1) {
 				return 1; // 2^(-1) round off to 1
 			}

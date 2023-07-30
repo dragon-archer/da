@@ -26,7 +26,7 @@ class cmdline_parser {
 	using string_t   = std::string_view;
 	using callback_t = std::function<void(string_t)>;
 
-	static DA_CONSTEXPR_VAR handle_t invalid_handle = 0;
+	static inline DA_CONSTEXPR handle_t invalid_handle = 0;
 
 	enum error_code {
 		SUCCESS = 0,

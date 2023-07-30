@@ -38,7 +38,7 @@ class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 	typedef std::reverse_iterator<iterator>                    reverse_iterator;
 	typedef std::reverse_iterator<const_iterator>              const_reverse_iterator;
 
-	static DA_CONSTEXPR size_type npos = std::numeric_limits<size_type>::max();
+	static inline DA_CONSTEXPR size_type npos = std::numeric_limits<size_type>::max();
 
 	DA_CONSTEXPR normal_string_base() noexcept
 		: m_ptr(nullptr)

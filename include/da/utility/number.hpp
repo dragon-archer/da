@@ -34,7 +34,7 @@ class fixed_point {
 	Base _value;
 
 	public:
-	static DA_CONSTEXPR_VAR Base precision_in_10 = pow<Base>(10, Precision);
+	static inline DA_CONSTEXPR Base precision_in_10 = pow<Base>(10, Precision);
 
 	/// Constructors
 	DA_CONSTEXPR fixed_point() noexcept

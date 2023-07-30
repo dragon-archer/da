@@ -30,17 +30,17 @@ class string_traits : protected Alloc { // Empty-Base Optimization
 		return *static_cast<Alloc*>(this);
 	}
 
-	constexpr pointer _M_allocate(size_type n) {
+	DA_CONSTEXPR pointer _M_allocate(size_type n) {
 		assert(n != 0);
 		return Alloc::allocate(n);
 	}
 
-	constexpr void _M_deallocate(pointer p, size_type n) {
+	DA_CONSTEXPR void _M_deallocate(pointer p, size_type n) {
 		assert(p != nullptr && n != 0);
 		Alloc::deallocate(p, n);
 	}
 
-	static constexpr pointer _S_copy(pointer dest, const_pointer src, size_type n) noexcept {
+	static DA_CONSTEXPR pointer _S_copy(pointer dest, const_pointer src, size_type n) noexcept {
 		DA_IFUNLIKELY(n == 0) {
 			return dest;
 		}
@@ -51,11 +51,11 @@ class string_traits : protected Alloc { // Empty-Base Optimization
 		return Traits::copy(dest, src, n);
 	}
 
-	static constexpr void _S_assign(reference dest, const_reference src) noexcept {
+	static DA_CONSTEXPR void _S_assign(reference dest, const_reference src) noexcept {
 		Traits::assign(dest, src);
 	}
 
-	static constexpr pointer _S_assign(pointer dest, size_type n, value_type src) noexcept {
+	static DA_CONSTEXPR pointer _S_assign(pointer dest, size_type n, value_type src) noexcept {
 		DA_IFUNLIKELY(n == 0) {
 			return dest;
 		}

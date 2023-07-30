@@ -29,9 +29,9 @@ TEST_CASE("type_traits") {
 	}
 
 	SUBCASE("size") {
-		constexpr auto d = typelist<>::size();
+		DA_CONSTEXPR auto d = typelist<>::size();
 		CHECK(d == 0);
-		constexpr auto e = typelist<long, int, char, bool>::size();
+		DA_CONSTEXPR auto e = typelist<long, int, char, bool>::size();
 		CHECK(e == 4);
 	}
 }

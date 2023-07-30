@@ -22,13 +22,13 @@ DA_BEGIN_NAMESPACE
 	#define DA_STRING_CONSTEXPR_OR_INLINE inline
 	#define DA_STRING_CONSTEXPR
 #else
-	#define DA_STRING_CONSTEXPR_OR_INLINE constexpr
-	#define DA_STRING_CONSTEXPR constexpr
+	#define DA_STRING_CONSTEXPR_OR_INLINE DA_CONSTEXPR
+	#define DA_STRING_CONSTEXPR           DA_CONSTEXPR
 #endif
 
-constexpr size_t fnv1a_hash(const char* p, size_t len) noexcept {
-	constexpr size_t fnv_prime        = 0x00000100000001B3;
-	constexpr size_t fnv_offset_basis = 0xCBF29CE484222325;
+DA_CONSTEXPR size_t fnv1a_hash(const char* p, size_t len) noexcept {
+	DA_CONSTEXPR size_t fnv_prime        = 0x00000100000001B3;
+	DA_CONSTEXPR size_t fnv_offset_basis = 0xCBF29CE484222325;
 
 	size_t v = fnv_offset_basis;
 	while(len--) {
@@ -50,17 +50,17 @@ DA_STRING_CONSTEXPR_OR_INLINE size_t hash(const std::string& x) noexcept {
 }
 
 template<>
-constexpr size_t hash(const std::string_view& x) noexcept {
+DA_CONSTEXPR size_t hash(const std::string_view& x) noexcept {
 	return fnv1a_hash(x.data(), x.size());
 }
 
 template<>
-constexpr size_t hash(const char* const& x) noexcept {
+DA_CONSTEXPR size_t hash(const char* const& x) noexcept {
 	return fnv1a_hash(x, strlen(x));
 }
 
 template<size_t N>
-constexpr size_t hash(const char (&x)[N]) noexcept {
+DA_CONSTEXPR size_t hash(const char (&x)[N]) noexcept {
 	return fnv1a_hash(x, N - 1); // Discard '\0'
 }
 

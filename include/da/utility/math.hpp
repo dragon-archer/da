@@ -27,14 +27,14 @@ DA_BEGIN_NAMESPACE
  * @note 0^0 returns 0 instead of arithmetic error
  */
 template<arithmetic T>
-[[nodiscard]] constexpr T pow(T base, ssize_t exp) noexcept {
+[[nodiscard]] DA_CONSTEXPR T pow(T base, ssize_t exp) noexcept {
 	if(base == 0 || base == 1) {
 		return base;
 	}
 	if(exp == 0) {
 		return 1;
 	} else if(exp < 0) {
-		if constexpr(std::is_integral_v<T>) {
+		if DA_CONSTEXPR(std::is_integral_v<T>) {
 			DA_IFUNLIKELY(base == 2 && exp == -1) {
 				return 1; // 2^(-1) round off to 1
 			}

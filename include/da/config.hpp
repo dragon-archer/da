@@ -117,6 +117,13 @@
 	#define _DA_DETAIL ::
 #endif
 
+/// DA_CONSTEXPR
+#ifdef DA_ON_CODE_COVERAGE
+	#define DA_CONSTEXPR
+#else
+	#define DA_CONSTEXPR constexpr
+#endif
+
 /// Basic debug support
 
 // DA_ASSUME

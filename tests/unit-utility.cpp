@@ -13,27 +13,27 @@
 
 using namespace std::literals;
 
-#define CHECK_CE(x, y)        \
-	do {                      \
-		constexpr auto v = x; \
-		CHECK_EQ(v, y);       \
+#define CHECK_CE(x, y)           \
+	do {                         \
+		DA_CONSTEXPR auto v = x; \
+		CHECK_EQ(v, y);          \
 	} while(0)
 
 TEST_CASE("utility") {
 	SUBCASE("hash") {
-		constexpr auto hash_of_password = 0x4b1a493507b3a318;
+		DA_CONSTEXPR auto hash_of_password = 0x4b1a493507b3a318;
 		SUBCASE("Any type") {
 			CHECK(da::hash(42) == 0x8d9aadc8352fdf7f);
 		}
 		SUBCASE("std::string") {
-			DA_STRING_CONSTEXPR auto x  = da::hash("password"s);
+			DA_STRING_CONSTEXPR auto x = da::hash("password"s);
 			CHECK(x == hash_of_password);
 		}
 		SUBCASE("std::string_view") {
 			CHECK_CE(da::hash("password"sv), hash_of_password);
 		}
 		SUBCASE("const char*") {
-			constexpr auto p = "password";
+			DA_CONSTEXPR auto p = "password";
 			CHECK_CE(da::hash(p), hash_of_password);
 		}
 		SUBCASE("const char[]") {

@@ -38,9 +38,9 @@ class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 	typedef std::reverse_iterator<iterator>                    reverse_iterator;
 	typedef std::reverse_iterator<const_iterator>              const_reverse_iterator;
 
-	static constexpr size_type npos = std::numeric_limits<size_type>::max();
+	static DA_CONSTEXPR size_type npos = std::numeric_limits<size_type>::max();
 
-	constexpr normal_string_base() noexcept
+	DA_CONSTEXPR normal_string_base() noexcept
 		: m_ptr(nullptr)
 		, m_size(0)
 		, m_capacity(0) {
@@ -52,7 +52,7 @@ class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 	size_type m_capacity;
 
 	public: // Allocators
-	constexpr allocator_type& _M_get_alloc() const noexcept {
+	DA_CONSTEXPR allocator_type& _M_get_alloc() const noexcept {
 		// Force convert this to non-const to make it work on const string
 		// Required by: max_size()
 		return *static_cast<string_traits_type*>(const_cast<Self*>(this));
@@ -64,29 +64,29 @@ class normal_string_base : protected string_traits<Char, Traits, Alloc> {
 	using string_traits_type::_S_copy;
 
 	public: // Basic operations
-	constexpr size_type size() const noexcept {
+	DA_CONSTEXPR size_type size() const noexcept {
 		return m_size;
 	}
 
-	constexpr size_type capacity() const noexcept {
+	DA_CONSTEXPR size_type capacity() const noexcept {
 		return m_capacity;
 	}
 
-	constexpr pointer data() const noexcept {
+	DA_CONSTEXPR pointer data() const noexcept {
 		return m_ptr;
 	}
 
-	constexpr void _M_size(size_type n) noexcept {
+	DA_CONSTEXPR void _M_size(size_type n) noexcept {
 		assert(n <= capacity());
 		m_size = n;
 		_S_assign(data()[n], Char());
 	}
 
-	constexpr void _M_capacity(size_type n) noexcept {
+	DA_CONSTEXPR void _M_capacity(size_type n) noexcept {
 		m_capacity = n;
 	}
 
-	constexpr void _M_data(pointer p) noexcept {
+	DA_CONSTEXPR void _M_data(pointer p) noexcept {
 		m_ptr = p;
 	}
 };

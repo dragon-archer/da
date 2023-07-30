@@ -37,10 +37,10 @@
 		static std::false_type f(...);                                            \
                                                                                   \
 		public:                                                                   \
-		static constexpr bool value = decltype(f<T_##SN>(0))::value;              \
+		static DA_CONSTEXPR bool value = decltype(f<T_##SN>(0))::value;           \
 	};                                                                            \
 	template<typename T_##SN>                                                     \
-	inline static constexpr bool SN##_v = SN<T_##SN>::value;
+	inline static DA_CONSTEXPR bool SN##_v = SN<T_##SN>::value;
 
 #define DA_DECLVAL_WRAPPER(type) , std::declval<type>()
 

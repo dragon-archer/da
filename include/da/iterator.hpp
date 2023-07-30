@@ -35,75 +35,75 @@ class normal_iterator {
 	typedef typename traits_type::reference       reference;
 	typedef typename traits_type::pointer         pointer;
 
-	constexpr normal_iterator() noexcept
+	DA_CONSTEXPR normal_iterator() noexcept
 		: m_iter(Iter()) { }
 
-	explicit constexpr normal_iterator(const Iter& i) noexcept
+	explicit DA_CONSTEXPR normal_iterator(const Iter& i) noexcept
 		: m_iter(i) { }
 
 	template<typename It, typename = convertible_from<It>>
-	explicit constexpr normal_iterator(const It& i) noexcept
+	explicit DA_CONSTEXPR normal_iterator(const It& i) noexcept
 		: m_iter(i.base()) { }
 
-	constexpr const Iter& base() const noexcept {
+	DA_CONSTEXPR const Iter& base() const noexcept {
 		return m_iter;
 	}
 
-	constexpr reference operator*() noexcept {
+	DA_CONSTEXPR reference operator*() noexcept {
 		return *m_iter;
 	}
 
-	constexpr pointer operator->() noexcept {
+	DA_CONSTEXPR pointer operator->() noexcept {
 		return m_iter;
 	}
 
 	// Use comma expression to make this compile under C++11
-	constexpr Self& operator++() noexcept {
+	DA_CONSTEXPR Self& operator++() noexcept {
 		return (++m_iter, *this);
 	}
 
-	constexpr Self operator++(int) noexcept {
+	DA_CONSTEXPR Self operator++(int) noexcept {
 		return Self(m_iter++);
 	}
 
-	constexpr Self& operator--() noexcept {
+	DA_CONSTEXPR Self& operator--() noexcept {
 		return (--m_iter, *this);
 	}
 
-	constexpr Self operator--(int) noexcept {
+	DA_CONSTEXPR Self operator--(int) noexcept {
 		return Self(m_iter--);
 	}
 
-	constexpr reference operator[](difference_type n) const {
+	DA_CONSTEXPR reference operator[](difference_type n) const {
 		return m_iter[n];
 	}
 
-	constexpr Self& operator+=(difference_type n) {
+	DA_CONSTEXPR Self& operator+=(difference_type n) {
 		return (m_iter += n, *this);
 	}
 
-	constexpr Self operator+(difference_type n) const {
+	DA_CONSTEXPR Self operator+(difference_type n) const {
 		return Self(m_iter + n);
 	}
 
-	constexpr Self& operator-=(difference_type n) {
+	DA_CONSTEXPR Self& operator-=(difference_type n) {
 		return (m_iter -= n, *this);
 	}
 
-	constexpr Self operator-(difference_type n) const {
+	DA_CONSTEXPR Self operator-(difference_type n) const {
 		return Self(m_iter - n);
 	}
 };
 
 template<typename Iter1, typename Iter2, typename Container>
-constexpr bool operator==(const normal_iterator<Iter1, Container>& x,
-						  const normal_iterator<Iter2, Container>& y) noexcept {
+DA_CONSTEXPR bool operator==(const normal_iterator<Iter1, Container>& x,
+							 const normal_iterator<Iter2, Container>& y) noexcept {
 	return x.base() == y.base();
 }
 
 template<typename Iter1, typename Iter2, typename Container>
-constexpr std::strong_ordering operator<=>(const normal_iterator<Iter1, Container>& x,
-										   const normal_iterator<Iter2, Container>& y) noexcept {
+DA_CONSTEXPR std::strong_ordering operator<=>(const normal_iterator<Iter1, Container>& x,
+											  const normal_iterator<Iter2, Container>& y) noexcept {
 	return x.base() <=> y.base();
 }
 

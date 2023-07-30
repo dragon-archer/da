@@ -45,12 +45,12 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 	typedef std::reverse_iterator<const_iterator>           const_reverse_iterator;
 
 	// 2 represents alignment & '\0'
-	static constexpr size_type max_sso_size = ((2 * sizeof(size_type) + sizeof(pointer)) / sizeof(value_type)) - 2;
+	static DA_CONSTEXPR size_type max_sso_size = ((2 * sizeof(size_type) + sizeof(pointer)) / sizeof(value_type)) - 2;
 	// Since the highest bit of m_size is used to identify whether it is optimized,
 	// we can only use half of the size
-	static constexpr size_type npos = std::numeric_limits<size_type>::max() / 2;
+	static DA_CONSTEXPR size_type npos = std::numeric_limits<size_type>::max() / 2;
 
-	constexpr sso_string_base() noexcept
+	DA_CONSTEXPR sso_string_base() noexcept
 		: m_data{.short_string = {0x80, {'\0'}}} { }
 
 	private:
@@ -80,11 +80,11 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 
 	protected: // Internal functions used by da::string
 	// Check whether the string is optimized
-	constexpr bool is_sso() const noexcept {
+	DA_CONSTEXPR bool is_sso() const noexcept {
 		return (*reinterpret_cast<const uint8_t* const>(&m_data)) & (0x80);
 	}
 
-	constexpr void change_sso_to_normal() {
+	DA_CONSTEXPR void change_sso_to_normal() {
 		DA_IFUNLIKELY(!is_sso()) {
 			return;
 		}
@@ -97,7 +97,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		_M_size(s);
 	}
 
-	constexpr void change_normal_to_sso() {
+	DA_CONSTEXPR void change_normal_to_sso() {
 		DA_IFUNLIKELY(is_sso()) {
 			return;
 		}
@@ -114,7 +114,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 	}
 
 	public: // Allocators
-	constexpr allocator_type& _M_get_alloc() const noexcept {
+	DA_CONSTEXPR allocator_type& _M_get_alloc() const noexcept {
 		// Force convert this to non-const to make it work on const string
 		// Required by: max_size()
 		return *static_cast<string_traits_type*>(const_cast<Self*>(this));
@@ -125,7 +125,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 	using string_traits_type::_S_assign;
 	using string_traits_type::_S_copy;
 
-	constexpr pointer _M_create(size_type& new_capacity, size_type old_capacity) {
+	DA_CONSTEXPR pointer _M_create(size_type& new_capacity, size_type old_capacity) {
 		DA_IFUNLIKELY(new_capacity > max_size()) {
 			DA_THROW(std::length_error(fmt::format("da::sso_string_base::_M_create: The new capacity (which is {}) > max_size() (which is {})", new_capacity, max_size())));
 		}
@@ -143,39 +143,39 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		return _M_allocate(new_capacity + 1); // One more element for '\0'
 	}
 
-	constexpr void _M_dispose() {
+	DA_CONSTEXPR void _M_dispose() {
 		if(!is_sso()) {
 			_M_destroy(capacity());
 		}
 	}
 
-	constexpr void _M_destroy(size_type n) {
+	DA_CONSTEXPR void _M_destroy(size_type n) {
 		if(!is_sso() && data() != nullptr) {
 			_M_deallocate(data(), n + 1);
 		}
 	}
 
 	public: // Basic operations
-	constexpr size_type size() const noexcept {
+	DA_CONSTEXPR size_type size() const noexcept {
 		return is_sso() ? static_cast<size_type>(m_data.short_string.m_size - 0x80) // SSO bit
 						: m_data.long_string.m_size;
 	}
 
-	constexpr size_type capacity() const noexcept {
+	DA_CONSTEXPR size_type capacity() const noexcept {
 		return is_sso() ? max_sso_size
 						: m_data.long_string.m_capacity;
 	}
 
-	constexpr pointer data() const noexcept {
+	DA_CONSTEXPR pointer data() const noexcept {
 		return is_sso() ? const_cast<pointer>(static_cast<const_pointer>(m_data.short_string.m_ptr))
 						: m_data.long_string.m_ptr;
 	}
 
-	constexpr size_type max_size() const noexcept {
+	DA_CONSTEXPR size_type max_size() const noexcept {
 		return npos - 1;
 	}
 
-	constexpr void _M_size(size_type n) noexcept {
+	DA_CONSTEXPR void _M_size(size_type n) noexcept {
 		assert(n <= capacity());
 		if(is_sso()) {
 			m_data.short_string.m_size = static_cast<uint8_t>(n + 0x80);
@@ -185,7 +185,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		_S_assign(data()[n], Char());
 	}
 
-	constexpr void _M_capacity(size_type n) noexcept {
+	DA_CONSTEXPR void _M_capacity(size_type n) noexcept {
 		if(!is_sso()) {
 			m_data.long_string.m_capacity = n;
 		} else {
@@ -196,7 +196,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		}
 	}
 
-	constexpr void _M_data(pointer p) noexcept {
+	DA_CONSTEXPR void _M_data(pointer p) noexcept {
 		if(!is_sso()) {
 			m_data.long_string.m_ptr = p;
 		} else {
@@ -211,7 +211,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 	}
 
 	public:
-	constexpr void reserve() {
+	DA_CONSTEXPR void reserve() {
 		if(is_sso()) {
 			return;
 		}
@@ -228,7 +228,7 @@ class sso_string_base : protected string_traits<Char, Traits, Alloc> {
 		}
 	}
 
-	constexpr void swap(const Self& s) {
+	DA_CONSTEXPR void swap(const Self& s) {
 		std::swap(m_data, s.m_data);
 	}
 };

@@ -15,7 +15,7 @@
 
 DA_BEGIN_NAMESPACE
 
-constexpr size_t strlen(const char* str) noexcept {
+DA_CONSTEXPR size_t strlen(const char* str) noexcept {
 	assert(str != nullptr);
 	size_t ret = 0;
 	while(*str != '\0') {

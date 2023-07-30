@@ -11,30 +11,52 @@
 #include <da/utility.hpp>
 #include <doctest/doctest.h>
 
+using namespace std::literals;
+
+#define CHECK_CE(x, y)        \
+	do {                      \
+		constexpr auto v = x; \
+		CHECK_EQ(v, y);       \
+	} while(0)
+
 TEST_CASE("utility") {
 	SUBCASE("hash") {
+		constexpr auto hash_of_password = 0x4b1a493507b3a318;
 		SUBCASE("Any type") {
-			CHECK_EQ(da::hash(42), 0x8d9aadc8352fdf7f);
+			CHECK(da::hash(42) == 0x8d9aadc8352fdf7f);
 		}
 		SUBCASE("std::string") {
-			constexpr auto           sv = std::string_view("password");
-			DA_STRING_CONSTEXPR auto s  = sv;
-			DA_STRING_CONSTEXPR auto x  = da::hash(s);
-			CHECK_EQ(x, 0x4b1a493507b3a318);
+			DA_STRING_CONSTEXPR auto x  = da::hash("password"s);
+			CHECK(x == hash_of_password);
 		}
 		SUBCASE("std::string_view") {
-			constexpr auto sv = std::string_view("password");
-			constexpr auto x  = da::hash(sv);
-			CHECK_EQ(x, 0x4b1a493507b3a318);
+			CHECK_CE(da::hash("password"sv), hash_of_password);
 		}
 		SUBCASE("const char*") {
 			constexpr auto p = "password";
-			constexpr auto x = da::hash(p);
-			CHECK_EQ(x, 0x4b1a493507b3a318);
+			CHECK_CE(da::hash(p), hash_of_password);
 		}
 		SUBCASE("const char[]") {
-			constexpr auto x = da::hash("password");
-			CHECK_EQ(x, 0x4b1a493507b3a318);
+			CHECK_CE(da::hash("password"), hash_of_password);
+		}
+	}
+
+	SUBCASE("math") {
+		SUBCASE("pow") {
+			CHECK_CE(da::pow(0, 0), 0);
+			CHECK_CE(da::pow(0, 42), 0);
+			CHECK_CE(da::pow(0, -42), 0);
+
+			CHECK_CE(da::pow(1, 0), 1);
+			CHECK_CE(da::pow(1, 42), 1);
+			CHECK_CE(da::pow(1, -42), 1);
+
+			CHECK_CE(da::pow(2, 0), 1);
+			CHECK_CE(da::pow(2, 2), 4);
+			CHECK_CE(da::pow(2, -1), 1);
+			CHECK_CE(da::pow(2, -2), 0);
+
+			CHECK_CE(da::pow(3.0, 10), 59049.0);
 		}
 	}
 }

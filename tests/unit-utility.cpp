@@ -55,8 +55,21 @@ TEST_CASE("utility") {
 			CHECK_CE(da::pow(2, 2), 4);
 			CHECK_CE(da::pow(2, -1), 1);
 			CHECK_CE(da::pow(2, -2), 0);
+			CHECK_CE(da::pow(3, -1), 0);
 
 			CHECK_CE(da::pow(3.0, 10), 59049.0);
+			CHECK_CE(da::pow(3.0, -1), 1.0 / 3);
 		}
+	}
+
+	SUBCASE("fixed_point") {
+		using f5 = da::fixed_point<5>;
+		using f6 = da::fixed_point<6>;
+		SUBCASE("constructor") {
+			CHECK_CE(f5().raw(), 0);
+			CHECK_CE(f5(1).raw(), 1e5);
+			CHECK_CE(f5(1, da::no_conversion).raw(), 1);
+		}
+		CHECK_CE((f5(2) * 3).raw(), 6e5);
 	}
 }

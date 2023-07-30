@@ -122,29 +122,26 @@
 	#define DA_CONSTEXPR
 	#define DA_CONSTEXPR_VAR inline
 #else
-	#define DA_CONSTEXPR constexpr
+	#define DA_CONSTEXPR     constexpr
 	#define DA_CONSTEXPR_VAR constexpr
 #endif
 
 /// Basic debug support
 
 // DA_ASSUME
-#ifdef _DEBUG
-	#ifdef DA_ON_CODE_COVERAGE // No tests for assume failure
-		#define DA_ASSUME(expr) (void)(expr)
-	#else
-		#define DA_ASSUME(expr) assert(expr)
-	#endif
-#else
-	#if DA_HAS_CPP_ATTRIBUTE(assume) // Prefer c++ attribute
-		#define DA_ASSUME(expr) [[assume(expr)]]
-	#elif DA_HAS_BUILTIN(__assume) // Usually MSVC
-		#define DA_ASSUME(expr) __assume(expr)
-	#elif DA_HAS_BUILTIN(__builtin_assume) // Usually Clang
-		#define DA_ASSUME(expr) __builtin_assume(expr)
-	#else // No suitable assume
-		#define DA_ASSUME(expr) (void)(expr)
-	#endif
+// Note: whether expr will be executed is not determined
+#ifdef DA_ON_CODE_COVERAGE // No tests for assume failure
+	#define DA_ASSUME(expr)
+#elif defined(_DEBUG)
+	#define DA_ASSUME(expr) assert(expr)
+#elif DA_HAS_CPP_ATTRIBUTE(assume) // Prefer c++ attribute
+	#define DA_ASSUME(expr) [[assume(expr)]]
+#elif DA_HAS_BUILTIN(__assume) // Usually MSVC
+	#define DA_ASSUME(expr) __assume(expr)
+#elif DA_HAS_BUILTIN(__builtin_assume) // Usually Clang
+	#define DA_ASSUME(expr) __builtin_assume(expr)
+#else // No suitable assume
+	#define DA_ASSUME(expr)
 #endif
 
 // DA_UNREACHABLE

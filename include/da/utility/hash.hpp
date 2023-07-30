@@ -19,8 +19,10 @@
 DA_BEGIN_NAMESPACE
 
 #if(DA_GCC && (DA_GCC < 12)) || (DA_CLANG && (DA_CLANG < 15))
-	#define DA_STRING_CONSTEXPR inline
+	#define DA_STRING_CONSTEXPR_OR_INLINE inline
+	#define DA_STRING_CONSTEXPR
 #else
+	#define DA_STRING_CONSTEXPR_OR_INLINE constexpr
 	#define DA_STRING_CONSTEXPR constexpr
 #endif
 
@@ -43,7 +45,7 @@ inline size_t hash(const T& x) noexcept {
 }
 
 template<>
-DA_STRING_CONSTEXPR size_t hash(const std::string& x) noexcept {
+DA_STRING_CONSTEXPR_OR_INLINE size_t hash(const std::string& x) noexcept {
 	return fnv1a_hash(x.data(), x.size());
 }
 

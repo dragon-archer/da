@@ -120,8 +120,10 @@
 /// DA_CONSTEXPR
 #ifdef DA_ON_CODE_COVERAGE
 	#define DA_CONSTEXPR
+	#define DA_CONSTEXPR_VAR inline
 #else
 	#define DA_CONSTEXPR constexpr
+	#define DA_CONSTEXPR_VAR constexpr
 #endif
 
 /// Basic debug support

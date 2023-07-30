@@ -12,5 +12,6 @@
 #define _DA_UTILITY_HPP_
 
 #include <da/utility/hash.hpp>
+#include <da/utility/math.hpp>
 
 #endif // _DA_UTILITY_HPP_

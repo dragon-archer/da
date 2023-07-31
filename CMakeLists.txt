@@ -7,7 +7,7 @@
 # @copyright Copyright (c) 2023 dragon-archer
 #
 
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20) # For cxx_std_23
 project(da VERSION 0.1 LANGUAGES CXX)
 
 # Detect whether it is built as a subproject or a main project
@@ -18,17 +18,13 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
-option(DA_BuildTests "Build unit tests" ${MAIN_PROJECT})
-option(DA_Install    "Install ${PROJECT_NAME}" ${MAIN_PROJECT})
-option(DA_Coverage   "Enable code coverage target" OFF)
+list(FIND CMAKE_CXX_COMPILE_FEATURES cxx_std_23 DA_HasCxx23)
 
-if(USE_CCACHE)
-	find_program(CCACHE_FOUND ccache)
-	if(CCACHE_FOUND)
-		set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-		set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
-	endif()
-endif()
+option(DA_BuildTests   "Build unit tests"                  ${MAIN_PROJECT})
+option(DA_Coverage     "Enable code coverage target"       OFF)
+option(DA_Install      "Install DA"                        ${MAIN_PROJECT})
+option(DA_UseCxx23     "Enable C++23"                      ${DA_HasCxx23})
+option(DA_UseStdFormat "Use std::format instead of fmtlib" ON)
 
 if(DA_Coverage)
 	include(coverage)
@@ -44,20 +40,25 @@ set(BUILD_INCLUDE_DIR   ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 add_library(${TARGET_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${TARGET_NAME} ALIAS ${TARGET_NAME})
 
-list(FIND CMAKE_CXX_COMPILE_FEATURES cxx_std_20 DA_HAS_CXX20)
-if(NOT DA_HAS_CXX20)
-	message(FATAL_ERROR "DA should be compiled under at least C++20")
-endif()
-if(DA_USE_CXX23)
-	list(FIND CMAKE_CXX_COMPILE_FEATURES cxx_std_23 DA_HAS_CXX23)
-	if(NOT DA_HAS_CXX23)
-		message(STATUS "No suitable C++23 support, use C++20 instead")
-		target_compile_features(${TARGET_NAME} INTERFACE cxx_std_20)
+if(DA_UseCxx23)
+	if(NOT DA_HasCxx23)
+		message(FATAL_ERROR "DA is configured to use C++23 but the compiler does not support C++23")
 	else()
 		target_compile_features(${TARGET_NAME} INTERFACE cxx_std_23)
 	endif()
 else()
+	list(FIND CMAKE_CXX_COMPILE_FEATURES cxx_std_20 DA_HasCxx20)
+	if(NOT DA_HasCxx20)
+		message(FATAL_ERROR "DA should be compiled under at least C++20")
+	endif()
 	target_compile_features(${TARGET_NAME} INTERFACE cxx_std_20)
+endif()
+
+if(DA_UseStdFormat)
+	target_compile_definitions(${TARGET_NAME} INTERFACE DA_USE_STD_FORMAT)
+else()
+	find_package(fmt REQUIRED)
+	target_link_libraries(${TARGET_NAME} INTERFACE fmt::fmt-header-only)
 endif()
 
 target_include_directories(${TARGET_NAME} INTERFACE 
@@ -69,8 +70,6 @@ target_compile_options(${TARGET_NAME} INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/Zc:pr
 
 # Tests
 if(DA_BuildTests)
-	set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1) # Forbid CTest to add targets
-	include(CTest)
 	enable_testing()
 	add_subdirectory(tests)
 endif()

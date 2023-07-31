@@ -7,3 +7,4 @@ build/
 CMakeSettings.json
 *.user
 *.user.*
+*.sh

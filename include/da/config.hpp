@@ -2,7 +2,7 @@
 /**
  * @file      config.hpp
  * @brief     Some basic configs
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * @copyright Copyright (c) 2022- 2023 dragon-archer
@@ -16,6 +16,11 @@
 
 // #define DA_NO_EXCEPTION // Disable exception
 // #define DA_NO_NAMESPACE // Disable namespace
+
+#define DA_VERSION_MAJOR 0
+#define DA_VERSION_MINOR 2
+#define DA_VERSION_PATCH 0
+#define DA_VERSION       (DA_VERSION_MAJOR * 10000 + DA_VERSION_MINOR * 100 + DA_VERSION_PATCH)
 
 /// Detect compiler & C++ Version
 #ifdef __clang__

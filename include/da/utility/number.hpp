@@ -2,7 +2,7 @@
 /**
  * @file      number.hpp
  * @brief     Some fast number classes
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer (dragon-archer@outlook.com)
  *
  * @copyright Copyright (c) 2022-2023 dragon-archer

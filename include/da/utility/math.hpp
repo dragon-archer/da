@@ -2,7 +2,7 @@
 /**
  * @file      math.hpp
  * @brief     Some utility math functions
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer (dragon-archer@outlook.com)
  *
  * @copyright Copyright (c) 2022-2023 dragon-archer

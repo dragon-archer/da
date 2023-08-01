@@ -2,7 +2,7 @@
 /**
  * @file      singleton.hpp
  * @brief     Provide a base struct to make a singleton
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * @copyright Copyright (c) 2023 dragon-archer

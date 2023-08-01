@@ -2,7 +2,7 @@
 /**
  * @file      while.hpp
  * @brief     Implement DA_WHILE
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * @copyright Copyright (c) 2023 dragon-archer

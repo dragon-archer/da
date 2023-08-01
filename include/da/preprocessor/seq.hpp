@@ -2,7 +2,7 @@
 /**
  * @file      seq.hpp
  * @brief     Macros for sequence operations
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * The term "sequence" means:

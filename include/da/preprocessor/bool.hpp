@@ -2,7 +2,7 @@
 /**
  * @file      bool.hpp
  * @brief     Implement DA_BOOL
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * @copyright Copyright (c) 2023 dragon-archer

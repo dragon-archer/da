@@ -2,7 +2,7 @@
 /**
  * @file      iterator.hpp
  * @brief     wrappers of iterators
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * @copyright Copyright (c) 2022-2023 dragon-archer

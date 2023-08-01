@@ -2,7 +2,7 @@
 /**
  * @file      sso_string.hpp
  * @brief     A string implemtion to optimize short strings
- * @version   0.1
+ * @version   0.2
  * @author    dragon-archer
  *
  * @copyright Copyright (c) 2022-2023 dragon-archer

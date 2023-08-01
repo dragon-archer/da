@@ -1,7 +1,7 @@
 ###
 # @file      CMakeLists.txt
 # @brief     CMake source file
-# @version   0.1
+# @version   0.2
 # @author    dragon-archer
 #
 # @copyright Copyright (c) 2023 dragon-archer

@@ -72,7 +72,7 @@ class cmdline_parser {
 					}
 				}
 				auto const [it3, ok3] = _records.try_emplace(_max_handle, record{callback, style});
-				DA_ASSUME(ok3);
+				DA_ASSERT(ok3);
 				return _max_handle;
 			} while(false);
 			// Revert actions starts here
@@ -125,7 +125,7 @@ class cmdline_parser {
 						return UNKNOWN_OPTION;
 					}
 					auto const it3 = _records.find(it2->second);
-					DA_ASSUME(it3 != _records.end());
+					DA_ASSERT(it3 != _records.end());
 					// TODO
 					it3->second.callback(s.substr(it + 1));
 				} else { // Short option
@@ -137,7 +137,7 @@ class cmdline_parser {
 						return UNKNOWN_OPTION;
 					}
 					auto const it2 = _records.find(it->second);
-					DA_ASSUME(it2 != _records.end());
+					DA_ASSERT(it2 != _records.end());
 					++p;
 					if(bool(it2->second.style & option_style::have_arg)) {
 						DA_IFUNLIKELY(*p == '\0') {

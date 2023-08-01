@@ -121,16 +121,22 @@
 #ifdef DA_ON_CODE_COVERAGE
 	#define DA_CONSTEXPR
 #else
-	#define DA_CONSTEXPR     constexpr
+	#define DA_CONSTEXPR constexpr
 #endif
 
 /// Basic debug support
+
+#ifdef DA_ON_CODE_COVERAGE
+	#define DA_ASSERT(expr)
+#else
+	#define DA_ASSERT(expr) assert(expr)
+#endif
 
 // DA_ASSUME
 // Note: whether expr will be executed is not determined
 #ifdef DA_ON_CODE_COVERAGE // No tests for assume failure
 	#define DA_ASSUME(expr)
-#elif defined(_DEBUG)
+#elif !defined(NDEBUG)
 	#define DA_ASSUME(expr) assert(expr)
 #elif DA_HAS_CPP_ATTRIBUTE(assume) // Prefer c++ attribute
 	#define DA_ASSUME(expr) [[assume(expr)]]

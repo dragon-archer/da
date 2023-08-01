@@ -8,7 +8,7 @@
 #
 
 cmake_minimum_required(VERSION 3.20) # For cxx_std_23
-project(da VERSION 0.1 LANGUAGES CXX)
+project(da VERSION 0.2.0 LANGUAGES CXX)
 
 # Detect whether it is built as a subproject or a main project
 set(MAIN_PROJECT OFF)

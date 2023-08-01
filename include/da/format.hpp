@@ -21,7 +21,9 @@
 	namespace fmt = std;
 	DA_END_NAMESPACE
 #elif DA_HAS_INCLUDE(<fmt/format.h>)
-	#define FMT_HEADER_ONLY
+	#ifndef FMT_HEADER_ONLY	
+		#define FMT_HEADER_ONLY
+	#endif
 	#include <fmt/format.h>
 	DA_BEGIN_NAMESPACE
 	namespace fmt = ::fmt;
@@ -29,6 +31,8 @@
 #else
 	#error No usable fmtlib, either define DA_USE_STD_FORMAT to use <format> or install fmtlib
 #endif
+
+#define _DAFMT da::fmt:: // Not ::da to make GCC works
 
 // clang-format on
 

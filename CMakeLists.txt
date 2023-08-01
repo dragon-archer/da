@@ -24,7 +24,7 @@ option(DA_BuildTests   "Build unit tests"                  ${MAIN_PROJECT})
 option(DA_Coverage     "Enable code coverage target"       OFF)
 option(DA_Install      "Install DA"                        ${MAIN_PROJECT})
 option(DA_UseCxx23     "Enable C++23"                      ${DA_HasCxx23})
-option(DA_UseStdFormat "Use std::format instead of fmtlib" ON)
+option(DA_UseStdFormat "Use std::format instead of fmtlib" OFF)
 
 if(DA_Coverage)
 	include(coverage)

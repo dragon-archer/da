@@ -111,12 +111,26 @@ TEST_CASE("utility") {
 			CHECK_CE(((-f5{1} + f5{2} - f5{0.5}) * f5{3} / f5{5}), 0.3);
 		}
 		SUBCASE("comparison") {
+			CHECK_CE(f5{1} < f5{2}, true);
+			CHECK_CE(f5{2} > f5{1}, true);
+			CHECK_CE(f5{1} <= f5{1}, true);
+			CHECK_CE(f5{1} >= f5{-1}, true);
+			CHECK_CE(f5{1} == f5{1}, true);
+			CHECK_CE(f5{1} != f5{2}, true);
+
 			CHECK_CE(f5{1} < 2, true);
 			CHECK_CE(f5{2} > 1, true);
 			CHECK_CE(f5{1} <= 1, true);
 			CHECK_CE(f5{1} >= -1, true);
-			CHECK_CE(f5{1} == f5{1}, true); // Avoid E0350
+			CHECK_CE(f5{1} == 1, true);
 			CHECK_CE(f5{1} != 2, true);
+
+			CHECK_CE(2 > f5{1}, true);
+			CHECK_CE(1 < f5{2}, true);
+			CHECK_CE(1 >= f5{1}, true);
+			CHECK_CE(-1 <= f5{1}, true);
+			CHECK_CE(1 == f5{1}, true);
+			CHECK_CE(2 != f5{1}, true);
 		}
 		SUBCASE("format") {
 			CHECK_EQ(da::fmt::format("{}", f5{1}), "1");

@@ -177,8 +177,18 @@ class fixed_point {
 		return _value == other._value;
 	}
 
+	template<arithmetic T>
+	DA_CONSTEXPR bool operator==(T other) const noexcept {
+		return _value == (other * precision_in_10);
+	}
+
 	DA_CONSTEXPR std::strong_ordering operator<=>(fixed_point other) const noexcept {
 		return _value <=> other._value;
+	}
+
+	template<arithmetic T>
+	DA_CONSTEXPR std::strong_ordering operator<=>(T other) const noexcept {
+		return _value <=> (other * precision_in_10);
 	}
 };
 

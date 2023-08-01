@@ -56,8 +56,6 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 	 *        2. Add descriptor after it if exists
 	 *        - r = left reference, R = right reference, c = const, l = std::initializer_list
 	 */
-	DA_DECLARE_MEMBER_FUNCTION_TEST(has_destructor, ~Impl)
-
 	DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_get_alloc, _M_get_alloc)
 	DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_allocate_i, _M_allocate, size_type)
 	DA_DECLARE_MEMBER_FUNCTION_TEST(has__M_deallocate_p_i, _M_deallocate, pointer, size_type)
@@ -199,10 +197,6 @@ class string_base : protected StringImpl<Char, Traits, Alloc> { // Not public in
 		: string_base(il.begin(), il.size()) { }
 
 	DA_CONSTEXPR ~string_base() {
-		if constexpr(has_destructor_v<Impl>) {
-			Impl::~Impl();
-			return;
-		}
 		_M_dispose();
 	}
 

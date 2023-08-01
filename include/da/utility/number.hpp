@@ -172,6 +172,14 @@ class fixed_point {
 		_value /= other;
 		return *this;
 	}
+
+	DA_CONSTEXPR bool operator==(fixed_point other) const noexcept {
+		return _value == other._value;
+	}
+
+	DA_CONSTEXPR std::strong_ordering operator<=>(fixed_point other) const noexcept {
+		return _value <=> other._value;
+	}
 };
 
 template<size_t P, arithmetic B>
@@ -239,7 +247,7 @@ DA_END_NAMESPACE
 template<size_t P, _DA arithmetic B, typename CharT>
 struct _DAFMT formatter<_DA fixed_point<P, B>, CharT> : public _DAFMT formatter<double, CharT> {
 	template<typename FormatContext>
-	auto format(const _DA fixed_point<P, B>& v, FormatContext& ctx) {
+	DA_CONSTEXPR auto format(const _DA fixed_point<P, B>& v, FormatContext& ctx) const {
 		return _DAFMT formatter<double, CharT>::format(v.template get<double>(), ctx);
 	}
 };

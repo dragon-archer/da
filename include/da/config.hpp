@@ -15,7 +15,6 @@
 /// Uncomment following lines to enable
 
 // #define DA_NO_EXCEPTION // Disable exception
-// #define DA_NO_NAMESPACE // Disable namespace
 
 #define DA_VERSION_MAJOR 0
 #define DA_VERSION_MINOR 2
@@ -106,21 +105,12 @@
 #endif
 
 /// Namespace
-#ifndef DA_NO_NAMESPACE
-	#define DA_BEGIN_NAMESPACE namespace da {
-	#define DA_END_NAMESPACE   }
-	#define DA_BEGIN_DETAIL    namespace da::detail {
-	#define DA_END_DETAIL      }
-	#define _DA                ::da::
-	#define _DA_DETAIL         ::da::detail::
-#else
-	#define DA_BEGIN_NAMESPACE
-	#define DA_END_NAMESPACE
-	#define DA_BEGIN_DETAIL
-	#define DA_END_DETAIL
-	#define _DA        ::
-	#define _DA_DETAIL ::
-#endif
+#define DA_BEGIN_NAMESPACE namespace da {
+#define DA_END_NAMESPACE   }
+#define DA_BEGIN_DETAIL    namespace da::detail {
+#define DA_END_DETAIL      }
+#define _DA                ::da::
+#define _DA_DETAIL         ::da::detail::
 
 /// DA_CONSTEXPR
 #ifdef DA_ON_CODE_COVERAGE
@@ -131,8 +121,10 @@
 
 /// Basic debug support
 
+// DA_ASSERT
+// Note: expr is guaranteed to be executed, but it's not recommended to use this in process flow
 #ifdef DA_ON_CODE_COVERAGE
-	#define DA_ASSERT(expr)
+	#define DA_ASSERT(expr) (void)(expr)
 #else
 	#define DA_ASSERT(expr) assert(expr)
 #endif

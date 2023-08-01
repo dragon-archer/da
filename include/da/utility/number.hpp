@@ -14,6 +14,7 @@
 #include <da/config.hpp>
 #include <da/type_traits/config.hpp>
 #include <da/concepts.hpp>
+#include <da/format.hpp>
 #include <da/utility/math.hpp>
 
 DA_BEGIN_NAMESPACE
@@ -234,5 +235,13 @@ template<size_t P, arithmetic B, arithmetic T>
 }
 
 DA_END_NAMESPACE
+
+template<size_t P, _DA arithmetic B, typename CharT>
+struct _DAFMT formatter<_DA fixed_point<P, B>, CharT> : public _DAFMT formatter<double, CharT> {
+	template<typename FormatContext>
+	auto format(const _DA fixed_point<P, B>& v, FormatContext& ctx) {
+		return _DAFMT formatter<double, CharT>::format(v.template get<double>(), ctx);
+	}
+};
 
 #endif // _DA_UTILITY_NUMBER_HPP_

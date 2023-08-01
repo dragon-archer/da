@@ -71,5 +71,9 @@ TEST_CASE("utility") {
 			CHECK_CE(f5(1, da::no_conversion).raw(), 1);
 		}
 		CHECK_CE((f5(2) * 3).raw(), 6e5);
+		SUBCASE("format") {
+			std::string s = da::fmt::format("{}", f5(1));
+			CHECK(s == "1");
+		}
 	}
 }
